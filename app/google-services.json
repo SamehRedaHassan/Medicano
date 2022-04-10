@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "669931388339",
+    "firebase_url": "https://medicano-7e720-default-rtdb.firebaseio.com",
+    "project_id": "medicano-7e720",
+    "storage_bucket": "medicano-7e720.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669931388339:android:5b17c86835e20d1f521fc6",
+        "android_client_info": {
+          "package_name": "com.iti.java.medicano"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "669931388339-8p7csqvvrl6q2dvsvvnvbsfap45mlke3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClgHqZkwl9dJYG2JY0cHBk0RVpnet7_e8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "669931388339-8p7csqvvrl6q2dvsvvnvbsfap45mlke3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
