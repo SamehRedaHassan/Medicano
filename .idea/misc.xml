@@ -3,14 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/drawable/rounded_corners.xml" value="0.26614583333333336" />
-        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/drawable/vertical_line.xml" value="0.6" />
-        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/fragment_login.xml" value="0.25" />
-        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/home_nested_recyclerview_item.xml" value="0.25" />
-        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/home_recyclerview_item.xml" value="0.4" />
-        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/home_single_row.xml" value="0.6" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/button_shape_dark_main_color.xml" value="0.1075" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_cancel.xml" value="0.1" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_close.xml" value="0.1075" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_medication.xml" value="0.1075" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_name.xml" value="0.264" />
       </map>
     </option>
   </component>
