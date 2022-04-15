@@ -5,7 +5,11 @@
       <map>
         <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/drawable/rounded_corners.xml" value="0.26614583333333336" />
         <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/drawable/vertical_line.xml" value="0.6" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/home_nested_recyclerview_item.xml" value="0.25" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/home_recyclerview_item.xml" value="0.4" />
         <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/home_single_row.xml" value="0.6" />
       </map>
     </option>
