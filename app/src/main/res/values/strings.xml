@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Medicano</string>
+    <string name="add_medication">Add Medication</string>
+    <string name="close">Close</string>
+    <string name="what_med_name_you_want_to_add">What is your med name?</string>
+    <string name="medication_name">Medication Name</string>
+    <string name="next">Next</string>
 </resources>

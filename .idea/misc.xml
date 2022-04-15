@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK" />
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/button_shape_dark_main_color.xml" value="0.1075" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_cancel.xml" value="0.1" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_close.xml" value="0.1075" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_medication.xml" value="0.1075" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_name.xml" value="0.264" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK" />
 </project>
