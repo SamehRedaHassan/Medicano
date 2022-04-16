@@ -42,7 +42,8 @@
         android:contentDescription="@string/add_medication"
         app:layout_constraintStart_toEndOf="@+id/imageButton"
         app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:srcCompat="@drawable/ic_medication_name" />
+        app:srcCompat="@drawable/ic_medication_reason"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/textView2"
@@ -50,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/what_med_name_you_want_to_add"
+        android:text="@string/why_are_you_taking_the_med_for"
         android:textColor="@color/second_color"
         android:textSize="@dimen/question_text_size"
         android:textStyle="bold"
@@ -80,7 +81,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="28dp"
                 android:layout_marginEnd="16dp"
-                android:hint="@string/medication_name"
+                android:hint="@string/medication_reason"
                 app:boxBackgroundColor="@color/second_color"
                 app:boxStrokeColor="@color/main_color"
                 app:boxStrokeWidth="2dp"

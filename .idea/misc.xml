@@ -4,10 +4,43 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/button_shape_dark_main_color.xml" value="0.1075" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic__02_pill.xml" value="0.1705" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic__03_capsules.xml" value="0.1705" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic__04_pill.xml" value="0.1705" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic__05_pills.xml" value="0.1705" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic__10_eye_drops.xml" value="0.1735" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1075" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_calendar_start.xml" value="0.1735" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_cancel.xml" value="0.1" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_close.xml" value="0.1075" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_delete.xml" value="0.1735" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1075" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_medication.xml" value="0.1075" />
-        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_name.xml" value="0.264" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_medication_2.xml" value="0.1705" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_medication_reasone.xml" value="0.1735" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_medication_reminder.xml" value="0.1705" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_pills_1.xml" value="0.1735" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_reminder.xml" value="0.1705" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/item_unselected.xml" value="0.1735" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/tab_selected.xml" value="0.1735" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/tab_selector.xml" value="0.1735" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/tab_stroke.xml" value="0.1735" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/dialog_fragment_reminder_picker.xml" value="0.2210144927536232" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_edit_medication.xml" value="0.2056434373663959" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_add_reminders.xml" value="0.22780797101449277" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_days.xml" value="0.25416666666666665" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_duration.xml" value="0.22780797101449277" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_form.xml" value="0.22780797101449277" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_icon.xml" value="0.4" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_name.xml" value="0.1" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_optional_instructions.xml" value="0.22780797101449277" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_pre_instruction.xml" value="0.264" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_reason.xml" value="0.264" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_refill_reminder.xml" value="0.2210144927536232" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_strength.xml" value="0.536" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/item_new_reminder.xml" value="0.22780797101449277" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/medication_row.xml" value="0.22780797101449277" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/toolbar.xml" value="0.22780797101449277" />
       </map>
     </option>
   </component>
