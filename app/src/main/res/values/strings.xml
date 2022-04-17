@@ -66,4 +66,13 @@
     <string name="reminder_times">Reminders Times</string>
     <string name="schedule">Schedule</string>
 
+    <string name="medication_sample">Panadol</string>
+    <string name="strength_sample">50 g</string>
+    <string name="add_dose_btn">Add Dose</string>
+    <string name="reminders_lbl">Reminders</string>
+    <string name="suspend_btn">Suspend</string>
+    <string name="instruction_sample">Every day,Take for 10 days</string>
+    <string name="refill_btn">Refill</string>
+    <string name="refill_lbl">Prescription Refill</string>
+    <string name="textview_how_to_use">"How to use "</string>
 </resources>
