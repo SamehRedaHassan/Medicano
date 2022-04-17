@@ -3,4 +3,6 @@
         <dimen name="fab_margin">16dp</dimen>
         <dimen name="header_text_size">18sp</dimen>
         <dimen name="question_text_size">20sp</dimen>
+        <dimen name="sub_title">14sp</dimen>
+
 </resources>
