@@ -79,4 +79,8 @@
     <string name="icon">Icon</string>
     <string name="med_icon">Med Icon</string>
     <string name="strength">Strength</string>
+    <string name="active_meds">Active meds</string>
+    <string name="inactive_meds">InActive Meds</string>
+    <string name="home">Home</string>
+    <string name="medications">Medications</string>
 </resources>

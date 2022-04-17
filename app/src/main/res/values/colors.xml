@@ -17,5 +17,6 @@
     <color name="light_color">#70B5EC</color>
     <color name="gray_background">#EEEEEE</color>
     <color name="suspendColor">#F44336</color>
+    <color name="text_gray">#5E5E5E</color>
 
 </resources>

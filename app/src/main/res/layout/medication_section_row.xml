@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="wrap_content">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -12,6 +12,7 @@
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,12 +27,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
-        android:text="Toplexel"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_view_medication_shape"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Toplexel" />
 
     <TextView
         android:id="@+id/text_view_medication_dose"
@@ -40,12 +41,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-        android:text="1000 mg / 2 bills"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_view_medication_shape"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_medication_name" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_medication_name"
+        tools:text="1000 mg / 2 bills" />
 
     <TextView
         android:id="@+id/text_view_medication_instructions"
@@ -55,11 +56,11 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="5dp"
-        android:text="Before Eating"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_view_medication_shape"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_medication_dose" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_medication_dose"
+        tools:text="Before Eating" />
 </androidx.constraintlayout.widget.ConstraintLayout>
