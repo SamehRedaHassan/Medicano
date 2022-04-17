@@ -9,4 +9,10 @@
         <item name="cornerFamilyTopRight">rounded</item>
     </style>
 
+    <style name="floatingLabelStyle">
+        <item name="android:background">@drawable/button_shape_dark_main_color</item>
+        <item name="android:foreground">@drawable/ic_add</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
 </resources>
