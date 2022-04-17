@@ -22,15 +22,30 @@
         <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/activity_medication.xml" value="0.2015625" />
         <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/add_dependant.xml" value="0.2015625" />
         <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/content_medication.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/custom_calender_picker.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/dialog_fragment_reminder_picker.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_edit_medication.xml" value="0.10833333333333334" />
         <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_first.xml" value="0.2015625" />
         <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_home.xml" value="0.2015625" />
         <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_login.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_add_reminders.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_days.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_duration.xml" value="0.25" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_icon.xml" value="0.10833333333333334" />
         <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_info.xml" value="0.18" />
         <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_name.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_optional_instructions.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_pre_instruction.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_reason.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_refill_reminder.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_strength.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_register.xml" value="0.10833333333333334" />
         <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_second.xml" value="0.2015625" />
         <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_updates.xml" value="0.2015625" />
         <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/home_nested_recyclerview_item.xml" value="0.2015625" />
         <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/home_recyclerview_item.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/item_day.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/item_new_reminder.xml" value="0.10833333333333334" />
         <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/medication_row.xml" value="0.2015625" />
         <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/medication_section_row.xml" value="0.2015625" />
       </map>
