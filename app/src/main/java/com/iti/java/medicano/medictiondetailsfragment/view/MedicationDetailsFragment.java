@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.iti.java.medicano.databinding.FragmentMedicationInfoBinding;
 
-public class MedicationDetailsViewImpl extends Fragment implements MedicationDetailsView {
+public class MedicationDetailsFragment extends Fragment implements MedicationDetailsView {
 
     private FragmentMedicationInfoBinding binding;
 

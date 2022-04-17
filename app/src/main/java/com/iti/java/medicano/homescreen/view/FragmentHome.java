@@ -5,6 +5,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,15 +39,13 @@ public class FragmentHome extends Fragment implements DatePickerListener {
     private RecyclerView homeRecyclerView;
     private LinearLayoutManager layoutManager;
     private HomeAdapter homeAdapter;
+    private NavController outerNavController;
+
 
     private FloatingActionButton addBtn,addMedicationBtn,addTrackerBtn,addDoseBtn;
     private TextView addMedicationTxt,addTrackerTxt,addDoseTxt;
     private Animation fabOpen,fabClose,mainOpen,mainClose;
     boolean isOpened;
-
-    public FragmentHome() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,11 +63,11 @@ public class FragmentHome extends Fragment implements DatePickerListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        outerNavController = Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
         homeRecyclerView = view.findViewById(R.id.homeRecycler);
         layoutManager = new LinearLayoutManager(getActivity());
         homeAdapter = new HomeAdapter(getActivity(),getMedicationList());
-
+//        outerNavController.navigate(R.id.action_mainFragment_to_editMedicationFragment);
         homeRecyclerView.setAdapter(homeAdapter);
         homeRecyclerView.setLayoutManager(layoutManager);
 

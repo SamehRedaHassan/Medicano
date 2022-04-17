@@ -3,4 +3,118 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment"/>
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/fragmentRegister"
+        android:name="com.iti.java.medicano.registerscreen.view.FragmentRegister"
+        android:label="FragmentRegister"
+        tools:layout="@layout/fragment_register"
+        >
+        <action
+            android:id="@+id/action_fragmentRegister_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/medicationDetailsFragment"
+        android:name="com.iti.java.medicano.medictiondetailsfragment.view.MedicationDetailsFragment"
+        android:label="MedicationDetailsFragment" />
+    <fragment
+        android:id="@+id/fragmentLogin"
+        android:name="com.iti.java.medicano.loginscreen.view.FragmentLogin"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_fragmentLogin_to_fragmentRegister"
+            app:destination="@id/fragmentRegister" />
+        <action
+            android:id="@+id/action_fragmentLogin_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <navigation
+        android:id="@+id/navigation"
+        android:label="add_medication"
+        app:startDestination="@id/addMedNameFragment">
+        <fragment
+            android:id="@+id/addMedDurationFragment"
+            android:name="com.iti.java.medicano.addmedication.duration.view.AddMedDurationFragment"
+            android:label="AddMedDurationFragment" />
+        <fragment
+            android:id="@+id/addMedRemindersFragment"
+            android:name="com.iti.java.medicano.addmedication.remiders.view.AddMedRemindersFragment"
+            android:label="AddMedRemindersFragment" />
+        <fragment
+            android:id="@+id/addMedReasonFragment"
+            android:name="com.iti.java.medicano.addmedication.reason.view.AddMedReasonFragment"
+            android:label="AddMedReasonFragment" />
+        <fragment
+            android:id="@+id/addMedRefillFragment"
+            android:name="com.iti.java.medicano.addmedication.refill.view.AddMedRefillFragment"
+            android:label="AddMedRefillFragment" />
+        <fragment
+            android:id="@+id/addMedIconFragment"
+            android:name="com.iti.java.medicano.addmedication.icon.view.AddMedIconFragment"
+            android:label="AddMedIconFragment" />
+        <fragment
+            android:id="@+id/addMedNameFragment"
+            android:name="com.iti.java.medicano.addmedication.name.view.AddMedNameFragment"
+            android:label="AddMedNameFragment" >
+            <action
+                android:id="@+id/action_addMedNameFragment_to_addMedFormFragment"
+                app:destination="@id/addMedFormFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/addMedStrengthFragment"
+            android:name="com.iti.java.medicano.addmedication.strength.view.AddMedStrengthFragment"
+            android:label="AddMedStrengthFragment" >
+            <action
+                android:id="@+id/action_addMedStrengthFragment_to_addMedIconFragment"
+                app:destination="@id/addMedIconFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/addMedFormFragment"
+            android:name="com.iti.java.medicano.addmedication.form.view.AddMedFormFragment"
+            android:label="AddMedFormFragment" >
+            <action
+                android:id="@+id/action_addMedFormFragment_to_addMedStrengthFragment"
+                app:destination="@id/addMedStrengthFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/addMedPreInstruction"
+            android:name="com.iti.java.medicano.addmedication.instruction.view.AddMedPreInstruction"
+            android:label="AddMedPreInstruction" />
+        <fragment
+            android:id="@+id/addMedDaysFragment2"
+            android:name="com.iti.java.medicano.addmedication.days.view.AddMedDaysFragment"
+            android:label="AddMedDaysFragment" />
+    </navigation>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.iti.java.medicano.splash.view.SplashFragment"
+        android:label="SplashFragment" >
+        <action
+            android:id="@+id/action_splashFragment_to_fragmentLogin2"
+            app:destination="@id/fragmentLogin" />
+        <action
+            android:id="@+id/action_splashFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.iti.java.medicano.mainfragment.view.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_medicationDetailsFragment"
+            app:destination="@id/medicationDetailsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_navigation"
+            app:destination="@id/navigation" />
+        <action
+            android:id="@+id/action_mainFragment_to_editMedicationFragment"
+            app:destination="@id/editMedicationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editMedicationFragment"
+        android:name="com.iti.java.medicano.editmedictation.view.EditMedicationFragment"
+        android:label="EditMedicationFragment" />
+</navigation>
