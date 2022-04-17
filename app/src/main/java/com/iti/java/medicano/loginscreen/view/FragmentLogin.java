@@ -2,67 +2,69 @@ package com.iti.java.medicano.loginscreen.view;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.iti.java.medicano.R;
+import com.iti.java.medicano.databinding.FragmentLoginBinding;
+import com.iti.java.medicano.databinding.FragmentRegisterBinding;
+import com.iti.java.medicano.loginscreen.presenter.LoginPresenter;
+import com.iti.java.medicano.loginscreen.presenter.LoginPresenterInterface;
+import com.iti.java.medicano.registerscreen.presenter.RegisterPresenterInterface;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentLogin#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentLogin extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private FragmentLoginBinding binding;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private LoginPresenterInterface presenter;
+
+    private EditText edtUserEmail,edtUserPassword;
+    private Button btnLogin;
 
     public FragmentLogin() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentLogin.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentLogin newInstance(String param1, String param2) {
-        FragmentLogin fragment = new FragmentLogin();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        Log.i(" Login    aaaaaa", "newInstance: ");
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        presenter = new LoginPresenter();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        binding = FragmentLoginBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+        //return inflater.inflate(R.layout.fragment_login, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        edtUserEmail = binding.edtUserEmail;
+        edtUserPassword = binding.edtUserPassword;
+        btnLogin = binding.btnLogin;
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //validator.validateLogin
+                presenter.loginUser(edtUserEmail.getText().toString(),edtUserPassword.getText().toString());
+            }
+        });
+
+
     }
 }

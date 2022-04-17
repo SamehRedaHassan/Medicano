@@ -12,11 +12,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
 import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.iti.java.medicano.MainActivity;
 import com.iti.java.medicano.R;
 import com.iti.java.medicano.homescreen.model.Medication;
@@ -32,6 +36,11 @@ public class FragmentHome extends Fragment implements DatePickerListener {
     private RecyclerView homeRecyclerView;
     private LinearLayoutManager layoutManager;
     private HomeAdapter homeAdapter;
+
+    private FloatingActionButton addBtn,addMedicationBtn,addTrackerBtn,addDoseBtn;
+    private TextView addMedicationTxt,addTrackerTxt,addDoseTxt;
+    private Animation fabOpen,fabClose,mainOpen,mainClose;
+    boolean isOpened;
 
     public FragmentHome() {
         // Required empty public constructor
@@ -69,6 +78,32 @@ public class FragmentHome extends Fragment implements DatePickerListener {
                     Toast.makeText(getContext(), "day pressed", Toast.LENGTH_LONG).show();
                 })
                 .init();
+
+
+
+        addBtn = view.findViewById(R.id.addBtn);
+        addMedicationBtn = view.findViewById(R.id.addMedicationBtn);
+        addTrackerBtn = view.findViewById(R.id.addTrackerBtn);
+        addDoseBtn = view.findViewById(R.id.addDoseBtn);
+
+        addMedicationTxt = view.findViewById(R.id.addMedicationTxt);
+        addTrackerTxt = view.findViewById(R.id.addTrackerTxt);
+        addDoseTxt = view.findViewById(R.id.addDoseTxt);
+
+        fabOpen = AnimationUtils.loadAnimation(getContext(),R.anim.to_bottom);
+        fabClose = AnimationUtils.loadAnimation(getContext(),R.anim.from_bottom);
+        mainOpen = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_open);
+        mainClose = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_close);
+
+        isOpened = false;
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addMedication();
+            }
+        });
+
     }
 
     @Override
@@ -91,7 +126,7 @@ public class FragmentHome extends Fragment implements DatePickerListener {
         List<Medication> medItemList = new ArrayList<>();
 
         medItemList.add(new Medication("Panadol","10 g, take 1 Pill(s)","capsule"));
-        medItemList.add(new Medication("Panadol","10 g, take 1 Pill(s)","capsule"));
+        medItemList.add(  new Medication("Panadol","10 g, take 1 Pill(s)","capsule"));
         medItemList.add(new Medication("Panadol","10 g, take 1 Pill(s)","capsule"));
 
         return medItemList;
@@ -102,4 +137,53 @@ public class FragmentHome extends Fragment implements DatePickerListener {
         //Log.i("HorizontalPicker", "Selected date is " + dateSelected.toString());
         Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
     }
+
+    public void addMedication(){
+        if(isOpened){
+            mainClose.setDuration(200);
+            fabClose.setDuration(200);
+
+            addBtn.startAnimation(mainClose);
+
+            addMedicationBtn.startAnimation(fabClose);
+            addMedicationTxt.startAnimation(fabClose);
+            addTrackerBtn.startAnimation(fabClose);
+            addTrackerTxt.startAnimation(fabClose);
+            addDoseBtn.startAnimation(fabClose);
+            addDoseTxt.startAnimation(fabClose);
+
+            addMedicationBtn.setVisibility(View.INVISIBLE);
+            addMedicationTxt.setVisibility(View.INVISIBLE);
+            addTrackerBtn.setVisibility(View.INVISIBLE);
+            addTrackerTxt.setVisibility(View.INVISIBLE);
+            addDoseBtn.setVisibility(View.INVISIBLE);
+            addDoseTxt.setVisibility(View.INVISIBLE);
+
+            isOpened = false;
+        }
+        else{
+            mainOpen.setDuration(200);
+            fabOpen.setDuration(200);
+
+            addBtn.startAnimation(mainOpen);
+
+            addMedicationBtn.startAnimation(fabOpen);
+            addMedicationTxt.startAnimation(fabOpen);
+            addTrackerBtn.startAnimation(fabOpen);
+            addTrackerTxt.startAnimation(fabOpen);
+            addDoseBtn.startAnimation(fabOpen);
+            addDoseTxt.startAnimation(fabOpen);
+
+            addMedicationBtn.setVisibility(View.VISIBLE);
+            addMedicationTxt.setVisibility(View.VISIBLE);
+            addTrackerBtn.setVisibility(View.VISIBLE);
+            addTrackerTxt.setVisibility(View.VISIBLE);
+            addDoseBtn.setVisibility(View.VISIBLE);
+            addDoseTxt.setVisibility(View.VISIBLE);
+
+            isOpened = true;
+        }
+    }
+
+
 }

@@ -27,11 +27,97 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/datePicker"/>
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/purple_700"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_add"
+        app:tint="@android:color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addDoseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/addBtn"
+        app:layout_constraintEnd_toEndOf="@+id/addBtn"
+        app:layout_constraintStart_toStartOf="@+id/addBtn"
+        app:srcCompat="@drawable/ic_delete"
+        app:tint="@android:color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addTrackerBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/addDoseBtn"
+        app:layout_constraintEnd_toEndOf="@+id/addDoseBtn"
+        app:layout_constraintStart_toStartOf="@+id/addDoseBtn"
+        app:srcCompat="@drawable/ic_edit"
+        app:tint="@android:color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addMedicationBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/addTrackerBtn"
+        app:layout_constraintEnd_toEndOf="@+id/addTrackerBtn"
+        app:layout_constraintStart_toStartOf="@+id/addTrackerBtn"
+        app:srcCompat="@drawable/home"
+        app:tint="@android:color/white" />
+
+    <TextView
+        android:id="@+id/addMedicationTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="42dp"
+        android:text="Add Medication"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/addTrackerTxt"
+        app:layout_constraintEnd_toEndOf="@+id/addTrackerTxt" />
+
+    <TextView
+        android:id="@+id/addTrackerTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="42dp"
+        android:text="Add Health Tracker"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/addDoseTxt"
+        app:layout_constraintEnd_toEndOf="@+id/addDoseTxt" />
+
+    <TextView
+        android:id="@+id/addDoseTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="104dp"
+        android:text="Add Dose"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addDoseBtn" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
