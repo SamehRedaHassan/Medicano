@@ -42,7 +42,7 @@
         android:contentDescription="@string/add_medication"
         app:layout_constraintStart_toEndOf="@+id/imageButton"
         app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:srcCompat="@drawable/ic_medication_name" />
+        app:srcCompat="@drawable/ic_medication_optional_instruction" />
 
     <TextView
         android:id="@+id/textView2"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/what_med_name_you_want_to_add"
+        android:text="@string/is_there_any_optional_instructions"
         android:textColor="@color/second_color"
         android:textSize="@dimen/question_text_size"
         android:textStyle="bold"
@@ -73,14 +73,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputMedicationName"
+                android:id="@+id/textInputMedicationOptionalInstructions"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="28dp"
                 android:layout_marginEnd="16dp"
-                android:hint="@string/medication_name"
+                android:hint="@string/medication_any_instructions"
                 app:boxBackgroundColor="@color/second_color"
                 app:boxStrokeColor="@color/main_color"
                 app:boxStrokeWidth="2dp"
@@ -90,16 +90,13 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextMedicationName"
+                    android:id="@+id/editTextMedicationOptionalInstructions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:inputType="text"
                     android:textAlignment="textStart"
                     tools:ignore="TextContrastCheck,TextContrastCheck" />
-
-                     
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -121,7 +118,5 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
