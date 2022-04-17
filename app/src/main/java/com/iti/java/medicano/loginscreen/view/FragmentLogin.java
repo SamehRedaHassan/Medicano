@@ -1,4 +1,4 @@
-package com.iti.java.medicano.loginscreen;
+package com.iti.java.medicano.loginscreen.view;
 
 import android.os.Bundle;
 

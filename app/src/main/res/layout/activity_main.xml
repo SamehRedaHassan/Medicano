@@ -5,4 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.iti.java.medicano.loginscreen.view.FragmentLogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="193dp"
+        tools:layout_editor_absoluteY="222dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,20 +8,26 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
+import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
 import com.iti.java.medicano.MainActivity;
 import com.iti.java.medicano.R;
 import com.iti.java.medicano.homescreen.model.Medication;
 import com.iti.java.medicano.homescreen.model.MedicationList;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentHome extends Fragment {
+public class FragmentHome extends Fragment implements DatePickerListener {
 
     private RecyclerView homeRecyclerView;
     private LinearLayoutManager layoutManager;
@@ -34,7 +40,7 @@ public class FragmentHome extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Toast.makeText(getContext(), "on create", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -54,6 +60,21 @@ public class FragmentHome extends Fragment {
 
         homeRecyclerView.setAdapter(homeAdapter);
         homeRecyclerView.setLayoutManager(layoutManager);
+
+        HorizontalPicker picker = (HorizontalPicker)view.findViewById(R.id.datePicker);
+
+        // initialize it and attach a listener
+        picker
+                .setListener(dateSelected -> {
+                    Toast.makeText(getContext(), "day pressed", Toast.LENGTH_LONG).show();
+                })
+                .init();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Toast.makeText(getContext(), "day pressed", Toast.LENGTH_LONG).show();
     }
 
     private List<MedicationList> getMedicationList(){
@@ -74,5 +95,11 @@ public class FragmentHome extends Fragment {
         medItemList.add(new Medication("Panadol","10 g, take 1 Pill(s)","capsule"));
 
         return medItemList;
+    }
+
+    @Override
+    public void onDateSelected(DateTime dateSelected) {
+        //Log.i("HorizontalPicker", "Selected date is " + dateSelected.toString());
+        Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
     }
 }
