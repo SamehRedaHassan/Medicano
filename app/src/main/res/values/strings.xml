@@ -61,5 +61,9 @@
     <string name="num_of_pills_to_remind_you">Num of pills to remind you</string>
     <string name="remind_me_when_reach">Remind me when reach</string>
     <string name="save">Save</string>
+    <string name="edit_medication">Edit Medication</string>
+    <string name="done">Done</string>
+    <string name="reminder_times">Reminders Times</string>
+    <string name="schedule">Schedule</string>
 
 </resources>

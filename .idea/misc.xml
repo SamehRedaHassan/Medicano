@@ -9,6 +9,7 @@
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic__04_pill.xml" value="0.1705" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic__05_pills.xml" value="0.1705" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic__10_eye_drops.xml" value="0.1735" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_arrow_down.xml" value="0.123" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1075" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_calendar_start.xml" value="0.1735" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_cancel.xml" value="0.1" />
@@ -25,8 +26,8 @@
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/tab_selected.xml" value="0.1735" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/tab_selector.xml" value="0.1735" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/tab_stroke.xml" value="0.1735" />
-        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/dialog_fragment_reminder_picker.xml" value="0.2210144927536232" />
-        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_edit_medication.xml" value="0.2056434373663959" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/dialog_fragment_reminder_picker.xml" value="0.8800000000000001" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_edit_medication.xml" value="0.264" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_add_reminders.xml" value="0.22780797101449277" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_days.xml" value="0.25416666666666665" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_duration.xml" value="0.22780797101449277" />
