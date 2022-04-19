@@ -18,6 +18,10 @@ import com.iti.java.medicano.databinding.FragmentRegisterBinding;
 import com.iti.java.medicano.model.User;
 import com.iti.java.medicano.registerscreen.presenter.RegisterPresenter;
 import com.iti.java.medicano.registerscreen.presenter.RegisterPresenterInterface;
+import com.iti.java.medicano.validation.Validation;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 
 public class FragmentRegister extends Fragment {
 
@@ -25,9 +29,9 @@ public class FragmentRegister extends Fragment {
 
     private RegisterPresenterInterface presenter;
 
-    private EditText edtUserName,edtUserEmailReg,edtUserPasswordReg,edtUserConfirmReg;
-    private RadioButton genderMale,genderFemale;
-    private Button btnRegister;
+    //private EditText edtUserName,edtUserEmailReg,edtUserPasswordReg,edtUserConfirmReg;
+    //private RadioButton genderMale,genderFemale;
+    //private Button btnRegister;
 
     public FragmentRegister() {
         // Required empty public constructor
@@ -36,13 +40,11 @@ public class FragmentRegister extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         presenter = new RegisterPresenter();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentRegisterBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -53,29 +55,25 @@ public class FragmentRegister extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        edtUserName = binding.edtUserName;
-        edtUserEmailReg = binding.edtUserEmailReg;
-        edtUserPasswordReg = binding.edtUserPasswordReg;
-        edtUserConfirmReg = binding.edtUserConfirmReg;
+        String userName = binding.edtUserName.getText().toString().trim();
+        String userEmail = binding.edtUserEmailReg.getText().toString().trim();
+        String userPassword = binding.edtUserPasswordReg.getText().toString();
+        String confirmPassword = binding.edtUserConfirmReg.getText().toString();
+        int userGender = binding.genderMale.isChecked()? 0:1;
 
-        genderMale = binding.genderMale;
-        genderFemale = binding.genderFemale;
-
-        btnRegister = binding.btnRegister;
-
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //validate inputs
+                String validateUser = Validation.registerValidation(userName,userEmail,userPassword,confirmPassword);
 
-                User user = new User(edtUserName.getText().toString().trim()
-                        ,edtUserEmailReg.getText().toString().toString().trim()
-                        ,edtUserPasswordReg.getText().toString().trim()
-                        ,genderMale.isChecked()? 1:0);
-
-                presenter.registerUser(user);
-
+                if(validateUser.equals("valid registeration")){
+                    User user = new User(userName,userEmail,userPassword,userGender);
+                    presenter.registerUser(user);
+                }
+                else{
+                    System.out.println(validateUser);
+                }
             }
         });
 

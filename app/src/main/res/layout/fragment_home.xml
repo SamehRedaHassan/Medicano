@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/purple_700"
+        android:backgroundTint="@color/main_color_dark"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,8 +49,9 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:visibility="invisible"
         app:fabSize="mini"
+        android:visibility="invisible"
+        android:backgroundTint="@color/purple_200"
         app:layout_constraintBottom_toTopOf="@+id/addBtn"
         app:layout_constraintEnd_toEndOf="@+id/addBtn"
         app:layout_constraintStart_toStartOf="@+id/addBtn"
@@ -64,12 +65,13 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:visibility="invisible"
         app:fabSize="mini"
+        android:visibility="invisible"
+        android:backgroundTint="@color/light_color"
         app:layout_constraintBottom_toTopOf="@+id/addDoseBtn"
         app:layout_constraintEnd_toEndOf="@+id/addDoseBtn"
         app:layout_constraintStart_toStartOf="@+id/addDoseBtn"
-        app:srcCompat="@drawable/ic_edit"
+        app:srcCompat="@drawable/ic_person"
         app:tint="@android:color/white" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -79,12 +81,13 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:visibility="invisible"
         app:fabSize="mini"
+        android:visibility="invisible"
+        android:backgroundTint="@color/suspendColor"
         app:layout_constraintBottom_toTopOf="@+id/addTrackerBtn"
         app:layout_constraintEnd_toEndOf="@+id/addTrackerBtn"
         app:layout_constraintStart_toStartOf="@+id/addTrackerBtn"
-        app:srcCompat="@drawable/home"
+        app:srcCompat="@drawable/ic__03_capsules"
         app:tint="@android:color/white" />
 
     <TextView
@@ -95,7 +98,8 @@
         android:text="Add Medication"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/addTrackerTxt"
-        app:layout_constraintEnd_toEndOf="@+id/addTrackerTxt" />
+        app:layout_constraintEnd_toEndOf="@+id/addTrackerTxt"
+        android:background="@color/white"/>
 
     <TextView
         android:id="@+id/addTrackerTxt"
@@ -105,7 +109,8 @@
         android:text="Add Health Tracker"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/addDoseTxt"
-        app:layout_constraintEnd_toEndOf="@+id/addDoseTxt" />
+        app:layout_constraintEnd_toEndOf="@+id/addDoseTxt"
+        android:background="@color/white"/>
 
     <TextView
         android:id="@+id/addDoseTxt"
@@ -116,7 +121,8 @@
         android:text="Add Dose"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addDoseBtn" />
+        app:layout_constraintEnd_toStartOf="@+id/addDoseBtn"
+        android:background="@color/white"/>
 
 
 
