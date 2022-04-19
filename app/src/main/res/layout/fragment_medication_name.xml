@@ -40,8 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:contentDescription="@string/add_medication"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back"
         app:srcCompat="@drawable/ic_medication_name" />
 
     <TextView
@@ -103,7 +103,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_add_dose"
+                android:id="@+id/btnNext"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"

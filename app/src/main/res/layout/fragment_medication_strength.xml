@@ -7,18 +7,6 @@
     android:background="@color/main_color">
 
 
-    <Button
-        android:id="@+id/btnSkip"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/skip"
-        android:textColor="@color/light_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TextContrastCheck,TextContrastCheck" />
-
     <TextView
         android:id="@+id/textViewMedicationName"
         android:layout_width="wrap_content"
@@ -93,6 +81,7 @@
                 app:boxBackgroundColor="@color/second_color"
                 app:boxStrokeColor="@color/main_color"
                 app:boxStrokeWidth="2dp"
+                android:hint="@string/value"
                 app:hintTextColor="@color/gray_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -112,64 +101,66 @@
                 android:id="@+id/strengthUnitTabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputMedicationStrength"
+                app:tabBackground="@drawable/item_tab_background"
                 app:tabContentStart="56dp"
+                app:tabIndicatorHeight="0dp"
                 app:tabMode="scrollable"
                 app:tabSelectedTextColor="@color/main_color"
-                app:tabIndicatorHeight="0dp"
-                app:tabBackground="@drawable/item_tab_background"
                 tools:ignore="SpeakableTextPresentCheck">
+
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/g" />
+
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/iu"
-                    />
+                    android:text="@string/iu" />
+
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mcg"
-                    />
+                    android:text="@string/mcg" />
+
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/meq"
-                    />
+                    android:text="@string/meq" />
+
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mg"
-                    />
+                    android:text="@string/mg" />
+
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mcg_ml"
-                    />
+                    android:text="@string/mcg_ml" />
+
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mg_ml"
-                    />
+                    android:text="@string/mg_ml" />
+
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ml"
-                    />
+                    android:text="@string/ml" />
+
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/percentage_sign"
-                    />
+                    android:text="@string/percentage_sign" />
+
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mg"
-                    />
+                    android:text="@string/mg" />
             </com.google.android.material.tabs.TabLayout>
 
             <com.google.android.material.button.MaterialButton

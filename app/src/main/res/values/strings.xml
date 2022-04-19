@@ -83,4 +83,14 @@
     <string name="inactive_meds">InActive Meds</string>
     <string name="home">Home</string>
     <string name="medications">Medications</string>
+    <string name="can_not_be_empty">This field can\'t be empty!</string>
+    <string name="please_restart_process">Please restart process!</string>
+    <string name="strength_value">Strength Value</string>
+    <string name="value">Value</string>
+    <string name="strength_should_be_numeric">Strength should be numeric value!</string>
+    <string name="strength_should_be_bigger_than_zero">Strength should be bigger than!</string>
+    <string name="must_select_days">Must select a day at least!</string>
+    <string name="enter_valid_value">Enter valid value!</string>
+    <string name="value_should_be_bigger_than_zero">Value should be bigger than zero!</string>
+    <string name="add_reminders_first">Please add reminders first!</string>
 </resources>
