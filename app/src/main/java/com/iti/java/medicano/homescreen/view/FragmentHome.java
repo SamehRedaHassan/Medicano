@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,11 +42,11 @@ public class FragmentHome extends Fragment implements DatePickerListener {
     private HomeAdapter homeAdapter;
     private NavController outerNavController;
 
-
     private FloatingActionButton addBtn,addMedicationBtn,addTrackerBtn,addDoseBtn;
     private TextView addMedicationTxt,addTrackerTxt,addDoseTxt;
     private Animation fabOpen,fabClose,mainOpen,mainClose;
     boolean isOpened;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class FragmentHome extends Fragment implements DatePickerListener {
 //        outerNavController.navigate(R.id.action_mainFragment_to_editMedicationFragment);
         homeRecyclerView.setAdapter(homeAdapter);
         homeRecyclerView.setLayoutManager(layoutManager);
+
 
         HorizontalPicker picker = (HorizontalPicker)view.findViewById(R.id.datePicker);
 
@@ -126,9 +128,9 @@ public class FragmentHome extends Fragment implements DatePickerListener {
     private List<Medication> getNestedMedicationList(){
         List<Medication> medItemList = new ArrayList<>();
 
-        medItemList.add(new Medication("Panadol","10 g, take 1 Pill(s)","capsule"));
-        medItemList.add(  new Medication("Panadol","10 g, take 1 Pill(s)","capsule"));
-        medItemList.add(new Medication("Panadol","10 g, take 1 Pill(s)","capsule"));
+        medItemList.add(new Medication("Panadol","10 g, take 1 Pill(s)","ic__03_capsules"));
+        medItemList.add(  new Medication("Panadol","10 g, take 1 Pill(s)","ic__03_capsules"));
+        medItemList.add(new Medication("Panadol","10 g, take 1 Pill(s)","ic__03_capsules"));
 
         return medItemList;
     }
