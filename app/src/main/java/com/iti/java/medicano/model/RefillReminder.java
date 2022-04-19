@@ -6,8 +6,8 @@ import android.os.Parcelable;
 import java.util.Date;
 
 public class RefillReminder implements Parcelable {
-    int currentNumOfPills;
-    int countToReminderWhenReady;
+   public int currentNumOfPills;
+   public int countToReminderWhenReady;
 
     public RefillReminder(int currentNumOfPills, int countToReminderWhenReady) {
         this.currentNumOfPills = currentNumOfPills;

@@ -107,6 +107,17 @@ public class FragmentHome extends Fragment implements DatePickerListener {
             }
         });
 
+
+        addMedicationBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                if (outerNavController.getCurrentDestination().getId() == R.id.mainFragment){
+                    outerNavController.navigate(R.id.action_mainFragment_to_navigation);
+                }
+            }
+
+        });
     }
 
     @Override
