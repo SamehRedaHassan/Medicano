@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/navigation">
 
     <fragment
         android:id="@+id/fragmentRegister"
@@ -38,23 +38,41 @@
         <fragment
             android:id="@+id/addMedDurationFragment"
             android:name="com.iti.java.medicano.addmedication.duration.view.AddMedDurationFragment"
-            android:label="AddMedDurationFragment" />
+            android:label="AddMedDurationFragment" >
+            <action
+                android:id="@+id/action_addMedDurationFragment_to_addMedPreInstruction"
+                app:destination="@id/addMedPreInstruction" />
+            <action
+                android:id="@+id/action_addMedDurationFragment_to_datePickerDialogFragment"
+                app:destination="@id/datePickerDialogFragment" />
+        </fragment>
         <fragment
             android:id="@+id/addMedRemindersFragment"
             android:name="com.iti.java.medicano.addmedication.remiders.view.AddMedRemindersFragment"
-            android:label="AddMedRemindersFragment" />
+            android:label="AddMedRemindersFragment" >
+            <action
+                android:id="@+id/action_addMedRemindersFragment_to_addMedDurationFragment"
+                app:destination="@id/addMedDurationFragment" />
+            <action
+                android:id="@+id/action_addMedRemindersFragment_to_reminderPickerDialogFragment"
+                app:destination="@id/reminderPickerDialogFragment" />
+        </fragment>
         <fragment
             android:id="@+id/addMedReasonFragment"
             android:name="com.iti.java.medicano.addmedication.reason.view.AddMedReasonFragment"
-            android:label="AddMedReasonFragment" />
+            android:label="AddMedReasonFragment" >
+            <action
+                android:id="@+id/action_addMedReasonFragment_to_addMedDaysFragment"
+                app:destination="@id/addMedDaysFragment" />
+        </fragment>
         <fragment
             android:id="@+id/addMedRefillFragment"
             android:name="com.iti.java.medicano.addmedication.refill.view.AddMedRefillFragment"
-            android:label="AddMedRefillFragment" />
-        <fragment
-            android:id="@+id/addMedIconFragment"
-            android:name="com.iti.java.medicano.addmedication.icon.view.AddMedIconFragment"
-            android:label="AddMedIconFragment" />
+            android:label="AddMedRefillFragment" >
+            <action
+                android:id="@+id/action_addMedRefillFragment_to_addMedIconFragment"
+                app:destination="@id/addMedIconFragment" />
+        </fragment>
         <fragment
             android:id="@+id/addMedNameFragment"
             android:name="com.iti.java.medicano.addmedication.name.view.AddMedNameFragment"
@@ -68,8 +86,8 @@
             android:name="com.iti.java.medicano.addmedication.strength.view.AddMedStrengthFragment"
             android:label="AddMedStrengthFragment" >
             <action
-                android:id="@+id/action_addMedStrengthFragment_to_addMedIconFragment"
-                app:destination="@id/addMedIconFragment" />
+                android:id="@+id/action_addMedStrengthFragment_to_addMedReasonFragment"
+                app:destination="@id/addMedReasonFragment" />
         </fragment>
         <fragment
             android:id="@+id/addMedFormFragment"
@@ -82,11 +100,40 @@
         <fragment
             android:id="@+id/addMedPreInstruction"
             android:name="com.iti.java.medicano.addmedication.instruction.view.AddMedPreInstruction"
-            android:label="AddMedPreInstruction" />
+            android:label="AddMedPreInstruction" >
+            <action
+                android:id="@+id/action_addMedPreInstruction_to_addMedInstOptionalFragment"
+                app:destination="@id/addMedInstOptionalFragment" />
+        </fragment>
         <fragment
-            android:id="@+id/addMedDaysFragment2"
+            android:id="@+id/addMedDaysFragment"
             android:name="com.iti.java.medicano.addmedication.days.view.AddMedDaysFragment"
-            android:label="AddMedDaysFragment" />
+            android:label="AddMedDaysFragment" >
+            <action
+                android:id="@+id/action_addMedDaysFragment2_to_addMedRemindersFragment"
+                app:destination="@id/addMedRemindersFragment" />
+        </fragment>
+        <dialog
+            android:id="@+id/reminderPickerDialogFragment"
+            android:name="com.iti.java.medicano.addmedication.remiders.view.ReminderPickerDialogFragment"
+            android:label="ReminderPickerDialogFragment" />
+        <dialog
+            android:id="@+id/datePickerDialogFragment"
+            android:name="com.iti.java.medicano.addmedication.duration.view.DatePickerDialogFragment"
+            android:label="DatePickerDialogFragment" />
+        <fragment
+            android:id="@+id/addMedInstOptionalFragment"
+            android:name="com.iti.java.medicano.addmedication.instruction.view.AddMedInstOptionalFragment"
+            android:label="AddMedInstOptionalFragment">
+            <action
+                android:id="@+id/action_addMedInstOptionalFragment_to_addMedRefillFragment"
+                app:destination="@id/addMedRefillFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/addMedIconFragment"
+            android:name="com.iti.java.medicano.addmedication.icon.view.AddMedIconFragment"
+            android:label="AddMedIconFragment"
+            />
     </navigation>
     <fragment
         android:id="@+id/splashFragment"
