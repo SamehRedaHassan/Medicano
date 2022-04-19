@@ -3,11 +3,22 @@ package com.iti.java.medicano.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.Date;
 import java.util.List;
 
-
+@Entity
 public class Medication {
+    @NonNull
+    @PrimaryKey
+    String id ;
+    //@ForeignKey(User)
+    String userId;
     String name;
     int strengthType;
     float strengthValue;
@@ -18,13 +29,41 @@ public class Medication {
     int treatmentTime;
     String instruction;
     RefillReminder refillReminder;
+    @Ignore
     List<Reminder> remindersID;
     List<Integer> days;
+    int icon ;
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
+
     public Medication(){
 
     }
 
-    public Medication(String name, int strengthType, float strengthValue, String reasonForMedication, int formOfMedication, Date startDate, Date endDate, int treatmentTime, String instruction, RefillReminder refillReminder, List<Reminder> remindersID, List<Integer> days) {
+    @NonNull
+    public String getId() {
+        return id;
+    }
+
+    public void setId(@NonNull String id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Medication(String name, int strengthType, float strengthValue, String reasonForMedication, int formOfMedication, Date startDate, Date endDate, int treatmentTime, String instruction, RefillReminder refillReminder, List<Reminder> remindersID, List<Integer> days, int icon) {
         this.name = name;
         this.strengthType = strengthType;
         this.strengthValue = strengthValue;
@@ -37,6 +76,25 @@ public class Medication {
         this.refillReminder = refillReminder;
         this.remindersID = remindersID;
         this.days = days;
+        this.icon = icon;
+    }
+
+    public Medication(@NonNull String id, String userId, String name, int strengthType, float strengthValue, String reasonForMedication, int formOfMedication, Date startDate, Date endDate, int treatmentTime, String instruction, RefillReminder refillReminder, List<Reminder> remindersID, List<Integer> days, int icon) {
+        this.id = id;
+        this.userId = userId;
+        this.name = name;
+        this.strengthType = strengthType;
+        this.strengthValue = strengthValue;
+        this.reasonForMedication = reasonForMedication;
+        this.formOfMedication = formOfMedication;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.treatmentTime = treatmentTime;
+        this.instruction = instruction;
+        this.refillReminder = refillReminder;
+        this.remindersID = remindersID;
+        this.days = days;
+        this.icon = icon;
     }
 
     public String getName() {
@@ -145,10 +203,13 @@ public class Medication {
         Date startDate;
         Date endDate;
         int treatmentTime;
+
+
         String instruction;
         RefillReminder refillReminder;
         List<Reminder> remindersID;
         List<Integer> days;
+        int icon;
 
         public Builder(String name) {
             this.name = name;
@@ -165,6 +226,7 @@ public class Medication {
             instruction = in.readString();
             refillReminder = in.readParcelable(RefillReminder.class.getClassLoader());
             remindersID = in.createTypedArrayList(Reminder.CREATOR);
+            icon = in.readInt();
         }
 
         @Override
@@ -178,6 +240,7 @@ public class Medication {
             dest.writeString(instruction);
             dest.writeParcelable(refillReminder, flags);
             dest.writeTypedList(remindersID);
+            dest.writeInt(icon);
         }
 
         @Override
@@ -251,6 +314,10 @@ public class Medication {
             return this;
         }
 
+        public Builder setIcon(int icon) {
+            this.icon = icon;
+            return this;
+        }
 
         @Override
         public String toString() {
@@ -271,7 +338,7 @@ public class Medication {
         }
 
         public Medication build(){
-            return new Medication(name, strengthType, strengthValue, reasonForMedication, formOfMedication, startDate, endDate, treatmentTime, instruction, refillReminder, remindersID, days);
+            return new Medication(name, strengthType, strengthValue, reasonForMedication, formOfMedication, startDate, endDate, treatmentTime, instruction, refillReminder, remindersID, days,icon);
         }
     }
 }
