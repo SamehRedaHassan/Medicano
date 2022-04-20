@@ -54,6 +54,7 @@ public class AddMedIconFragment extends Fragment implements AddMedIcon {
                     Bundle bundle = getArguments();
                     Medication.Builder builder = bundle.getParcelable(BundleKeys.MEDICATION_BUILDER);
                     //switch case to determine the icon
+                    builder.setStatus(1);//1 for Active 0 for inactive
                     builder.setIcon(0);
                     Medication medication = builder.build();
 //                    String stringUser = getContext().getSharedPreferences(SharedPrefKeys.SHARED_PREF_NAME, Context.MODE_PRIVATE).getString(SharedPrefKeys.OWNER_USER, "");
@@ -62,6 +63,7 @@ public class AddMedIconFragment extends Fragment implements AddMedIcon {
                    // medication.setUserId(user.getEmail());
                     medication.setUserId("SAm");
                     medication.setId(UUID.randomUUID().toString());
+
 
                     //presenter -> Repo -> RoomDB
                     //                  -> FireBase
