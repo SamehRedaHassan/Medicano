@@ -32,6 +32,7 @@ public class Medication {
     @Ignore
     List<Reminder> remindersID;
     List<Integer> days;
+   public int status ;
     int icon ;
 
     public int getIcon() {
@@ -63,7 +64,7 @@ public class Medication {
         this.userId = userId;
     }
 
-    public Medication(String name, int strengthType, float strengthValue, String reasonForMedication, int formOfMedication, Date startDate, Date endDate, int treatmentTime, String instruction, RefillReminder refillReminder, List<Reminder> remindersID, List<Integer> days, int icon) {
+    public Medication(String name, int strengthType, float strengthValue, String reasonForMedication, int formOfMedication, Date startDate, Date endDate, int treatmentTime, String instruction, RefillReminder refillReminder, List<Reminder> remindersID, List<Integer> days, int icon , int status) {
         this.name = name;
         this.strengthType = strengthType;
         this.strengthValue = strengthValue;
@@ -77,9 +78,10 @@ public class Medication {
         this.remindersID = remindersID;
         this.days = days;
         this.icon = icon;
+        this.status = status;
     }
 
-    public Medication(@NonNull String id, String userId, String name, int strengthType, float strengthValue, String reasonForMedication, int formOfMedication, Date startDate, Date endDate, int treatmentTime, String instruction, RefillReminder refillReminder, List<Reminder> remindersID, List<Integer> days, int icon) {
+    public Medication(@NonNull String id, String userId, String name, int strengthType, float strengthValue, String reasonForMedication, int formOfMedication, Date startDate, Date endDate, int treatmentTime, String instruction, RefillReminder refillReminder, List<Reminder> remindersID, List<Integer> days, int icon, int status) {
         this.id = id;
         this.userId = userId;
         this.name = name;
@@ -95,6 +97,7 @@ public class Medication {
         this.remindersID = remindersID;
         this.days = days;
         this.icon = icon;
+        this.status = status;
     }
 
     public String getName() {
@@ -210,6 +213,7 @@ public class Medication {
         List<Reminder> remindersID;
         List<Integer> days;
         int icon;
+        int status;
 
         public Builder(String name) {
             this.name = name;
@@ -227,6 +231,7 @@ public class Medication {
             refillReminder = in.readParcelable(RefillReminder.class.getClassLoader());
             remindersID = in.createTypedArrayList(Reminder.CREATOR);
             icon = in.readInt();
+            status = in.readInt();
         }
 
         @Override
@@ -241,6 +246,7 @@ public class Medication {
             dest.writeParcelable(refillReminder, flags);
             dest.writeTypedList(remindersID);
             dest.writeInt(icon);
+            dest.writeInt(status);
         }
 
         @Override
@@ -319,6 +325,11 @@ public class Medication {
             return this;
         }
 
+        public Builder setStatus(int status) {
+            this.status = status;
+            return this;
+        }
+
         @Override
         public String toString() {
             return "Builder{" +
@@ -334,11 +345,12 @@ public class Medication {
                     ", refillReminder=" + refillReminder +
                     ", remindersID=" + remindersID +
                     ", days=" + days +
+                    ", status=" + status +
                     '}';
         }
 
         public Medication build(){
-            return new Medication(name, strengthType, strengthValue, reasonForMedication, formOfMedication, startDate, endDate, treatmentTime, instruction, refillReminder, remindersID, days,icon);
+            return new Medication(name, strengthType, strengthValue, reasonForMedication, formOfMedication, startDate, endDate, treatmentTime, instruction, refillReminder, remindersID, days,icon,status);
         }
     }
 }
