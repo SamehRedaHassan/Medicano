@@ -17,7 +17,7 @@ public class Medication {
     @NonNull
     @PrimaryKey
     String id ;
-    //@ForeignKey(User)
+    //@ForeignKey(entity = User.class)
     String userId;
     String name;
     int strengthType;

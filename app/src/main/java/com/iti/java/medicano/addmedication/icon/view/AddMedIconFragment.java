@@ -1,6 +1,7 @@
 package com.iti.java.medicano.addmedication.icon.view;
 
-import android.content.Context;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,17 +11,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.Gson;
 import com.iti.java.medicano.addmedication.icon.presenter.AddMedIconPresenter;
 import com.iti.java.medicano.addmedication.icon.presenter.AddMedIconPresenterImpl;
-import com.iti.java.medicano.addmedication.repo.AddMedicationRepoImpl;
+import com.iti.java.medicano.addmedication.repo.medication.MedicationRepoImpl;
 import com.iti.java.medicano.databinding.FragmentMedicationIconBinding;
 import com.iti.java.medicano.model.Medication;
-import com.iti.java.medicano.model.User;
 import com.iti.java.medicano.model.databaselayer.DatabaseLayer;
 import com.iti.java.medicano.utils.BundleKeys;
-import com.iti.java.medicano.utils.SharedPrefKeys;
 
 import java.util.UUID;
 
@@ -36,7 +37,8 @@ public class AddMedIconFragment extends Fragment implements AddMedIcon {
         binding = FragmentMedicationIconBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
 
-        presenter = new AddMedIconPresenterImpl(this, AddMedicationRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).MedicationDAO(), FirebaseDatabase.getInstance()));
+        //TODO change and get ID from shared Prefs. for current user...
+        presenter = new AddMedIconPresenterImpl(this, MedicationRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).MedicationDAO(), FirebaseDatabase.getInstance(), FirebaseAuth.getInstance().getUid()));
         return view.getRootView();
     }
 
@@ -48,6 +50,40 @@ public class AddMedIconFragment extends Fragment implements AddMedIcon {
     }
 
     private void setOnClickListeners() {
+        binding.iconTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(tab.view, "scaleX", 2f);
+                ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(tab.view, "scaleY", 2f);
+                scaleDownX.setDuration(200);
+                scaleDownY.setDuration(200);
+
+                AnimatorSet scaleDown = new AnimatorSet();
+                scaleDown.play(scaleDownX).with(scaleDownY);
+
+                scaleDown.start();
+
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(tab.view.findViewById(android.R.id.tabs), "scaleX", 1f);
+                ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(tab.view, "scaleY", 1f);
+                scaleDownX.setDuration(200);
+                scaleDownY.setDuration(200);
+
+                AnimatorSet scaleDown = new AnimatorSet();
+                scaleDown.play(scaleDownX).with(scaleDownY);
+
+                scaleDown.start();
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
         binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

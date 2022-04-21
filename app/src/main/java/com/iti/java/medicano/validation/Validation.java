@@ -2,7 +2,7 @@ package com.iti.java.medicano.validation;
 
 import android.util.Patterns;
 
-public class Validation {
+public class    Validation {
 
     public static String registerValidation(String name,String email,String password,String confirm) {
         String validationMsg = "";

@@ -41,8 +41,7 @@ public class Converters {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @TypeConverter
     public  static String getdays(List<Integer> days){
-        return days.stream().map(integer -> integer.toString()).collect(Collectors.joining(";"));
+        return days.stream().map(Object::toString).collect(Collectors.joining(";"));
     }
-
 
 }

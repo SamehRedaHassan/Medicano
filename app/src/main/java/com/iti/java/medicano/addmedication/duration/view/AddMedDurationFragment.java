@@ -15,11 +15,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.MaterialDatePicker;
 import com.iti.java.medicano.R;
 import com.iti.java.medicano.addmedication.duration.presenter.AddMedDurationPresenterImpl;
 import com.iti.java.medicano.databinding.FragmentMedicationDurationBinding;
@@ -63,7 +66,8 @@ public class AddMedDurationFragment extends Fragment implements AddMedDurationVi
                 if (date instanceof Calendar) {
                     startDate = ((Calendar) date).getTime();
                     binding.editTextStartDate.setText(startDate.toString());
-
+                    endDate=null;
+                    binding.editTextEndDate.setText("");
                 }
             });
             savedStateHandler.getLiveData(END_DATE).removeObservers(getViewLifecycleOwner());
@@ -81,12 +85,17 @@ public class AddMedDurationFragment extends Fragment implements AddMedDurationVi
         binding.editTextEndDate.setOnClickListener((v)->{
             Bundle bundle = new Bundle();
             bundle.putString(DATE_TYPE,END_DATE);
-            NavigationHelper.safeNavigateTo(navController, R.id.addMedDurationFragment,R.id.action_addMedDurationFragment_to_datePickerDialogFragment, bundle);
+            if (startDate!=null) {
+                bundle.putLong(START_DATE,startDate.getTime());
+                NavigationHelper.safeNavigateTo(navController, R.id.addMedDurationFragment, R.id.action_addMedDurationFragment_to_datePickerDialogFragment, bundle);
+            }else
+                Toast.makeText(getContext(), "Set start date first", Toast.LENGTH_SHORT).show();
         });
         binding.editTextStartDate.setOnClickListener((v)->{
             Bundle bundle = new Bundle();
             bundle.putString(DATE_TYPE,START_DATE);
             NavigationHelper.safeNavigateTo(navController, R.id.addMedDurationFragment,R.id.action_addMedDurationFragment_to_datePickerDialogFragment,bundle);
+
         });
         binding.btnNext.setOnClickListener((v)->{
             addMedDurationPresenter.onPressNext(startDate, endDate);

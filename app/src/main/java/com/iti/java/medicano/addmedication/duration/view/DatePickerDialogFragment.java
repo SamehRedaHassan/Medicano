@@ -9,9 +9,13 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.widget.DatePicker;
 
+import androidx.core.util.Pair;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -21,12 +25,17 @@ public class DatePickerDialogFragment extends DialogFragment implements DatePick
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        super.onCreateDialog(savedInstanceState);
         Calendar c = Calendar.getInstance(new Locale("en"));
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         int hours = c.get(Calendar.HOUR);
         DatePickerDialog dialog = new  DatePickerDialog(requireContext(), this, month, day, hours);
-        dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        if (getArguments()!=null && getArguments().getLong(START_DATE,-1)!=-1)
+            dialog.getDatePicker().setMinDate(getArguments().getLong(START_DATE,-1) - 1000);
+        else
+            dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+
         return dialog;
     }
     @Override

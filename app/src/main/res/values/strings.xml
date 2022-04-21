@@ -93,4 +93,6 @@
     <string name="enter_valid_value">Enter valid value!</string>
     <string name="value_should_be_bigger_than_zero">Value should be bigger than zero!</string>
     <string name="add_reminders_first">Please add reminders first!</string>
+    <string name="instructions">Instructions</string>
+    <string name="refill_reminder">Refill reminder</string>
 </resources>
