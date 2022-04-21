@@ -25,10 +25,13 @@ import android.widget.Toast;
 import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
 import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 import com.iti.java.medicano.MainActivity;
 import com.iti.java.medicano.R;
 import com.iti.java.medicano.homescreen.model.Medication;
 import com.iti.java.medicano.homescreen.model.MedicationList;
+import com.iti.java.medicano.model.User;
+import com.iti.java.medicano.registerscreen.view.FragmentRegister;
 
 import org.joda.time.DateTime;
 
@@ -51,19 +54,18 @@ public class FragmentHome extends Fragment implements DatePickerListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(getContext(), "on create", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         outerNavController = Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
         homeRecyclerView = view.findViewById(R.id.homeRecycler);
         layoutManager = new LinearLayoutManager(getActivity());
@@ -73,16 +75,14 @@ public class FragmentHome extends Fragment implements DatePickerListener {
         homeRecyclerView.setLayoutManager(layoutManager);
 
 
+        /*String json = FragmentRegister.mPrefs.getString(FragmentRegister.userObject, "");
+        Gson gson = new Gson();
+        User user = gson.fromJson(json, User.class);*/
+
         HorizontalPicker picker = (HorizontalPicker)view.findViewById(R.id.datePicker);
-
-        // initialize it and attach a listener
-        picker
-                .setListener(dateSelected -> {
-                    Toast.makeText(getContext(), "day pressed", Toast.LENGTH_LONG).show();
-                })
-                .init();
-
-
+        picker.setListener(dateSelected -> {
+            Toast.makeText(getContext(), "day pressed", Toast.LENGTH_LONG).show();
+        }).init();
 
         addBtn = view.findViewById(R.id.addBtn);
         addMedicationBtn = view.findViewById(R.id.addMedicationBtn);

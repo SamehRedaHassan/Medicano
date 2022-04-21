@@ -8,7 +8,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.iti.java.medicano.Constants;
 import com.iti.java.medicano.model.User;
+import com.iti.java.medicano.model.userrepo.UserRepo;
+import com.iti.java.medicano.registerscreen.view.RegisterViewInterface;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,11 +21,16 @@ public class RegisterPresenter implements RegisterPresenterInterface{
     private FirebaseAuth mAuth;
     private final FirebaseDatabase database;
     DatabaseReference ref;
+    private RegisterViewInterface registerView;
+    private UserRepo repo;
 
-    public RegisterPresenter(){
+    public RegisterPresenter(RegisterViewInterface view,UserRepo repo){
         mAuth=FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        ref = database.getReference();//getReference("server/saving-data/fireblog");
+        ref = database.getReference();
+
+        this.registerView = view;
+        this.repo = repo;
     }
 
     public void registerUser(User user){
@@ -32,26 +40,30 @@ public class RegisterPresenter implements RegisterPresenterInterface{
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
-                    Log.i(TAG, "registered successfully");
-                    String userId = task.getResult().getUser().getUid();
-
-                    DatabaseReference usersRef = ref.child("users");
-
-                    //Map<String, User> users = new HashMap<>();
-                    //users.put(userId, );
 
                     User userData = new User(user.getFullName(),user.getEmail(),user.getPassword(),user.getGender());
 
+                    String userId = mAuth.getUid();
+                    userData.setId(userId);
+
+                    DatabaseReference usersRef = ref.child(Constants.USERS);
                     usersRef.child(userId).setValue(userData);
+                    Log.i(TAG, "registered successfully");
+
+                    insertUser(userData);
                 }
                 else
                 {
+                    //System.out.println(task.getResult());
                     Log.i(TAG, "registered failed");
                 }
             }
         });
     }
 
-
+    private void insertUser(User user){
+        repo.insertUser(user);
+        System.out.println("user inserted successfully in room");
+    }
 
 }

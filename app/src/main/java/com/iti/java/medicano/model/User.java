@@ -1,11 +1,22 @@
 package com.iti.java.medicano.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+import com.iti.java.medicano.Constants;
+
+@Entity
 public class User {
+    @PrimaryKey
+    @NonNull
+    private String id;
     private String fullName;
     private String email;
+    @Ignore
     private String password;
     private int gender;
-
 
     public User(){
 
@@ -16,6 +27,15 @@ public class User {
         this.email = email;
         this.password = password;
         this.gender = gender;
+    }
+
+    @NonNull
+    public String getId() {
+        return id;
+    }
+
+    public void setId(@NonNull String id) {
+        this.id = id;
     }
 
     public String getFullName() {

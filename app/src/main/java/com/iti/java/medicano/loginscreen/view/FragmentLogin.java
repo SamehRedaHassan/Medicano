@@ -15,19 +15,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.iti.java.medicano.R;
 import com.iti.java.medicano.databinding.FragmentLoginBinding;
 import com.iti.java.medicano.loginscreen.presenter.LoginPresenter;
 import com.iti.java.medicano.loginscreen.presenter.LoginPresenterInterface;
+import com.iti.java.medicano.model.databaselayer.DatabaseLayer;
+import com.iti.java.medicano.model.userrepo.UserRepoImpl;
+import com.iti.java.medicano.validation.Validation;
 
-public class FragmentLogin extends Fragment {
+public class FragmentLogin extends Fragment implements LoginViewInterface{
 
     private FragmentLoginBinding binding;
-
     private LoginPresenterInterface presenter;
-
-    private EditText edtUserEmail,edtUserPassword;
-    private Button btnLogin;
     private NavController navController;
 
     public FragmentLogin() {
@@ -37,37 +37,45 @@ public class FragmentLogin extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        presenter = new LoginPresenter();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        presenter = new LoginPresenter(this, UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(), FirebaseDatabase.getInstance()));
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         return binding.getRoot();
-        //return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = NavHostFragment.findNavController(this);
-        edtUserEmail = binding.edtUserEmail;
-        edtUserPassword = binding.edtUserPassword;
-        btnLogin = binding.btnLogin;
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //validator.validateLogin
-                if (navController.getCurrentDestination().getId() == R.id.fragmentLogin)
-                    navController.navigate(R.id.action_fragmentLogin_to_mainFragment);
-                presenter.loginUser(edtUserEmail.getText().toString(),edtUserPassword.getText().toString());
+
+                String userEmail = binding.edtUserEmail.getText().toString().trim();
+                String userPassword = binding.edtUserPassword.getText().toString();
+
+                String validateUser = Validation.loginValidation(userEmail,userPassword);
+                //validateUser = "valid login";
+                if(validateUser.equals("valid login")){
+                    presenter.loginUser(userEmail,userPassword);
+                    if (navController.getCurrentDestination().getId() == R.id.fragmentLogin)
+                        navController.navigate(R.id.action_fragmentLogin_to_mainFragment);
+                }
+                else{
+                    System.out.println(validateUser);
+                }
             }
         });
+    }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
 }
