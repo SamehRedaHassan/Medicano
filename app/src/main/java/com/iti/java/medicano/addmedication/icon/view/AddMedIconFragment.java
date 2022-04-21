@@ -35,6 +35,7 @@ public class AddMedIconFragment extends Fragment implements AddMedIcon {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentMedicationIconBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
+
         presenter = new AddMedIconPresenterImpl(this, AddMedicationRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).MedicationDAO(), FirebaseDatabase.getInstance()));
         return view.getRootView();
     }

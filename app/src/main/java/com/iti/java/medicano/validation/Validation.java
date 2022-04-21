@@ -1,6 +1,5 @@
 package com.iti.java.medicano.validation;
 
-import android.text.TextUtils;
 import android.util.Patterns;
 
 public class Validation {
@@ -13,12 +12,13 @@ public class Validation {
         for(char c : nameChars){
             if(Character.isDigit(c)){
                 nameHasDigits = true;
+                System.out.println("true");
             }
         }
 
         boolean passwordHasDigits = false;
         boolean passwordHasLetters = false;
-        char[] passChars = name.toCharArray();
+        char[] passChars = password.toCharArray();
         for(char c : passChars){
             if(Character.isDigit(c)){
                 passwordHasDigits = true;
@@ -53,10 +53,19 @@ public class Validation {
         return validationMsg;
     }
 
-    public static boolean loginValidation(){
+    public static String loginValidation(String email,String password){
+        String validationMsg = "";
 
-        return true;
+        if(email.isEmpty()|| !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            validationMsg = "please, enter a valid email!";
+        }
+        else if(password.length()<8){
+            validationMsg = "password should be more than or equal 8 characters!";
+        }
+        else{
+            validationMsg = "valid login";
+        }
+
+        return validationMsg;
     }
-
-
 }

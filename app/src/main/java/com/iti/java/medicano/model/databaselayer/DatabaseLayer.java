@@ -7,12 +7,14 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.iti.java.medicano.model.Medication;
+import com.iti.java.medicano.model.User;
 import com.iti.java.medicano.utils.Converters;
 
-@Database(entities = {Medication.class} , version = 1 , exportSchema = false)
+@Database(entities = {Medication.class, User.class} , version = 1 , exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class DatabaseLayer extends RoomDatabase {
     public abstract MedicationDAO MedicationDAO();
+    public abstract UserDAO UserDAO();
 
     private static DatabaseLayer INSTANCE;
 
