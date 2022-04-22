@@ -1,5 +1,7 @@
 package com.iti.java.medicano.loginscreen.view;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,13 +11,16 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
+import com.iti.java.medicano.Constants;
 import com.iti.java.medicano.R;
 import com.iti.java.medicano.databinding.FragmentLoginBinding;
 import com.iti.java.medicano.loginscreen.presenter.LoginPresenter;
@@ -31,7 +36,6 @@ public class FragmentLogin extends Fragment implements LoginViewInterface{
     private NavController navController;
 
     public FragmentLogin() {
-        // Required empty public constructor
     }
 
     @Override
@@ -42,7 +46,7 @@ public class FragmentLogin extends Fragment implements LoginViewInterface{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        presenter = new LoginPresenter(this, UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(), FirebaseDatabase.getInstance()));
+        presenter = new LoginPresenter(this, UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(),getContext().getSharedPreferences(Constants.SHARED_PREFERENCES,MODE_PRIVATE)));
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -60,14 +64,12 @@ public class FragmentLogin extends Fragment implements LoginViewInterface{
                 String userPassword = binding.edtUserPassword.getText().toString();
 
                 String validateUser = Validation.loginValidation(userEmail,userPassword);
-                //validateUser = "valid login";
+
                 if(validateUser.equals("valid login")){
                     presenter.loginUser(userEmail,userPassword);
-                    if (navController.getCurrentDestination().getId() == R.id.fragmentLogin)
-                        navController.navigate(R.id.action_fragmentLogin_to_mainFragment);
                 }
                 else{
-                    System.out.println(validateUser);
+                    Toast.makeText(getContext(), validateUser, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -77,5 +79,18 @@ public class FragmentLogin extends Fragment implements LoginViewInterface{
     public void onDestroy() {
         super.onDestroy();
         binding = null;
+    }
+
+    @Override
+    public void navigateToHomeScreen() {
+        Toast.makeText(getContext(), "Login successfully", Toast.LENGTH_SHORT).show();
+        if (navController.getCurrentDestination().getId() == R.id.fragmentLogin)
+            navController.navigate(R.id.action_fragmentLogin_to_mainFragment);
+    }
+
+    @Override
+    public void showErrorMsg() {
+        Toast.makeText(getContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Log.i("TAG", "showErrorMsg: show error in toast");
     }
 }

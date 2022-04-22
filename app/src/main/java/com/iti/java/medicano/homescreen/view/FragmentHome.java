@@ -1,5 +1,7 @@
 package com.iti.java.medicano.homescreen.view;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,49 +9,50 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
 import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
-import com.iti.java.medicano.MainActivity;
+import com.iti.java.medicano.Constants;
 import com.iti.java.medicano.R;
+import com.iti.java.medicano.databinding.FragmentHomeBinding;
 import com.iti.java.medicano.homescreen.model.Medication;
 import com.iti.java.medicano.homescreen.model.MedicationList;
+import com.iti.java.medicano.homescreen.presenter.HomePresenter;
 import com.iti.java.medicano.model.User;
-import com.iti.java.medicano.registerscreen.view.FragmentRegister;
+import com.iti.java.medicano.model.databaselayer.DatabaseLayer;
+import com.iti.java.medicano.model.userrepo.UserRepoImpl;
 
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentHome extends Fragment implements DatePickerListener {
+public class FragmentHome extends Fragment implements HomeViewInterface,DatePickerListener {
 
+    private FragmentHomeBinding binding;
     private RecyclerView homeRecyclerView;
     private LinearLayoutManager layoutManager;
     private HomeAdapter homeAdapter;
     private NavController outerNavController;
+    private HomePresenter presenter;
+    private User user;
 
     private FloatingActionButton addBtn,addMedicationBtn,addTrackerBtn,addDoseBtn;
     private TextView addMedicationTxt,addTrackerTxt,addDoseTxt;
     private Animation fabOpen,fabClose,mainOpen,mainClose;
+    private HorizontalPicker picker;
     boolean isOpened;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,41 +60,59 @@ public class FragmentHome extends Fragment implements DatePickerListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        presenter = new HomePresenter(this, UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(),getContext().getSharedPreferences(Constants.SHARED_PREFERENCES,MODE_PRIVATE)));
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initUI();
 
-        outerNavController = Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
-        homeRecyclerView = view.findViewById(R.id.homeRecycler);
-        layoutManager = new LinearLayoutManager(getActivity());
-        homeAdapter = new HomeAdapter(getActivity(),getMedicationList());
-//        outerNavController.navigate(R.id.action_mainFragment_to_editMedicationFragment);
-        homeRecyclerView.setAdapter(homeAdapter);
-        homeRecyclerView.setLayoutManager(layoutManager);
-
-
-        /*String json = FragmentRegister.mPrefs.getString(FragmentRegister.userObject, "");
-        Gson gson = new Gson();
-        User user = gson.fromJson(json, User.class);*/
-
-        HorizontalPicker picker = (HorizontalPicker)view.findViewById(R.id.datePicker);
+        user = presenter.getUser();
+        Toast.makeText(getContext(), user.getFullName(), Toast.LENGTH_SHORT).show();
         picker.setListener(dateSelected -> {
             Toast.makeText(getContext(), "day pressed", Toast.LENGTH_LONG).show();
         }).init();
 
-        addBtn = view.findViewById(R.id.addBtn);
-        addMedicationBtn = view.findViewById(R.id.addMedicationBtn);
-        addTrackerBtn = view.findViewById(R.id.addTrackerBtn);
-        addDoseBtn = view.findViewById(R.id.addDoseBtn);
+        addBtn.setOnClickListener(view12 -> floatingButtonUI());
 
-        addMedicationTxt = view.findViewById(R.id.addMedicationTxt);
-        addTrackerTxt = view.findViewById(R.id.addTrackerTxt);
-        addDoseTxt = view.findViewById(R.id.addDoseTxt);
+        addMedicationBtn.setOnClickListener(view1 -> {
+            if (outerNavController.getCurrentDestination().getId() == R.id.mainFragment){
+                outerNavController.navigate(R.id.action_mainFragment_to_navigation);
+            }
+        });
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //Toast.makeText(getContext(), "day pressed", Toast.LENGTH_LONG).show();
+    }
+
+    private void initUI(){
+        outerNavController = Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+        //outerNavController.navigate(R.id.action_mainFragment_to_editMedicationFragment);
+
+        homeRecyclerView = binding.homeRecycler;
+        layoutManager = new LinearLayoutManager(getActivity());
+        homeAdapter = new HomeAdapter(getActivity(),getMedicationList());
+        homeRecyclerView.setAdapter(homeAdapter);
+        homeRecyclerView.setLayoutManager(layoutManager);
+
+        picker = (HorizontalPicker)binding.datePicker;
+
+        addBtn = binding.addBtn;
+        addMedicationBtn = binding.addMedicationBtn;
+        addTrackerBtn = binding.addTrackerBtn;
+        addDoseBtn = binding.addDoseBtn;
+
+        addMedicationTxt = binding.addMedicationTxt;
+        addTrackerTxt = binding.addTrackerTxt;
+        addDoseTxt = binding.addDoseTxt;
 
         fabOpen = AnimationUtils.loadAnimation(getContext(),R.anim.to_bottom);
         fabClose = AnimationUtils.loadAnimation(getContext(),R.anim.from_bottom);
@@ -99,31 +120,12 @@ public class FragmentHome extends Fragment implements DatePickerListener {
         mainClose = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_close);
 
         isOpened = false;
-
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addMedication();
-            }
-        });
-
-
-        addMedicationBtn.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                if (outerNavController.getCurrentDestination().getId() == R.id.mainFragment){
-                    outerNavController.navigate(R.id.action_mainFragment_to_navigation);
-                }
-            }
-
-        });
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        Toast.makeText(getContext(), "day pressed", Toast.LENGTH_LONG).show();
+    public void setUser(User user) {
+        this.user = user;
+        Toast.makeText(getContext(), user.getFullName(), Toast.LENGTH_SHORT).show();
     }
 
     private List<MedicationList> getMedicationList(){
@@ -152,7 +154,7 @@ public class FragmentHome extends Fragment implements DatePickerListener {
         Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
     }
 
-    public void addMedication(){
+    public void floatingButtonUI(){
         if(isOpened){
             mainClose.setDuration(200);
             fabClose.setDuration(200);
@@ -198,6 +200,4 @@ public class FragmentHome extends Fragment implements DatePickerListener {
             isOpened = true;
         }
     }
-
-
 }
