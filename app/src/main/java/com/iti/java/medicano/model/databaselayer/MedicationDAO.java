@@ -37,7 +37,7 @@ public interface MedicationDAO {
     @Update
     void updateMedication(Medication medication);
 
-
+                                            //                  25/10       26/10       27/10
     @Query("SELECT * FROM Medication WHERE userId = :uId AND (startDate <= :dayDate OR endDate >= :dayDate) AND days LIKE '%'||:dayCode||'%'")
     LiveData<List<Medication>> getUserMedicationForDay(String uId, long dayDate, String dayCode);
 }

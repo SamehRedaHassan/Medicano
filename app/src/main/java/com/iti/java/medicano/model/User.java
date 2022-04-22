@@ -7,6 +7,9 @@ import androidx.room.PrimaryKey;
 
 import com.iti.java.medicano.Constants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class User {
     @PrimaryKey
@@ -17,9 +20,26 @@ public class User {
     @Ignore
     private String password;
     private int gender;
-
+    private List<String> trackingList;
+    private List<String> invitationList;
     public User(){
 
+    }
+
+    public List<String> getTrackingList() {
+        return trackingList;
+    }
+
+    public void setTrackingList(List<String> trackingList) {
+        this.trackingList = trackingList;
+    }
+
+    public List<String> getInvitationList() {
+        return invitationList;
+    }
+
+    public void setInvitationList(List<String> invitationList) {
+        this.invitationList = invitationList;
     }
 
     public User(String fullName, String email, String password, int gender) {
@@ -27,6 +47,8 @@ public class User {
         this.email = email;
         this.password = password;
         this.gender = gender;
+        this.invitationList = new ArrayList<>();
+        this.trackingList = new ArrayList<>();
     }
 
     @NonNull

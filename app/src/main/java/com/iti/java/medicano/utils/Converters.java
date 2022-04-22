@@ -43,7 +43,7 @@ public class Converters {
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
     @TypeConverter
-    public  static String getdays(List<Integer> days){
+    public  static String getDays(List<Integer> days){
         return days.stream().map(Object::toString).collect(Collectors.joining(";"));
     }
 
@@ -56,5 +56,14 @@ public class Converters {
     @TypeConverter
     public static List<Reminder> getListOfRemindersFromString(String reminders){
         return new Gson().fromJson(reminders,new TypeToken<List<Reminder>>(){}.getType());
+    }
+    @TypeConverter
+    public static String getStringToList(List<String> list){
+        return new Gson().toJson(list);
+    }
+
+    @TypeConverter
+    public static List<String> getListString(String str){
+        return new Gson().fromJson(str,new TypeToken<List<String>>(){}.getType());
     }
 }

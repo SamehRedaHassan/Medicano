@@ -72,9 +72,7 @@ public class MedicationRepoImpl implements MedicationRepo {
                 List<Medication> medications = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                     medications.add(dataSnapshot.getValue(Medication.class));
-                new Thread(() ->{
-                    dao.insertMedicationList(medications);
-                }).start();
+                new Thread(() -> dao.insertMedicationList(medications)).start();
             }
 
             @Override
@@ -88,6 +86,10 @@ public class MedicationRepoImpl implements MedicationRepo {
     @Override
     public void setUserId(String userId) {
         this.database =  FirebaseDatabase.getInstance().getReference(FireBaseConstants.MEDICATIONS).child(userId);
+    }
 
+    @Override
+    public LiveData<List<Medication>> getUserMedicationForDay(String uId, long dayDate, String dayCode) {
+        return dao.getUserMedicationForDay(uId, dayDate, dayCode);
     }
 }

@@ -13,5 +13,5 @@ public interface MedicationRepo {
     Medication getMedication(String medicationId);
     LiveData<List<Medication>> getUserMedications(String userId);
     void setUserId(String userId);
-
+    LiveData<List<Medication>> getUserMedicationForDay(String uId, long dayDate, String dayCode);
 }
