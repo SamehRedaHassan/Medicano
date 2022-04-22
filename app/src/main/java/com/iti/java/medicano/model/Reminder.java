@@ -14,16 +14,16 @@ public class Reminder implements Parcelable {
     public int hours;
     public int minutes;
     public float drugQuantity;
-    //Room date only for day
-    public Date date;
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
+//    //Room date only for day
+//    public Date date;
+//
+//    public Date getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(Date date) {
+//        this.date = date;
+//    }
 
     public Reminder(int hours, int minutes, float drugQuantity) {
         this.hours = hours;

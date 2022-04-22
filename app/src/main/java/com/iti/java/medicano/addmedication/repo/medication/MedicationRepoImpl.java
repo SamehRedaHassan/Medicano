@@ -42,6 +42,7 @@ public class MedicationRepoImpl implements MedicationRepo {
         new Thread(()->{
             database.child(medication.getId()).setValue(medication);
             dao.insertMedication(medication);
+
         }).start();
 
     }

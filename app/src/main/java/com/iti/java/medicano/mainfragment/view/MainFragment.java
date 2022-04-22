@@ -1,4 +1,4 @@
-package com.iti.java.medicano.mainfragment.view;
+    package com.iti.java.medicano.mainfragment.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -5,7 +5,10 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 import androidx.room.TypeConverter;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.iti.java.medicano.model.RefillReminder;
+import com.iti.java.medicano.model.Reminder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,4 +47,14 @@ public class Converters {
         return days.stream().map(Object::toString).collect(Collectors.joining(";"));
     }
 
+    @TypeConverter
+    public static String getStringListOfReminders(List<Reminder> reminders){
+        return new Gson().toJson(reminders);
+    }
+
+
+    @TypeConverter
+    public static List<Reminder> getListOfRemindersFromString(String reminders){
+        return new Gson().fromJson(reminders,new TypeToken<List<Reminder>>(){}.getType());
+    }
 }

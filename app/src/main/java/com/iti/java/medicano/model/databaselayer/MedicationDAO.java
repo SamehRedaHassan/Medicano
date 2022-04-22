@@ -10,6 +10,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.iti.java.medicano.model.Medication;
+
 import java.util.List;
 
 @Dao
@@ -17,6 +18,7 @@ public interface MedicationDAO {
 
     @Query("SELECT * FROM Medication")
     LiveData<List<Medication>> getAllMedications();
+
     @Insert(onConflict = REPLACE)
     void insertMedicationList(List<Medication> medications);
 
@@ -34,4 +36,8 @@ public interface MedicationDAO {
 
     @Update
     void updateMedication(Medication medication);
+
+
+    @Query("SELECT * FROM Medication WHERE userId = :uId AND (startDate <= :dayDate OR endDate >= :dayDate) AND days LIKE '%'||:dayCode||'%'")
+    LiveData<List<Medication>> getUserMedicationForDay(String uId, long dayDate, String dayCode);
 }
