@@ -20,7 +20,6 @@ public class AddMedIconPresenterImpl implements AddMedIconPresenter{
 
     @Override
     public void insertMedicationIntoDB(Medication medication) {
-        Log.i("TAG", "insertMedication: REPOOOOOOOOOO");
         repo.insertMedication(medication);
     }
 

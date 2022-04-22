@@ -15,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.iti.java.medicano.R;
 import com.iti.java.medicano.addmedication.icon.presenter.AddMedIconPresenter;
 import com.iti.java.medicano.addmedication.icon.presenter.AddMedIconPresenterImpl;
 import com.iti.java.medicano.addmedication.repo.medication.MedicationRepoImpl;
@@ -94,20 +95,10 @@ public class AddMedIconFragment extends Fragment implements AddMedIcon {
                     builder.setStatus(1);//1 for Active 0 for inactive
                     builder.setIcon(0);
                     Medication medication = builder.build();
-//                    String stringUser = getContext().getSharedPreferences(SharedPrefKeys.SHARED_PREF_NAME, Context.MODE_PRIVATE).getString(SharedPrefKeys.OWNER_USER, "");
-//                    Gson gson = new Gson();
-//                    User user = gson.fromJson(stringUser,User.class);
-                   // medication.setUserId(user.getEmail());
                     medication.setUserId("usbxpr7L0GfhZJlhPxYyYlFx2Wq2");//retrieve from prefs
                     medication.setId(UUID.randomUUID().toString());
-
-
-                    //presenter -> Repo -> RoomDB
-                    //                  -> FireBase
                     presenter.insertMedicationIntoDB(medication);
-//                    Bundle myBundle = new Bundle();
-//                    myBundle.putParcelable(BundleKeys.MEDICATION_BUILDER,builder);
-
+                    navController.popBackStack(R.id.mainFragment,true);
                 }
             }
         });
