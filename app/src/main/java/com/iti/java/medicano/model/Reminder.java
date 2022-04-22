@@ -25,6 +25,8 @@ public class Reminder implements Parcelable {
         this.date = date;
     }
 
+    public Reminder(){}
+
     public Reminder(int hours, int minutes, float drugQuantity) {
         this.hours = hours;
         this.minutes = minutes;

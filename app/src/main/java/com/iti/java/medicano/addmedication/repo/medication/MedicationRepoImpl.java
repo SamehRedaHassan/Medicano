@@ -71,7 +71,9 @@ public class MedicationRepoImpl implements MedicationRepo {
                 List<Medication> medications = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                     medications.add(dataSnapshot.getValue(Medication.class));
-                dao.insertMedicationList(medications);
+                new Thread(() ->{
+                    dao.insertMedicationList(medications);
+                }).start();
             }
 
             @Override

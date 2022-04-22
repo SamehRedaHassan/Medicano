@@ -98,7 +98,7 @@ public class AddMedIconFragment extends Fragment implements AddMedIcon {
 //                    Gson gson = new Gson();
 //                    User user = gson.fromJson(stringUser,User.class);
                    // medication.setUserId(user.getEmail());
-                    medication.setUserId("SAm");
+                    medication.setUserId("usbxpr7L0GfhZJlhPxYyYlFx2Wq2");//retrieve from prefs
                     medication.setId(UUID.randomUUID().toString());
 
 
