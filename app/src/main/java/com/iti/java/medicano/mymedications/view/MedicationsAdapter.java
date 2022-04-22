@@ -1,4 +1,4 @@
-package com.iti.java.medicano;
+package com.iti.java.medicano.mymedications.view;
 
 
 import android.content.Context;
@@ -11,46 +11,44 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.iti.java.medicano.R;
+import com.iti.java.medicano.model.Medication;
+
 import java.util.List;
 
-public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.myViewHolder>{
+public class MedicationsAdapter extends RecyclerView.Adapter<MedicationsAdapter.myViewHolder>{
     Context context;
-    List<Section> sectionList;
+    List<MedicationSection> medicationSectionList;
 
-    public MainRecyclerAdapter(Context context ,List<Section>  data){
+    public MedicationsAdapter(Context context , List<MedicationSection>  data){
         this.context = context;
-        sectionList = data;
+        medicationSectionList = data;
     }
 
     public class myViewHolder extends RecyclerView.ViewHolder {
-        TextView sectionTitle;
         RecyclerView sectionRecyclerView;
         View row;
         public myViewHolder(@NonNull View itemView ) {
             super(itemView);
             row = itemView;
-            sectionTitle = row.findViewById(R.id.oneSectionTitleId);
             sectionRecyclerView = row.findViewById(R.id.oneSectionRecyclerViewId);
         }
     }
 
-
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        MainRecyclerAdapter myAdapter = new MainRecyclerAdapter(context ,sectionList);
+        MedicationsAdapter myAdapter = new MedicationsAdapter(context , medicationSectionList);
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.medication_row, parent, false);
-        MainRecyclerAdapter.myViewHolder viewHolder = myAdapter.new myViewHolder(view);
+        MedicationsAdapter.myViewHolder viewHolder = myAdapter.new myViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        Section section = sectionList.get(position);
-        String sectionName = section.getSectionName();
-        List<MyData> items = section.getSectionItems();
-        holder.sectionTitle.setText(sectionName);
+        MedicationSection medicationSection = medicationSectionList.get(position);
+        List<Medication> items = medicationSection.getSectionItems();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         holder.sectionRecyclerView.setLayoutManager(linearLayoutManager);
@@ -59,9 +57,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     }
 
-
     @Override
     public int getItemCount() {
-        return sectionList.size();
+        return medicationSectionList.size();
     }
 }

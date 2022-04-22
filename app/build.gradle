@@ -60,8 +60,6 @@ dependencies {
     //Firebase Realtime DB
     implementation 'com.google.firebase:firebase-database'
 
-
-
     //Room
     def room_version = "2.4.2"
     implementation "androidx.room:room-runtime:$room_version"

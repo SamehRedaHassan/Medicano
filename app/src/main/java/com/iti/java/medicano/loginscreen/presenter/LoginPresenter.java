@@ -1,6 +1,7 @@
 package com.iti.java.medicano.loginscreen.presenter;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.iti.java.medicano.loginscreen.view.LoginViewInterface;
 import com.iti.java.medicano.model.userrepo.LoginCallbackInterface;
@@ -22,6 +23,7 @@ public class LoginPresenter implements LoginPresenterInterface, LoginCallbackInt
     public void loginUser(String email, String password) {
         repo.loginToFirebase(email,password,this);
     }
+
 
     @Override
     public void logedinSuccessfully() {

@@ -9,6 +9,8 @@ public class RefillReminder implements Parcelable {
    public int currentNumOfPills;
    public int countToReminderWhenReady;
 
+
+   public RefillReminder(){}
     public RefillReminder(int currentNumOfPills, int countToReminderWhenReady) {
         this.currentNumOfPills = currentNumOfPills;
         this.countToReminderWhenReady = countToReminderWhenReady;

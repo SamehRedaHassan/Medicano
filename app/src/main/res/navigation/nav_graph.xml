@@ -5,6 +5,7 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/fragmentLogin">
 
+
     <fragment
         android:id="@+id/fragmentRegister"
         android:name="com.iti.java.medicano.registerscreen.view.FragmentRegister"
