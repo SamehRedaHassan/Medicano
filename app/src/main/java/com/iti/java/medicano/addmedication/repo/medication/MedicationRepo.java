@@ -12,6 +12,10 @@ public interface MedicationRepo {
     void editMedication(Medication medication);
     Medication getMedication(String medicationId);
     LiveData<List<Medication>> getUserMedications(String userId);
+    List<Medication> getAlMedications();
     void setUserId(String userId);
     LiveData<List<Medication>> getUserMedicationForDay(String uId, long dayDate, String dayCode);
+    List<Medication> getAllMedicationForDay(long dayDate, String dayCode);
+    void setDayAndDate(String uId, long dayDate, String dayCode);
+
 }

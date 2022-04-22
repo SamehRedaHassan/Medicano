@@ -17,7 +17,7 @@ import java.util.List;
 public interface MedicationDAO {
 
     @Query("SELECT * FROM Medication")
-    LiveData<List<Medication>> getAllMedications();
+    List<Medication> getAllMedications();
 
     @Insert(onConflict = REPLACE)
     void insertMedicationList(List<Medication> medications);
@@ -39,5 +39,8 @@ public interface MedicationDAO {
 
                                             //                  25/10       26/10       27/10
     @Query("SELECT * FROM Medication WHERE userId = :uId AND (startDate <= :dayDate OR endDate >= :dayDate) AND days LIKE '%'||:dayCode||'%'")
-    LiveData<List<Medication>> getUserMedicationForDay(String uId, long dayDate, String dayCode);
+    List<Medication> getUserMedicationForDay(String uId, long dayDate, String dayCode);
+
+    @Query("SELECT * FROM Medication WHERE  (startDate <= :dayDate OR endDate >= :dayDate) AND days LIKE '%'||:dayCode||'%'")
+    List<Medication> getAllMedicationForDay(String uId, long dayDate, String dayCode);
 }
