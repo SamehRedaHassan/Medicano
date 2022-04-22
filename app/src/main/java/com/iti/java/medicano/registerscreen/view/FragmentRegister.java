@@ -17,9 +17,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
+import com.iti.java.medicano.Constants;
 import com.iti.java.medicano.R;
 import com.iti.java.medicano.databinding.FragmentRegisterBinding;
 import com.iti.java.medicano.model.User;
@@ -37,11 +39,9 @@ public class FragmentRegister extends Fragment implements RegisterViewInterface{
     private FragmentRegisterBinding binding;
     private NavController navController;
     private RegisterPresenterInterface presenter;
-    public static String userObject = "currentUser";
-    public static SharedPreferences mPrefs;
+
 
     public FragmentRegister() {
-        // Required empty public constructor
     }
 
     @Override
@@ -51,7 +51,7 @@ public class FragmentRegister extends Fragment implements RegisterViewInterface{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        presenter = new RegisterPresenter(this, UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(), FirebaseDatabase.getInstance()));
+        presenter = new RegisterPresenter(this, UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(),getContext().getSharedPreferences(Constants.SHARED_PREFERENCES,MODE_PRIVATE)));
         binding = FragmentRegisterBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -72,26 +72,34 @@ public class FragmentRegister extends Fragment implements RegisterViewInterface{
                 int userGender = binding.genderMale.isChecked()? 0:1;
 
                 String validateUser = Validation.registerValidation(userName,userEmail,userPassword,confirmPassword);
-                //validateUser = "valid registeration";
+
                 if(validateUser.equals("valid registeration")){
                     User user = new User(userName,userEmail,userPassword,userGender);
                     presenter.registerUser(user);
-
-                    mPrefs = getActivity().getPreferences(MODE_PRIVATE);
-                    SharedPreferences.Editor prefsEditor = mPrefs.edit();
-                    Gson gson = new Gson();
-                    String json = gson.toJson(user);
-                    prefsEditor.putString(userObject, json);
-                    prefsEditor.commit();
-
-                    if (navController.getCurrentDestination().getId() == R.id.fragmentRegister)
-                        navController.navigate(R.id.action_fragmentRegister_to_mainFragment);
                 }
                 else{
-                    System.out.println(validateUser);
+                    Toast.makeText(getContext(), validateUser, Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
+    }
+
+    @Override
+    public void navigateToHomeScreen() {
+        Toast.makeText(getContext(), "register successfully", Toast.LENGTH_SHORT).show();
+        if (navController.getCurrentDestination().getId() == R.id.fragmentRegister)
+            navController.navigate(R.id.action_fragmentRegister_to_mainFragment);
+    }
+
+    @Override
+    public void showErrorMsg() {
+        Toast.makeText(getContext(), "register failed", Toast.LENGTH_SHORT).show();
     }
 }

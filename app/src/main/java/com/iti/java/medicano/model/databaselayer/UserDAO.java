@@ -22,5 +22,4 @@ public interface UserDAO {
 
     @Insert(onConflict = REPLACE)
     void insertUser(User user);
-
 }
