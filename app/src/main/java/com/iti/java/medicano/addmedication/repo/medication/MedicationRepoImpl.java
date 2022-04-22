@@ -1,9 +1,12 @@
 package com.iti.java.medicano.addmedication.repo.medication;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,8 +24,10 @@ import java.util.List;
 public class MedicationRepoImpl implements MedicationRepo {
 
     private static MedicationRepoImpl repo = null;
-    private MedicationDAO dao;
+    private final MedicationDAO dao;
     private DatabaseReference database ;
+    private final LiveData<List<Medication>> listLiveData;
+    private final MutableLiveData<List<Medication>> mutableLiveData = new MutableLiveData<>();
     private static final String TAG = "MedicationRepoImpl";
     public static MedicationRepoImpl getInstance(MedicationDAO dao , FirebaseDatabase database,String userId) {
         if(repo == null){
@@ -34,7 +39,7 @@ public class MedicationRepoImpl implements MedicationRepo {
     private MedicationRepoImpl(MedicationDAO dao , FirebaseDatabase firebaseDatabase,String  userId){
         this.database =  firebaseDatabase.getReference(FireBaseConstants.MEDICATIONS).child(userId);
         this.dao = dao ;
-
+        listLiveData = mutableLiveData;
     }
 
     @Override
@@ -50,19 +55,20 @@ public class MedicationRepoImpl implements MedicationRepo {
     @Override
     public void deleteMedication(Medication medication) {
         database.child(medication.getId()).removeValue();
-        new Thread(()->dao.delete(medication));
+        new Thread(()->dao.delete(medication)).start();
     }
 
     @Override
     public void editMedication(Medication medication) {
         database.child(medication.getId()).setValue(medication);
-        new Thread(()->dao.updateMedication(medication));
+        new Thread(()->dao.updateMedication(medication)).start();
     }
 
     @Override
     public Medication getMedication(String medicationId) {
         return dao.getMedication(medicationId);
     }
+
 
     @Override
     public LiveData<List<Medication>> getUserMedications(String userId) {
@@ -84,12 +90,33 @@ public class MedicationRepoImpl implements MedicationRepo {
     }
 
     @Override
+    public List<Medication> getAlMedications() {
+        return dao.getAllMedications();
+    }
+
+    @Override
     public void setUserId(String userId) {
         this.database =  FirebaseDatabase.getInstance().getReference(FireBaseConstants.MEDICATIONS).child(userId);
     }
 
     @Override
     public LiveData<List<Medication>> getUserMedicationForDay(String uId, long dayDate, String dayCode) {
-        return dao.getUserMedicationForDay(uId, dayDate, dayCode);
+        setDayAndDate(uId,dayDate,dayCode);
+        return listLiveData;
+    }
+
+    @Override
+    public List<Medication> getAllMedicationForDay(long dayDate, String dayCode) {
+        return dao.getAllMedications();
+    }
+
+    @Override
+    public void setDayAndDate(String uId, long dayDate, String dayCode) {
+        new Thread(()->{
+            List<Medication> userMedicationForDay = dao.getUserMedicationForDay(uId, dayDate, dayCode);
+            new Handler(Looper.getMainLooper()).post(()->{
+                mutableLiveData.setValue(userMedicationForDay);
+            });
+        }).start();
     }
 }

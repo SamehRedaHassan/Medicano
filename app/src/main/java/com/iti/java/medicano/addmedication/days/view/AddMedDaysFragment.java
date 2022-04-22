@@ -19,10 +19,10 @@ import com.iti.java.medicano.addmedication.days.presenter.AddMedDaysPresenter;
 import com.iti.java.medicano.addmedication.days.presenter.AddMedDaysPresenterImpl;
 import com.iti.java.medicano.databinding.FragmentMedicationDaysBinding;
 import com.iti.java.medicano.model.Medication;
-import com.iti.java.medicano.utils.DaysConst;
 import com.iti.java.medicano.utils.NavigationHelper;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class AddMedDaysFragment extends Fragment implements AddMedDaysView {
@@ -51,32 +51,32 @@ public class AddMedDaysFragment extends Fragment implements AddMedDaysView {
         binding.btnNext.setOnClickListener((v) -> addMedDaysPresenter.onPressNext(days));
 
         binding.saturday.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (b) days.add(DaysConst.SATURDAY);
-            else days.remove((Object) DaysConst.SATURDAY);
+            if (b) days.add(Calendar.SATURDAY);
+            else days.remove((Object) Calendar.SATURDAY);
         });
         binding.sunday.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (b) days.add(DaysConst.SUNDAY);
-            else days.remove((Object) DaysConst.SUNDAY);
+            if (b) days.add(Calendar.SUNDAY);
+            else days.remove((Object) Calendar.SUNDAY);
         });
         binding.monday.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (b) days.add(DaysConst.MONDAY);
-            else days.remove((Object) DaysConst.MONDAY);
+            if (b) days.add(Calendar.MONDAY);
+            else days.remove((Object) Calendar.MONDAY);
         });
         binding.tuesday.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (b) days.add(DaysConst.TUESDAY);
-            else days.remove((Object) DaysConst.TUESDAY);
+            if (b) days.add(Calendar.TUESDAY);
+            else days.remove((Object) Calendar.TUESDAY);
         });
         binding.wednesday.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (b) days.add(DaysConst.WEDNESDAY);
-            else days.remove((Object) DaysConst.WEDNESDAY);
+            if (b) days.add(Calendar.WEDNESDAY);
+            else days.remove((Object) Calendar.WEDNESDAY);
         });
         binding.thursday.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (b) days.add(DaysConst.THURSDAY);
-            else days.remove((Object) DaysConst.THURSDAY);
+            if (b) days.add(Calendar.THURSDAY);
+            else days.remove((Object) Calendar.THURSDAY);
         });
         binding.friday.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (b) days.add(DaysConst.FRIDAY);
-            else days.remove((Object) DaysConst.FRIDAY);
+            if (b) days.add(Calendar.FRIDAY);
+            else days.remove((Object) Calendar.FRIDAY);
         });
     }
 
