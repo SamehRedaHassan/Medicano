@@ -1,6 +1,7 @@
 package com.iti.java.medicano.loginscreen.presenter;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -65,6 +66,7 @@ public class LoginPresenter implements LoginPresenterInterface {
                         });
 
                     } else {
+
                         //updateUI(null);
                         Log.i(TAG, "Failed");
                     }
