@@ -12,13 +12,14 @@ import com.iti.java.medicano.utils.Converters;
 
 @Database(entities = {Medication.class, User.class} , version = 1 , exportSchema = false)
 @TypeConverters({Converters.class})
+
 public abstract class DatabaseLayer extends RoomDatabase {
     public abstract MedicationDAO MedicationDAO();
     public abstract UserDAO UserDAO();
 
     private static DatabaseLayer INSTANCE;
 
-    public static synchronized   DatabaseLayer getDBInstance(Context context){
+    public static synchronized DatabaseLayer getDBInstance(Context context){
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), DatabaseLayer.class, "MedicationsDB").build();
         }

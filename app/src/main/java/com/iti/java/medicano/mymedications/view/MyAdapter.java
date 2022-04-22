@@ -1,4 +1,4 @@
-package com.iti.java.medicano;
+package com.iti.java.medicano.mymedications.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,13 +10,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.iti.java.medicano.R;
+import com.iti.java.medicano.model.Medication;
+
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
-    List<MyData> data;
+    List<Medication> data;
     Context context;
 
-    public MyAdapter(Context context , List<MyData> data){
+    public MyAdapter(Context context , List<Medication> data){
         this.data = data;
         this.context = context;
     }
@@ -51,9 +54,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
         holder.medicationName.setText(data.get(position).getName());
-        holder.medication_dose.setText(""+data.get(position).age);
-        holder.medication_instructions.setText(data.get(position).email);
-        holder.medication_shape_image_view.setImageResource(data.get(position).image);
+//        holder.medication_dose.setText(""+data.get(position).getReasonForMedication());
+//        holder.medication_instructions.setText(data.get(position).getFormOfMedication());
+//        holder.medication_shape_image_view.setImageResource(data.get(position).getIcon());
     }
 
     @Override

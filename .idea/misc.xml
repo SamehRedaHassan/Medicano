@@ -3,6 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/drawable/ic__02_pill.xml" value="0.26614583333333336" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/drawable/ic__03_capsules.xml" value="0.26614583333333336" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/drawable/ic__04_pill.xml" value="0.26614583333333336" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/drawable/ic__05_pills.xml" value="0.26614583333333336" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/drawable/ic__08_pill.xml" value="0.26614583333333336" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/drawable/ic__13_eye_drops.xml" value="0.26614583333333336" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/drawable/rounded_btn.xml" value="0.26614583333333336" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/drawable/rounded_corners.xml" value="0.26614583333333336" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/drawable/vertical_line.xml" value="0.26614583333333336" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/fragment_home.xml" value="0.4" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/fragment_login.xml" value="0.14130434782608695" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/fragment_my_medications.xml" value="0.25" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/fragment_register.xml" value="0.25" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/home_nested_recyclerview_item.xml" value="0.4" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/home_recyclerview_item.xml" value="0.14130434782608695" />
+        <entry key="..\:/ITI/Android Project/Medicano/app/src/main/res/layout/reminder_dialog.xml" value="0.23641304347826086" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/button_shape_dark_main_color.xml" value="0.1075" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic__02_pill.xml" value="0.1705" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic__03_capsules.xml" value="0.1705" />
@@ -62,6 +79,49 @@
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/medication_section_row.xml" value="0.20863616930312098" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/toolbar.xml" value="0.22780797101449277" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20863616930312098" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_name.xml" value="0.264" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1787037037037037" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/drawable/button_shape_dark_main_color.xml" value="0.1787037037037037" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/drawable/ic_back.xml" value="0.1787037037037037" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1787037037037037" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/drawable/ic_close.xml" value="0.1787037037037037" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1787037037037037" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/drawable/ic_medication.xml" value="0.1787037037037037" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/drawable/ic_next.xml" value="0.1787037037037037" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/drawable/rounded_corners.xml" value="0.1787037037037037" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/drawable/vertical_line.xml" value="0.1787037037037037" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/activity_main.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/activity_medication.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/add_dependant.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/content_medication.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/custom_calender_picker.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/dialog_fragment_reminder_picker.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_edit_medication.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_first.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_home.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_login.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_add_reminders.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_days.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_duration.xml" value="0.25" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_icon.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_info.xml" value="0.18" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_name.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_optional_instructions.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_pre_instruction.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_reason.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_refill_reminder.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_medication_strength.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_my_medications.xml" value="0.19739583333333333" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_register.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_second.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/fragment_updates.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/home_nested_recyclerview_item.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/home_recyclerview_item.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/item_day.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/item_new_reminder.xml" value="0.10833333333333334" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/medication_row.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/medication_section_row.xml" value="0.2015625" />
+        <entry key="..\:/androidProjects/Medicano/app/src/main/res/layout/reminder_dialog.xml" value="0.17447916666666666" />
       </map>
     </option>
   </component>

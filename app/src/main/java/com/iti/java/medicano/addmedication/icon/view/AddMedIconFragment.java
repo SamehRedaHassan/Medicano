@@ -95,7 +95,7 @@ public class AddMedIconFragment extends Fragment implements AddMedIcon {
                     builder.setStatus(1);//1 for Active 0 for inactive
                     builder.setIcon(0);
                     Medication medication = builder.build();
-                    medication.setUserId("SAm");
+                    medication.setUserId("usbxpr7L0GfhZJlhPxYyYlFx2Wq2");//retrieve from prefs
                     medication.setId(UUID.randomUUID().toString());
                     presenter.insertMedicationIntoDB(medication);
                     navController.popBackStack(R.id.mainFragment,true);

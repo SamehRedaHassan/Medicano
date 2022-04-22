@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/myMedicationsFragment"
-        android:name="com.iti.java.medicano.MyMedicationsFragment"
+        android:name="com.iti.java.medicano.mymedications.view.MyMedicationsFragment"
         android:label="fragment_my_medications"
         tools:layout="@layout/fragment_my_medications" />
 </navigation>

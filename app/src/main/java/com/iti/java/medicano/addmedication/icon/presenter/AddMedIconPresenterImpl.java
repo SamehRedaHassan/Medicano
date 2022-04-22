@@ -5,6 +5,7 @@ import android.util.Log;
 import com.iti.java.medicano.addmedication.icon.view.AddMedIcon;
 import com.iti.java.medicano.addmedication.repo.medication.MedicationRepo;
 import com.iti.java.medicano.model.Medication;
+import com.iti.java.medicano.model.User;
 
 public class AddMedIconPresenterImpl implements AddMedIconPresenter{
 
@@ -21,4 +22,7 @@ public class AddMedIconPresenterImpl implements AddMedIconPresenter{
     public void insertMedicationIntoDB(Medication medication) {
         repo.insertMedication(medication);
     }
+
+
+
 }
