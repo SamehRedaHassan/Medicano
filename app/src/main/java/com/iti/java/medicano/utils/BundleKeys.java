@@ -6,5 +6,6 @@ public class BundleKeys {
     public static final String START_DATE = "START_DATE";
     public static final String END_DATE = "END_DATE";
     public static final String DATE_TYPE = "DATE_TYPE";
+    public static final String MEDICATION_ID = "MEDICATION_ID";
 
 }

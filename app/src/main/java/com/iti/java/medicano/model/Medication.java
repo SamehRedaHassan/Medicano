@@ -2,13 +2,9 @@ package com.iti.java.medicano.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
 import java.util.Date;
 import java.util.List;
 
@@ -29,10 +25,9 @@ public class Medication {
     int treatmentTime;
     String instruction;
     RefillReminder refillReminder;
-    @Ignore
     List<Reminder> remindersID;
     List<Integer> days;
-   public int status ;
+    public int status ;
     int icon ;
 
     public int getIcon() {
