@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class UserRepoImpl implements UserRepo {
-
+    private static final String TAG = "UserRepoImpl";
     private static UserRepoImpl userRepo = null;
     private UserDAO userDAO;
     private FirebaseDatabase firebaseDB;
@@ -154,19 +154,10 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public LiveData<HashMap<String,Object>> listenToMedFriendsInvitations() {
-        ref.child(Constants.USERS).child(getPreferences().getId()).child("invitationList").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    HashMap<String, Object> invitor = (HashMap<String, Object>) snapshot.getValue();
-                    mutableLiveData.setValue(invitor);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+        requestUserInvitations();
         return liveData;
     }
+
 
     @Override
     public void acceptMedFriendInvitationWithID(String id, String name) {
@@ -263,6 +254,22 @@ public class UserRepoImpl implements UserRepo {
         Gson gson = new Gson();
         User user = gson.fromJson(json, User.class);
         return user;
+    }
+
+    @Override
+    public void requestUserInvitations() {
+        ref.child(Constants.USERS).child(getPreferences().getId()).child("invitationList").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                HashMap<String, Object> invitor = (HashMap<String, Object>) snapshot.getValue();
+                mutableLiveData.setValue(invitor);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, "onCancelled: ",error.toException() );
+            }
+        });
     }
 
 }

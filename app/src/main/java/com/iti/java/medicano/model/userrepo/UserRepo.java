@@ -21,4 +21,5 @@ public interface UserRepo {
     LiveData<List<User>> getLocalUsersFromRoom();
     void addOwnerUserToPreferences(User user);
     User getOwnerUserPreferences();
+    void requestUserInvitations();
 }

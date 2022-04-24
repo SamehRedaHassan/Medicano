@@ -63,21 +63,18 @@ public class InvitationsFragment  extends Fragment implements InvitationsView , 
     private void initData() {
         presenter = new InvitationsPresenterImpl(this, UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(),getContext().getSharedPreferences(Constants.SHARED_PREFERENCES,MODE_PRIVATE)));
         presenter.getInvitations().removeObservers(getViewLifecycleOwner());
-        presenter.getInvitations().observe(getViewLifecycleOwner(), new Observer<HashMap<String,Object>>() {
-            @Override
-            public void onChanged(HashMap<String, Object> invitors) {
-                if(invitations != null){
-                    invitations.clear();
-                }
-                invitations = invitors ;
-              //  Log.i("TAG", "onChanged: " + invitations.size());
-                //ABDOO
-                invitationsAdapter = new InvitationsAdapter(getContext(),invitations,InvitationsFragment.this);
-                invitationsView.setAdapter(invitationsAdapter);
-                RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
-                invitationsView.setLayoutManager(manager);
-                invitationsAdapter.notifyDataSetChanged();
+        presenter.getInvitations().observe(getViewLifecycleOwner(), invitors -> {
+            if(invitations != null){
+                invitations.clear();
             }
+            invitations = invitors ;
+          //  Log.i("TAG", "onChanged: " + invitations.size());
+            //ABDOO
+            invitationsAdapter = new InvitationsAdapter(getContext(),invitations,InvitationsFragment.this);
+            invitationsView.setAdapter(invitationsAdapter);
+            RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
+            invitationsView.setLayoutManager(manager);
+            invitationsAdapter.notifyDataSetChanged();
         });
     }
 
@@ -97,6 +94,6 @@ public class InvitationsFragment  extends Fragment implements InvitationsView , 
 
     @Override
     public void notifyDataChanged() {
-
+        presenter.requestUserInvitations();
     }
 }
