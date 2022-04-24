@@ -99,26 +99,23 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
                         WorkManager.getInstance(getContext().getApplicationContext())),
                 UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(),getContext().getSharedPreferences(Constants.SHARED_PREFERENCES,MODE_PRIVATE)));
         presenter.getMedications().removeObservers(getViewLifecycleOwner());
-        presenter.getMedications().observe(getViewLifecycleOwner(), new Observer<List<Medication>>() {
-             @Override
-             public void onChanged(List<Medication> medications) {
-                 suspendedMeds.clear();
-                 activeMeds.clear();
-                 for (Medication medication : medications){
-                     if(medication.status == MedicationStatus.INACTIVE){
-                         suspendedMeds.add(medication);
-                     }else{
-                         activeMeds.add(medication);
-                     }
-                 }
-                 activeMedsAdapter.notifyDataSetChanged();
-                 suspendedMedsAdapter.notifyDataSetChanged();
-             }
-         });
+        presenter.getMedications().observe(getViewLifecycleOwner(), medications -> {
+            suspendedMeds.clear();
+            activeMeds.clear();
+            for (Medication medication : medications){
+                if(medication.status == MedicationStatus.INACTIVE){
+                    suspendedMeds.add(medication);
+                }else{
+                    activeMeds.add(medication);
+                }
+            }
+            activeMedsAdapter.notifyDataSetChanged();
+            suspendedMedsAdapter.notifyDataSetChanged();
+        });
     }
 
     @Override
     public void notifyDataChanged() {
-
+        presenter.requestUpdateMedicationsForCurrentUser();
     }
 }
