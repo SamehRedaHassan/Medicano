@@ -29,4 +29,14 @@ public class InvitationsPresenterImpl implements InvitationsPresenter {
         Log.i("TAG", "getInvitationssss: " + result.toString());
         return result ;
     }
+
+    @Override
+    public void acceptMedFriendWithID(String id) {
+        repo.acceptMedFriendInvitationWithID(id);
+    }
+
+    @Override
+    public void denyMedFriendWithID(String id) {
+
+    }
 }

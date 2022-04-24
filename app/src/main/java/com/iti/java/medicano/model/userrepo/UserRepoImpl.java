@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,6 +22,7 @@ import com.iti.java.medicano.model.databaselayer.UserDAO;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class UserRepoImpl implements UserRepo {
 
@@ -158,6 +161,51 @@ public class UserRepoImpl implements UserRepo {
             }
         });
         return liveData;
+    }
+
+    @Override
+    public void acceptMedFriendInvitationWithID(String id) {
+        ref.child(Constants.USERS).child(getPreferences().getId()).child("invitationList").child(id).removeValue();
+        Map<String, Object> updates = new HashMap<String,Object>();
+        updates.put(UUID.randomUUID().toString(), id);
+        ref.child("users").child(getPreferences().getId()).child("MedFriends").setValue(updates)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Write was successful!
+                        // ...
+                        Log.i("TAG", "onSuccess: GOOOOD");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("TAG", "onFailure: FAAAAIIIILLLED"+e.toString());
+                    }
+                });
+        /*
+        ref.child(Constants.USERS).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnap : dataSnapshot.getChildren()) {
+                    User user = userSnap.getValue(User.class);
+                    if (user.getId().equals(getPreferences().getId())) {
+                        Map<String, Object> updates = new HashMap<String,Object>();
+                        updates.put(UUID.randomUUID().toString(), id);
+                        ref.child("users").child(getPreferences().getId()).child("medFriends").updateChildren(updates);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });*/
+    }
+
+    @Override
+    public void DenyMedFriendInvitationWithID(String id) {
+        ref.child(Constants.USERS).child(getPreferences().getId()).child("invitationList").child(id).removeValue();
     }
 
 

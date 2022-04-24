@@ -20,7 +20,7 @@ import com.iti.java.medicano.model.databaselayer.DatabaseLayer;
 import com.iti.java.medicano.model.userrepo.UserRepoImpl;
 import java.util.HashMap;
 
-public class InvitationsFragment  extends Fragment implements InvitationsView {
+public class InvitationsFragment  extends Fragment implements InvitationsView , AcceptDenyCallback {
 
     private FragmentInvitationsBinding binding ;
     RecyclerView invitationsView ;
@@ -66,14 +66,27 @@ public class InvitationsFragment  extends Fragment implements InvitationsView {
             public void onChanged(HashMap<String, Object> invitors) {
                 invitations.clear();
                 invitations = invitors ;
-                Log.i("TAG", "onChanged: " + invitations.size());
+              //  Log.i("TAG", "onChanged: " + invitations.size());
                 //ABDOO
-                invitationsAdapter = new InvitationsAdapter(getContext(),invitations);
+                invitationsAdapter = new InvitationsAdapter(getContext(),invitations,InvitationsFragment.this);
                 invitationsView.setAdapter(invitationsAdapter);
                 RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
                 invitationsView.setLayoutManager(manager);
                 invitationsAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void didPressAcceptWithID(String id) {
+        Log.i("TAG", "onClick: Accept" + id);
+        presenter.acceptMedFriendWithID(id);
+
+    }
+
+    @Override
+    public void didPressDenyWithID(String id) {
+        Log.i("TAG", "onClick: DENYYY" + id);
+        presenter.denyMedFriendWithID(id);
     }
 }

@@ -1,7 +1,6 @@
 package com.iti.java.medicano.invitation.view;
 
 import android.content.Context;
-import android.renderscript.Sampler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +19,13 @@ public class InvitationsAdapter extends RecyclerView.Adapter<InvitationsAdapter.
     HashMap<String,Object> invitations;
     Context context;
     List<String> myInvitors;
+    AcceptDenyCallback delegate;
 
 
-    public InvitationsAdapter(Context context ,  HashMap<String,Object> invitations){
+    public InvitationsAdapter(Context context ,  HashMap<String,Object> invitations, AcceptDenyCallback delegate){
         this.invitations = invitations;
         this.context = context;
+        this.delegate = delegate;
         myInvitors = new ArrayList<>();
         myInvitors.addAll(invitations.keySet());
     }
@@ -32,7 +33,7 @@ public class InvitationsAdapter extends RecyclerView.Adapter<InvitationsAdapter.
     @NonNull
     @Override
     public myInvitationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        InvitationsAdapter myAdapter = new InvitationsAdapter(context ,invitations);
+        InvitationsAdapter myAdapter = new InvitationsAdapter(context ,invitations, delegate);
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.invitation_row, parent, false);
         InvitationsAdapter.myInvitationViewHolder viewHolder = myAdapter.new myInvitationViewHolder(view);
@@ -42,6 +43,19 @@ public class InvitationsAdapter extends RecyclerView.Adapter<InvitationsAdapter.
     @Override
     public void onBindViewHolder(@NonNull InvitationsAdapter.myInvitationViewHolder holder, int position) {
         holder.invitorName.setText(invitations.get(myInvitors.get(position)) + " wants to add you as his medfriend");
+        holder.denyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               delegate.didPressDenyWithID(myInvitors.get(holder.getAdapterPosition()));
+            }
+        });
+        holder.acceptBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                delegate.didPressAcceptWithID(myInvitors.get(holder.getAdapterPosition()));
+
+            }
+        });
     }
 
     @Override

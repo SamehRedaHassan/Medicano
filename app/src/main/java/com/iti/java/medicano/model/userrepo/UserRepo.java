@@ -16,4 +16,6 @@ public interface UserRepo {
     User getPreferences();
     void inviteMedFriendWithEmail(String email);
     LiveData<HashMap<String,Object>> listenToMedFriendsInvitations();
+    void acceptMedFriendInvitationWithID(String id);
+    void DenyMedFriendInvitationWithID(String id);
 }
