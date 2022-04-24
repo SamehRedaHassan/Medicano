@@ -42,8 +42,8 @@ public final class NotificationHandler {
             intent.putExtra(MEDICATION_BUILDER,medication);
             intent.putExtra(REMINDER,reminderID);
             // start the service based on the android version
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_NO_CREATE);
             this.createNotificationChannel(context);
             Builder builder = new Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.mipmap.ic_launcher_round)

@@ -127,6 +127,7 @@ public class MedicationRepoImpl implements MedicationRepo {
 
     @Override
     public void setDayAndDate(String uId, long dayDate, String dayCode) {
+        this.database = FirebaseDatabase.getInstance().getReference(FireBaseConstants.MEDICATIONS).child(uId);
         new Thread(() -> {
             List<Medication> userMedicationForDay = dao.getUserMedicationForDay(uId, dayDate, dayCode);
             new Handler(Looper.getMainLooper()).post(() -> {
