@@ -32,6 +32,7 @@ public class MainFragmentPresenterImpl implements  MainFragmentPresenter{
     @Override
     public void switchUser(User user) {
         userRepo.addToPreferences(user);
+        medRepo.setUserId(user.getId());
         //swich setUserId
     }
 
