@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -37,11 +38,11 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
 
     private FragmentMyMedicationsBinding binding;
 
-    RecyclerView activeMedsRecyclerView ;
+    RecyclerView activeMedsRecyclerView;
     RecyclerView suspendedMedsRecyclerView;
-    MyMedicationsPresenter presenter ;
-    MyAdapter activeMedsAdapter ;
-    MyAdapter suspendedMedsAdapter ;
+    MyMedicationsPresenter presenter;
+    MyAdapter activeMedsAdapter;
+    MyAdapter suspendedMedsAdapter;
     List<Medication> activeMeds = new ArrayList<>();
     List<Medication> suspendedMeds = new ArrayList<>();
 
@@ -71,22 +72,22 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
     }
 
 
-    private void configureUI(){
+    private void configureUI() {
         activeMedsRecyclerView = binding.rvActiveMedications;
         suspendedMedsRecyclerView = binding.rvInActiveMedications;
 
         activeMedsRecyclerView.setHasFixedSize(true);
         suspendedMedsRecyclerView.setHasFixedSize(true);
 
-        activeMedsAdapter = new MyAdapter(getContext(),activeMeds);
-        suspendedMedsAdapter = new MyAdapter(getContext(),suspendedMeds);
+        activeMedsAdapter = new MyAdapter(getContext(), activeMeds);
+        suspendedMedsAdapter = new MyAdapter(getContext(), suspendedMeds);
 
         activeMedsRecyclerView.setAdapter(activeMedsAdapter);
         suspendedMedsRecyclerView.setAdapter(suspendedMedsAdapter);
 
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         activeMedsRecyclerView.setLayoutManager(manager);
-        RecyclerView.LayoutManager manager2 = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
+        RecyclerView.LayoutManager manager2 = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         suspendedMedsRecyclerView.setLayoutManager(manager2);
     }
 
@@ -97,16 +98,18 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
                         FirebaseDatabase.getInstance(),
                         FirebaseAuth.getInstance().getUid(),
                         WorkManager.getInstance(getContext().getApplicationContext())),
-                UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(),getContext().getSharedPreferences(Constants.SHARED_PREFERENCES,MODE_PRIVATE)));
+                UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(), getContext().getSharedPreferences(Constants.SHARED_PREFERENCES, MODE_PRIVATE)));
         presenter.getMedications().removeObservers(getViewLifecycleOwner());
         presenter.getMedications().observe(getViewLifecycleOwner(), medications -> {
             suspendedMeds.clear();
             activeMeds.clear();
-            for (Medication medication : medications){
-                if(medication.status == MedicationStatus.INACTIVE){
-                    suspendedMeds.add(medication);
-                }else{
-                    activeMeds.add(medication);
+            if (medications != null) {
+                for (Medication medication : medications) {
+                    if (medication.status == MedicationStatus.INACTIVE) {
+                        suspendedMeds.add(medication);
+                    } else {
+                        activeMeds.add(medication);
+                    }
                 }
             }
             activeMedsAdapter.notifyDataSetChanged();
@@ -116,6 +119,7 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
 
     @Override
     public void notifyDataChanged() {
+        Log.i("RRRRRRRR", "notifyDataChanged: ");
         presenter.requestUpdateMedicationsForCurrentUser();
     }
 }

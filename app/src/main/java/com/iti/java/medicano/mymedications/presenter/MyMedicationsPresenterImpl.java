@@ -1,5 +1,7 @@
 package com.iti.java.medicano.mymedications.presenter;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import com.iti.java.medicano.addmedication.repo.medication.MedicationRepo;
 import com.iti.java.medicano.model.Medication;
@@ -28,6 +30,7 @@ public class MyMedicationsPresenterImpl implements MyMedicationsPresenter {
 
     @Override
     public void requestUpdateMedicationsForCurrentUser() {
+        Log.i("AAAAA", "requestUpdateMedicationsForCurrentUser: ");
         repo.requestUpdateMedicationsForCurrentUser(userRepo.getPreferences().getId());
     }
 }

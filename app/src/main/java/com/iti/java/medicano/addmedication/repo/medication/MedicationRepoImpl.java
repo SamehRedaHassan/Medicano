@@ -103,7 +103,7 @@ public class MedicationRepoImpl implements MedicationRepo {
     public LiveData<List<Medication>> getUserMedications(String userId) {
         upDateDatabase();
         new Thread(() -> {
-            List<Medication> userMedications = dao.getUserAllMedications(userId).getValue();
+            List<Medication> userMedications = dao.getUserAllMedications(userId);
             new Handler(Looper.getMainLooper()).post(() -> {
                 _userMedicationsForUser.setValue(userMedications);
             });
@@ -147,8 +147,9 @@ public class MedicationRepoImpl implements MedicationRepo {
 
     @Override
     public void requestUpdateMedicationsForCurrentUser(String userId) {
+        Log.i("GGGG", "requestUpdateMedicationsForCurrentUser: " + userId);
         new Thread(() -> {
-            List<Medication> userMedications = dao.getUserAllMedications(userId).getValue();
+            List<Medication> userMedications = dao.getUserAllMedications(userId);
             new Handler(Looper.getMainLooper()).post(() -> {
                 _userMedicationsForUser.setValue(userMedications);
             });
