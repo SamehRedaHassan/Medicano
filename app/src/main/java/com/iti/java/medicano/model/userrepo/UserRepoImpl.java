@@ -164,11 +164,11 @@ public class UserRepoImpl implements UserRepo {
     }
 
     @Override
-    public void acceptMedFriendInvitationWithID(String id) {
+    public void acceptMedFriendInvitationWithID(String id, String name) {
         ref.child(Constants.USERS).child(getPreferences().getId()).child("invitationList").child(id).removeValue();
         Map<String, Object> updates = new HashMap<String,Object>();
-        updates.put(UUID.randomUUID().toString(), id);
-        ref.child("users").child(getPreferences().getId()).child("MedFriends").setValue(updates)
+        updates.put(id,name);
+        ref.child("users").child(getPreferences().getId()).child("MedFriends").updateChildren(updates)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -183,30 +183,12 @@ public class UserRepoImpl implements UserRepo {
                         Log.i("TAG", "onFailure: FAAAAIIIILLLED"+e.toString());
                     }
                 });
-        /*
-        ref.child(Constants.USERS).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot userSnap : dataSnapshot.getChildren()) {
-                    User user = userSnap.getValue(User.class);
-                    if (user.getId().equals(getPreferences().getId())) {
-                        Map<String, Object> updates = new HashMap<String,Object>();
-                        updates.put(UUID.randomUUID().toString(), id);
-                        ref.child("users").child(getPreferences().getId()).child("medFriends").updateChildren(updates);
-                    }
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });*/
     }
 
     @Override
     public void DenyMedFriendInvitationWithID(String id) {
         ref.child(Constants.USERS).child(getPreferences().getId()).child("invitationList").child(id).removeValue();
     }
-
 
 }

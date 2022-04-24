@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iti.java.medicano.R;
+import com.iti.java.medicano.homescreen.model.MedicationHome;
 import com.iti.java.medicano.model.Medication;
 
 import java.util.List;
@@ -53,10 +54,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        holder.medicationName.setText(data.get(position).getName());
-//        holder.medication_dose.setText(""+data.get(position).getReasonForMedication());
-//        holder.medication_instructions.setText(data.get(position).getFormOfMedication());
-//        holder.medication_shape_image_view.setImageResource(data.get(position).getIcon());
+        Medication med = data.get(position);
+        holder.medicationName.setText(med.getName());
+        holder.medication_shape_image_view.setImageResource(R.drawable.capsule);
+        holder.medication_dose.setText(""+med.getStrengthValue()+ " | " + med.getStrengthType()  );
+        holder.medication_instructions.setText(med.getInstruction());
     }
 
     @Override

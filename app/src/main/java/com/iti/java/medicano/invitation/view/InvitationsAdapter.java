@@ -27,7 +27,9 @@ public class InvitationsAdapter extends RecyclerView.Adapter<InvitationsAdapter.
         this.context = context;
         this.delegate = delegate;
         myInvitors = new ArrayList<>();
-        myInvitors.addAll(invitations.keySet());
+        if (invitations != null && invitations.keySet() != null){
+            myInvitors.addAll(invitations.keySet());
+        }
     }
 
     @NonNull
@@ -52,7 +54,7 @@ public class InvitationsAdapter extends RecyclerView.Adapter<InvitationsAdapter.
         holder.acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                delegate.didPressAcceptWithID(myInvitors.get(holder.getAdapterPosition()));
+                delegate.didPressAcceptWithID(myInvitors.get(holder.getAdapterPosition()),invitations.get(myInvitors.get(holder.getAdapterPosition()) ).toString());
 
             }
         });
@@ -60,8 +62,6 @@ public class InvitationsAdapter extends RecyclerView.Adapter<InvitationsAdapter.
 
     @Override
     public int getItemCount() {
-        Log.i("TAG", "getItemCount: from My Adapter"+myInvitors.size());
-        Log.i("TAG", "getItemCount: from My Adapter"+invitations.size());
 
         return myInvitors.size();
     }

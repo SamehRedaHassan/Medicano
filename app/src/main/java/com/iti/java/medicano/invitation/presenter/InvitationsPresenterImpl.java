@@ -31,12 +31,13 @@ public class InvitationsPresenterImpl implements InvitationsPresenter {
     }
 
     @Override
-    public void acceptMedFriendWithID(String id) {
-        repo.acceptMedFriendInvitationWithID(id);
+    public void acceptMedFriendWithID(String id, String name) {
+        repo.acceptMedFriendInvitationWithID(id , name);
+
     }
 
     @Override
     public void denyMedFriendWithID(String id) {
-
+        repo.DenyMedFriendInvitationWithID(id);
     }
 }
