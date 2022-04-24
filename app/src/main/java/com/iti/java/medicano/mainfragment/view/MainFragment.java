@@ -78,10 +78,10 @@ public class MainFragment extends Fragment implements MainFragmentView {
                 WorkManager.getInstance(getContext().getApplicationContext())));
         binding.currentUserName.setOnItemClickListener((adapterView, view, i, l) -> {
             presenter.switchUser(users.get(i));
-            Fragment fragmentById = getChildFragmentManager().findFragmentById(R.id.fragmentHome);
-            Fragment primaryNavigationFragment = fragmentById.getChildFragmentManager().getPrimaryNavigationFragment();
-            if (primaryNavigationFragment instanceof OnNotifyDataChanged) {
-                ((OnNotifyDataChanged) primaryNavigationFragment).notifyDataChanged();
+            NavHostFragment navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.nav_host_fragment_main);
+            Fragment fragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
+            if (fragment instanceof OnNotifyDataChanged) {
+                ((OnNotifyDataChanged) fragment).notifyDataChanged();
             }
         });
         presenter.syncUsers().observe(getViewLifecycleOwner(), users -> {
