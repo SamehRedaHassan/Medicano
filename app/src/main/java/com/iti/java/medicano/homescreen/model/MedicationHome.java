@@ -3,16 +3,26 @@ package com.iti.java.medicano.homescreen.model;
 public class MedicationHome {
 
     private String medName;
+    private String currentReminder;
     private String medDesc;
-    private String medImg;
+    private int medImg;
 
     public MedicationHome() {
     }
 
-    public MedicationHome(String medName, String medDesc, String medImg) {
+    public MedicationHome(String medName, String currentReminder, String medDesc, int medImg) {
         this.medName = medName;
+        this.currentReminder = currentReminder;
         this.medDesc = medDesc;
         this.medImg = medImg;
+    }
+
+    public String getCurrentReminder() {
+        return currentReminder;
+    }
+
+    public void setCurrentReminder(String currentReminder) {
+        this.currentReminder = currentReminder;
     }
 
     public String getMedName() {
@@ -31,11 +41,11 @@ public class MedicationHome {
         this.medDesc = medDesc;
     }
 
-    public String getMedImg() {
+    public int getMedImg() {
         return medImg;
     }
 
-    public void setMedImg(String medImg) {
+    public void setMedImg(int medImg) {
         this.medImg = medImg;
     }
 }
