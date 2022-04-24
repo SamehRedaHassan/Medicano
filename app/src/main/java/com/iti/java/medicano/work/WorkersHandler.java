@@ -3,19 +3,15 @@ package com.iti.java.medicano.work;
 import static com.iti.java.medicano.utils.BundleKeys.MEDICATION_ID;
 import static com.iti.java.medicano.utils.BundleKeys.REMINDER;
 import static com.iti.java.medicano.utils.MyDateUtils.isTodayIsStartOrEndOrBetweenDate;
-
 import android.content.Context;
 import android.util.Log;
-
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
-
 import com.iti.java.medicano.model.Medication;
 import com.iti.java.medicano.model.Reminder;
 import com.iti.java.medicano.utils.MyDateUtils;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +44,7 @@ public class WorkersHandler {
                 .addTag(m.getId())
                 .setInputData(
                         new Data.Builder()
+                                .putString(REMINDER, r.reminderID)
                                 .putString(MEDICATION_ID, m.getId())
                                 .build()
                 )
