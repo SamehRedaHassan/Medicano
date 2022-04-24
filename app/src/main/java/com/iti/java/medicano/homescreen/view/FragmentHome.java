@@ -37,11 +37,13 @@ import com.iti.java.medicano.model.databaselayer.DatabaseLayer;
 import com.iti.java.medicano.model.userrepo.UserRepoImpl;
 import com.iti.java.medicano.utils.Converters;
 import com.iti.java.medicano.utils.MyDateUtils;
-import com.iti.java.medicano.utils.OnNotifyDataChanged;
 
+import com.iti.java.medicano.utils.OnNotifyDataChanged;
 import org.joda.time.DateTime;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -60,6 +62,7 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
     //private List<Medication> mediItemList = new ArrayList<>();
     private long selectedDay;
     private int dayOfWeek;
+    private Date reminderDate;
 
     private FloatingActionButton addBtn, addMedicationBtn, addTrackerBtn, addDoseBtn;
     private TextView addMedicationTxt, addTrackerTxt, addDoseTxt;
@@ -74,7 +77,6 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //TODO should replace firebase id with current selected user ;;;;
         presenter = new HomePresenter(this,
                 UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(),
                         getContext().getSharedPreferences(Constants.SHARED_PREFERENCES, MODE_PRIVATE)),
@@ -95,17 +97,22 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
         Toast.makeText(getContext(), user.getFullName(), Toast.LENGTH_SHORT).show();
 
         picker.setListener(dateSelected -> {
+
             Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
+            reminderDate = dateSelected.toDate();
+
             Log.i("TAG", "day selected " + dateSelected);
             selectedDay = Converters.dateToTimestamp(dateSelected.toDate());
             Log.i("TAG", selectedDay + "");
+
             Calendar c = Calendar.getInstance();
             c.setTime(dateSelected.toDate());
             dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 
             presenter.setDateChange(user.getId(), selectedDay, dayOfWeek + "");
 
-        }).init();
+        }).showTodayButton(true).init();
+        picker.setDate(DateTime.now());
 
         getMedicationsForToday();
 
@@ -170,7 +177,7 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
                             String remTime = r.hours + ":" + r.minutes;
                             Log.i("TAG", r.hours + ":" + r.minutes);
 
-                            MedicationHome medicationHome = new MedicationHome(medication.getName(), medication.getStrengthValue() + "," + medication.getInstruction(), "capsule.jpg");
+                            MedicationHome medicationHome = new MedicationHome(medication.getName(),r.hours + ":" + r.minutes+", "+reminderDate.getDay()+" "+reminderDate.getMonth(), medication.getStrengthValue() + " g, take " + r.drugQuantity+" pill(s)", medication.getIcon());
                             Log.i("TAG", medication.getName());
 
                             if (mediList.get(remTime) == null) {

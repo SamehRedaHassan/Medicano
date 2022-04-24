@@ -8,9 +8,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
+
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+
+import com.iti.java.medicano.Constants;
 import com.iti.java.medicano.R;
+import com.iti.java.medicano.model.Medication;
+import com.iti.java.medicano.model.Reminder;
+import com.iti.java.medicano.utils.BundleKeys;
 
 public class ForegroundService extends Service {
     public ForegroundService() {
@@ -31,14 +38,20 @@ public class ForegroundService extends Service {
         else
             startForeground(1, new Notification());
 
+        Log.i("TAG", "onCreate: ");
         // create an instance of Window class
         // and display the content on screen
-        Window window=new Window(this);
-        window.open();
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Medication medication = (Medication) intent.getExtras().get(BundleKeys.MEDICATION_BUILDER);
+        String rem = (String) intent.getExtras().get(BundleKeys.REMINDER);
+
+        Log.i("TAG", "onStartCommand: "+medication.getName()+rem);
+        Window window=new Window(this,medication,rem);
+        window.open();
         return super.onStartCommand(intent, flags, startId);
     }
 

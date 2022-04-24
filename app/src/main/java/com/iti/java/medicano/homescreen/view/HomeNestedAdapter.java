@@ -1,6 +1,9 @@
 package com.iti.java.medicano.homescreen.view;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,9 +41,33 @@ public class HomeNestedAdapter extends RecyclerView.Adapter<HomeNestedAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MedicationHome med = medicationHomes.get(position);
-        holder.imgMed.setImageResource(R.drawable.capsule);
+        holder.imgMed.setImageResource(med.getMedImg());
         holder.txtMedName.setText(med.getMedName());
         holder.txtMedDesc.setText(med.getMedDesc());
+        //holder.constraintLayout.setBackground();
+
+        Dialog detailsDialog = new Dialog(context);
+
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                detailsDialog.setContentView(R.layout.medication_dialog_details);
+                detailsDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                ImageView mediImeg = detailsDialog.findViewById(R.id.mediIconDetails);
+                TextView mediName = detailsDialog.findViewById(R.id.mediNameDetails);
+                TextView nextDate = detailsDialog.findViewById(R.id.nextDate);
+                TextView doseAndSize = detailsDialog.findViewById(R.id.doseAndSize);
+
+                mediImeg.setImageResource(med.getMedImg());
+                mediName.setText(med.getMedName());
+                nextDate.setText("Scheduled for "+med.getCurrentReminder());
+                doseAndSize.setText(med.getMedDesc());
+
+                detailsDialog.show();
+            }
+        });
+
     }
 
     @Override
