@@ -3,28 +3,26 @@ package com.iti.java.medicano.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Date;
-
 public class RefillReminder implements Parcelable {
    public int currentNumOfPills;
-   public int countToReminderWhenReady;
+   public int countToReminderWhenReach;
 
 
    public RefillReminder(){}
     public RefillReminder(int currentNumOfPills, int countToReminderWhenReady) {
         this.currentNumOfPills = currentNumOfPills;
-        this.countToReminderWhenReady = countToReminderWhenReady;
+        this.countToReminderWhenReach = countToReminderWhenReady;
     }
 
     protected RefillReminder(Parcel in) {
         currentNumOfPills = in.readInt();
-        countToReminderWhenReady = in.readInt();
+        countToReminderWhenReach = in.readInt();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(currentNumOfPills);
-        dest.writeInt(countToReminderWhenReady);
+        dest.writeInt(countToReminderWhenReach);
     }
 
     @Override

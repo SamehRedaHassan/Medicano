@@ -1,35 +1,23 @@
 package com.iti.java.medicano.addmedication.repo.medication;
 
-import static com.iti.java.medicano.utils.MyDateUtils.isTodayIsStartOrEndOrBetweenDate;
-
 import android.os.Handler;
 import android.os.Looper;
-import android.text.format.DateUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.work.WorkManager;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.iti.java.medicano.model.Medication;
-import com.iti.java.medicano.model.Reminder;
 import com.iti.java.medicano.model.databaselayer.MedicationDAO;
-import com.iti.java.medicano.utils.Converters;
 import com.iti.java.medicano.utils.FireBaseConstants;
-import com.iti.java.medicano.utils.MyDateUtils;
 import com.iti.java.medicano.work.WorkersHandler;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
@@ -55,6 +43,27 @@ public class MedicationRepoImpl implements MedicationRepo {
         this.dao = dao;
         listLiveData = mutableLiveData;
         this.workManager = workManager;
+        upDateDatabase();
+    }
+
+    private void upDateDatabase() {
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Medication> medications = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                    medications.add(dataSnapshot.getValue(Medication.class));
+                new Thread(() -> {
+                    dao.insertMedicationList(medications);
+                    WorkersHandler.loopOnListOfMedications(medications,workManager);
+                }).start();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, "onCancelled: ", error.toException());
+            }
+        });
     }
 
     @Override
@@ -89,28 +98,13 @@ public class MedicationRepoImpl implements MedicationRepo {
 
     @Override
     public LiveData<List<Medication>> getUserMedications(String userId) {
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Medication> medications = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren())
-                    medications.add(dataSnapshot.getValue(Medication.class));
-                new Thread(() -> {
-                    dao.insertMedicationList(medications);
-                    WorkersHandler.loopOnListOfMedications(medications,workManager);
-                }).start();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e(TAG, "onCancelled: ", error.toException());
-            }
-        });
+        upDateDatabase();
         return dao.getUserAllMedications(userId);
     }
 
     @Override
     public List<Medication> getAlMedications() {
+        upDateDatabase();
         return dao.getAllMedications();
     }
 
