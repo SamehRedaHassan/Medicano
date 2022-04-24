@@ -7,7 +7,7 @@
         android:icon="@drawable/home"/>
     <item
         android:id="@+id/myMedicationsFragment"
-        android:title="@string/medications"
+        android:title="@string/medicationHomes"
         android:enabled="true"
         android:icon="@drawable/ic_medication"/>
     <item

@@ -4,15 +4,15 @@ import java.util.List;
 
 public class MedicationList {
     private String time;
-    private List<Medication> medications;
+    private List<MedicationHome> medicationHomes;
 
     public MedicationList() {
 
     }
 
-    public MedicationList(String time, List<Medication> medications) {
+    public MedicationList(String time, List<MedicationHome> medicationHomes) {
         this.time = time;
-        this.medications = medications;
+        this.medicationHomes = medicationHomes;
     }
 
     public String getTime() {
@@ -23,11 +23,11 @@ public class MedicationList {
         this.time = time;
     }
 
-    public List<Medication> getMedications() {
-        return medications;
+    public List<MedicationHome> getMedications() {
+        return medicationHomes;
     }
 
-    public void setMedications(List<Medication> medications) {
-        this.medications = medications;
+    public void setMedications(List<MedicationHome> medicationHomes) {
+        this.medicationHomes = medicationHomes;
     }
 }

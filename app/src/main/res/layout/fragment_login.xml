@@ -94,10 +94,12 @@
             android:textSize="20dp" />
 
         <TextView
+            android:id="@+id/goToRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Create new account?"
             android:textColor="@color/main_color_dark"
+            android:clickable="true"
             android:textSize="14dp"
             android:layout_gravity="center"
             android:layout_marginBottom="15dp"/>

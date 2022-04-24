@@ -1,15 +1,15 @@
 package com.iti.java.medicano.homescreen.model;
 
-public class Medication {
+public class MedicationHome {
 
     private String medName;
     private String medDesc;
     private String medImg;
 
-    public Medication() {
+    public MedicationHome() {
     }
 
-    public Medication(String medName, String medDesc, String medImg) {
+    public MedicationHome(String medName, String medDesc, String medImg) {
         this.medName = medName;
         this.medDesc = medDesc;
         this.medImg = medImg;

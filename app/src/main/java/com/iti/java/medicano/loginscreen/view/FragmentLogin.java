@@ -73,6 +73,14 @@ public class FragmentLogin extends Fragment implements LoginViewInterface{
                 }
             }
         });
+
+        binding.goToRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (navController.getCurrentDestination().getId() == R.id.fragmentLogin)
+                    navController.navigate(R.id.action_fragmentLogin_to_fragmentRegister);
+            }
+        });
     }
 
     @Override

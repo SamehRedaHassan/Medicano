@@ -2,6 +2,7 @@ package com.iti.java.medicano.addmedication.icon.view;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.iti.java.medicano.Constants;
 import com.iti.java.medicano.R;
 import com.iti.java.medicano.addmedication.icon.presenter.AddMedIconPresenter;
 import com.iti.java.medicano.addmedication.icon.presenter.AddMedIconPresenterImpl;
@@ -22,6 +24,8 @@ import com.iti.java.medicano.addmedication.repo.medication.MedicationRepoImpl;
 import com.iti.java.medicano.databinding.FragmentMedicationIconBinding;
 import com.iti.java.medicano.model.Medication;
 import com.iti.java.medicano.model.databaselayer.DatabaseLayer;
+import com.iti.java.medicano.model.userrepo.UserRepo;
+import com.iti.java.medicano.model.userrepo.UserRepoImpl;
 import com.iti.java.medicano.utils.BundleKeys;
 
 import java.util.UUID;
@@ -39,7 +43,10 @@ public class AddMedIconFragment extends Fragment implements AddMedIcon {
         View view = binding.getRoot();
 
         //TODO change and get ID from shared Prefs. for current user...
-        presenter = new AddMedIconPresenterImpl(this, MedicationRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).MedicationDAO(), FirebaseDatabase.getInstance(), FirebaseAuth.getInstance().getUid()));
+        presenter = new AddMedIconPresenterImpl(this, MedicationRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).MedicationDAO()
+                , FirebaseDatabase.getInstance(),
+                FirebaseAuth.getInstance().getUid()),
+                UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(),getContext().getSharedPreferences(Constants.SHARED_PREFERENCES, Context.MODE_PRIVATE)));
         return view.getRootView();
     }
 
@@ -95,10 +102,10 @@ public class AddMedIconFragment extends Fragment implements AddMedIcon {
                     builder.setStatus(1);//1 for Active 0 for inactive
                     builder.setIcon(0);
                     Medication medication = builder.build();
-                    medication.setUserId("usbxpr7L0GfhZJlhPxYyYlFx2Wq2");//retrieve from prefs
+
                     medication.setId(UUID.randomUUID().toString());
                     presenter.insertMedicationIntoDB(medication);
-                    navController.popBackStack(R.id.mainFragment,true);
+
                 }
             }
         });
@@ -109,5 +116,10 @@ public class AddMedIconFragment extends Fragment implements AddMedIcon {
     public void onDestroy() {
         super.onDestroy();
         binding = null;
+    }
+
+    @Override
+    public void navigateBack() {
+        navController.popBackStack(R.id.mainFragment,true);
     }
 }
