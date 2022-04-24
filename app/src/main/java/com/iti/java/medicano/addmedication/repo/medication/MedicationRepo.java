@@ -7,6 +7,7 @@ import com.iti.java.medicano.model.Medication;
 import java.util.List;
 
 public interface MedicationRepo {
+    void upDateDatabase();
     void insertMedication(Medication medication);
     void deleteMedication(Medication medication);
     void editMedication(Medication medication);

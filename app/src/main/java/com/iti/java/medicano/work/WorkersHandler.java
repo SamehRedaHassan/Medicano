@@ -55,6 +55,7 @@ public class WorkersHandler {
         WorkManager.getInstance(context.getApplicationContext()).enqueueUniqueWork(r.reminderID, ExistingWorkPolicy.REPLACE, reminderWork);
 
     }
+
     public static void fireWorkManagerRequestForReminder(Medication m, Reminder r, WorkManager workManager) {
         Date date = new Date(System.currentTimeMillis());
         Calendar c = Calendar.getInstance();
@@ -64,7 +65,7 @@ public class WorkersHandler {
         cal.set(Calendar.HOUR, r.hours);
         Log.e(TAG, "doWork: date.getTime() =" + date.getTime());
         Log.e(TAG, "doWork: date.getTime() =" + cal.getTime().getTime());
-        long delay =  cal.getTime().getTime() - date.getTime();
+        long delay = cal.getTime().getTime() - date.getTime();
         Log.e(TAG, "doWork: " + delay);
         OneTimeWorkRequest reminderWork = new OneTimeWorkRequest
                 .Builder(ReminderWorker.class)
@@ -79,18 +80,18 @@ public class WorkersHandler {
         workManager.enqueueUniqueWork(r.reminderID, ExistingWorkPolicy.REPLACE, reminderWork);
     }
 
-    public static void loopOnMedicationReminders(Medication medication, WorkManager workManager){
+    public static void loopOnMedicationReminders(Medication medication, WorkManager workManager) {
         for (Reminder r : medication.getRemindersID()) {
             boolean isTodayIsSelectedWeekDay = (medication.getDays().contains(MyDateUtils.getTodayDayCode()));
             if (isTodayIsStartOrEndOrBetweenDate(medication) && isTodayIsSelectedWeekDay) {
-                WorkersHandler.fireWorkManagerRequestForReminder(medication,r,workManager);
+                WorkersHandler.fireWorkManagerRequestForReminder(medication, r, workManager);
             }
         }
     }
 
-    public static void loopOnListOfMedications(List<Medication> medications, WorkManager workManager){
-        for (Medication m: medications){
-            loopOnMedicationReminders(m,workManager);
+    public static void loopOnListOfMedications(List<Medication> medications, WorkManager workManager) {
+        for (Medication m : medications) {
+            loopOnMedicationReminders(m, workManager);
         }
     }
 }
