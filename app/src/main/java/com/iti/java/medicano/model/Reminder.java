@@ -2,8 +2,8 @@ package com.iti.java.medicano.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.util.Date;
+import com.iti.java.medicano.utils.ReminderStatus;
+import java.util.UUID;
 
 
 public class Reminder implements Parcelable {
@@ -14,20 +14,13 @@ public class Reminder implements Parcelable {
     public int hours;
     public int minutes;
     public float drugQuantity;
-//    //Room date only for day
-//    public Date date;
-//
-//    public Date getDate() {
-//        return date;
-//    }
-//
-//    public void setDate(Date date) {
-//        this.date = date;
-//    }
+    public int status = ReminderStatus.PENDING;
+
 
     public Reminder(){}
 
     public Reminder(int hours, int minutes, float drugQuantity) {
+        this.reminderID = UUID.randomUUID().toString();
         this.hours = hours;
         this.minutes = minutes;
         this.drugQuantity = drugQuantity;
@@ -40,6 +33,7 @@ public class Reminder implements Parcelable {
         hours = in.readInt();
         minutes = in.readInt();
         drugQuantity = in.readFloat();
+        status = in.readInt();
     }
 
     @Override
@@ -49,6 +43,7 @@ public class Reminder implements Parcelable {
         dest.writeInt(hours);
         dest.writeInt(minutes);
         dest.writeFloat(drugQuantity);
+        dest.writeInt(status);
     }
 
     @Override

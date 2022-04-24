@@ -3,17 +3,14 @@ package com.iti.java.medicano.homescreen.view;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import androidx.work.WorkManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +19,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
 import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,7 +29,6 @@ import com.iti.java.medicano.R;
 import com.iti.java.medicano.addmedication.repo.medication.MedicationRepoImpl;
 import com.iti.java.medicano.databinding.FragmentHomeBinding;
 import com.iti.java.medicano.homescreen.model.MedicationHome;
-import com.iti.java.medicano.homescreen.model.MedicationList;
 import com.iti.java.medicano.homescreen.presenter.HomePresenter;
 import com.iti.java.medicano.model.Medication;
 import com.iti.java.medicano.model.Reminder;
@@ -41,17 +36,13 @@ import com.iti.java.medicano.model.User;
 import com.iti.java.medicano.model.databaselayer.DatabaseLayer;
 import com.iti.java.medicano.model.userrepo.UserRepoImpl;
 import com.iti.java.medicano.utils.Converters;
-import com.iti.java.medicano.utils.DaysConst;
-
 import org.joda.time.DateTime;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class FragmentHome extends Fragment implements HomeViewInterface,DatePickerListener {
+public class FragmentHome extends Fragment implements HomeViewInterface, DatePickerListener {
 
     private FragmentHomeBinding binding;
     private RecyclerView homeRecyclerView;
@@ -67,9 +58,9 @@ public class FragmentHome extends Fragment implements HomeViewInterface,DatePick
     private long selectedDay;
     private int dayOfWeek;
 
-    private FloatingActionButton addBtn,addMedicationBtn,addTrackerBtn,addDoseBtn;
-    private TextView addMedicationTxt,addTrackerTxt,addDoseTxt;
-    private Animation fabOpen,fabClose,mainOpen,mainClose;
+    private FloatingActionButton addBtn, addMedicationBtn, addTrackerBtn, addDoseBtn;
+    private TextView addMedicationTxt, addTrackerTxt, addDoseTxt;
+    private Animation fabOpen, fabClose, mainOpen, mainClose;
     private HorizontalPicker picker;
     boolean isOpened;
 
@@ -79,8 +70,15 @@ public class FragmentHome extends Fragment implements HomeViewInterface,DatePick
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        presenter = new HomePresenter(this, UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(),getContext().getSharedPreferences(Constants.SHARED_PREFERENCES,MODE_PRIVATE)), MedicationRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).MedicationDAO(), FirebaseDatabase.getInstance(), FirebaseAuth.getInstance().getUid()));
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //TODO should replace firebase id with current selected user ;;;;
+        presenter = new HomePresenter(this,
+                UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(),
+                        getContext().getSharedPreferences(Constants.SHARED_PREFERENCES, MODE_PRIVATE)),
+                MedicationRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).MedicationDAO(),
+                        FirebaseDatabase.getInstance(),
+                        FirebaseAuth.getInstance().getUid(),
+                        WorkManager.getInstance(getContext().getApplicationContext())));
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -95,14 +93,14 @@ public class FragmentHome extends Fragment implements HomeViewInterface,DatePick
 
         picker.setListener(dateSelected -> {
             Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
-            Log.i("TAG", "day selected "+dateSelected);
+            Log.i("TAG", "day selected " + dateSelected);
             selectedDay = Converters.dateToTimestamp(dateSelected.toDate());
-            Log.i("TAG", selectedDay+"");
+            Log.i("TAG", selectedDay + "");
             Calendar c = Calendar.getInstance();
             c.setTime(dateSelected.toDate());
             dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 
-            presenter.setDateChange(user.getId(),selectedDay,dayOfWeek+"");
+            presenter.setDateChange(user.getId(), selectedDay, dayOfWeek + "");
 
         }).init();
 
@@ -111,21 +109,21 @@ public class FragmentHome extends Fragment implements HomeViewInterface,DatePick
         addBtn.setOnClickListener(view12 -> floatingButtonUI());
 
         addMedicationBtn.setOnClickListener(view1 -> {
-            if (outerNavController.getCurrentDestination().getId() == R.id.mainFragment){
+            if (outerNavController.getCurrentDestination().getId() == R.id.mainFragment) {
                 outerNavController.navigate(R.id.action_mainFragment_to_navigation);
             }
         });
 
         addTrackerBtn.setOnClickListener(view1 -> {
-            if (outerNavController.getCurrentDestination().getId() == R.id.mainFragment){
+            if (outerNavController.getCurrentDestination().getId() == R.id.mainFragment) {
                 outerNavController.navigate(R.id.addMedFriendImpl);
             }
         });
 
     }
 
-    private void initUI(){
-        outerNavController = Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+    private void initUI() {
+        outerNavController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         //outerNavController.navigate(R.id.action_mainFragment_to_editMedicationFragment);
 
         homeRecyclerView = binding.homeRecycler;
@@ -135,7 +133,7 @@ public class FragmentHome extends Fragment implements HomeViewInterface,DatePick
         homeRecyclerView.setAdapter(homeAdapter);
         homeRecyclerView.setLayoutManager(layoutManager);
 
-        picker = (HorizontalPicker)binding.datePicker;
+        picker = (HorizontalPicker) binding.datePicker;
 
         addBtn = binding.addBtn;
         addMedicationBtn = binding.addMedicationBtn;
@@ -146,47 +144,43 @@ public class FragmentHome extends Fragment implements HomeViewInterface,DatePick
         addTrackerTxt = binding.addTrackerTxt;
         addDoseTxt = binding.addDoseTxt;
 
-        fabOpen = AnimationUtils.loadAnimation(getContext(),R.anim.to_bottom);
-        fabClose = AnimationUtils.loadAnimation(getContext(),R.anim.from_bottom);
-        mainOpen = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_open);
-        mainClose = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_close);
+        fabOpen = AnimationUtils.loadAnimation(getContext(), R.anim.to_bottom);
+        fabClose = AnimationUtils.loadAnimation(getContext(), R.anim.from_bottom);
+        mainOpen = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_open);
+        mainClose = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_close);
 
         isOpened = false;
     }
 
-    void getMedicationsForToday(){
+    void getMedicationsForToday() {
         presenter
-                .getMyMedicationsForDay(user.getId(),selectedDay,dayOfWeek+"")
-                .observe(this, new Observer<List<Medication>>() {
-                    @Override
-                    public void onChanged(List<Medication> medications) {
-                        mediList.clear();
-                        Log.i("TAG", "onChanged: "+medications.size()+" "+user.getId());
+                .getMyMedicationsForDay(user.getId(), selectedDay, dayOfWeek + "")
+                .observe(getViewLifecycleOwner(), medications -> {
+                    mediList.clear();
+                    Log.i("TAG", "onChanged: " + medications.size() + " " + user.getId());
 
-                        for(Medication medication : medications){
-                            Log.i("TAG", Converters.dateToTimestamp(medication.getStartDate()).toString());
-                            Log.i("TAG", Converters.dateToTimestamp(medication.getEndDate()).toString());
-                            for (Reminder r : medication.getRemindersID()){
+                    for (Medication medication : medications) {
+                        Log.i("TAG", Converters.dateToTimestamp(medication.getStartDate()).toString());
+                        Log.i("TAG", Converters.dateToTimestamp(medication.getEndDate()).toString());
+                        for (Reminder r : medication.getRemindersID()) {
 
-                                String remTime = r.hours+":"+r.minutes;
-                                Log.i("TAG",r.hours+":"+r.minutes );
+                            String remTime = r.hours + ":" + r.minutes;
+                            Log.i("TAG", r.hours + ":" + r.minutes);
 
-                                MedicationHome medicationHome = new MedicationHome(medication.getName(),medication.getStrengthValue()+","+medication.getInstruction(),"capsule.jpg");
-                                Log.i("TAG", medication.getName());
+                            MedicationHome medicationHome = new MedicationHome(medication.getName(), medication.getStrengthValue() + "," + medication.getInstruction(), "capsule.jpg");
+                            Log.i("TAG", medication.getName());
 
-                                if(mediList.get(remTime)==null){
-                                    List<MedicationHome> mediItemList = new ArrayList<>();
-                                    mediItemList.add(medicationHome);
-                                    mediList.put(remTime,mediItemList);
-                                }
-                                else {
-                                    mediList.get(remTime).add(medicationHome);
-                                }
+                            if (mediList.get(remTime) == null) {
+                                List<MedicationHome> mediItemList = new ArrayList<>();
+                                mediItemList.add(medicationHome);
+                                mediList.put(remTime, mediItemList);
+                            } else {
+                                mediList.get(remTime).add(medicationHome);
                             }
                         }
-                        homeAdapter.setMedicationArray(mediList);
-                        homeAdapter.notifyDataSetChanged();
                     }
+                    homeAdapter.setMedicationArray(mediList);
+                    homeAdapter.notifyDataSetChanged();
                 });
     }
 
@@ -219,8 +213,8 @@ public class FragmentHome extends Fragment implements HomeViewInterface,DatePick
         Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
     }
 
-    public void floatingButtonUI(){
-        if(isOpened){
+    public void floatingButtonUI() {
+        if (isOpened) {
             mainClose.setDuration(200);
             fabClose.setDuration(200);
 
@@ -241,8 +235,7 @@ public class FragmentHome extends Fragment implements HomeViewInterface,DatePick
             addDoseTxt.setVisibility(View.INVISIBLE);
 
             isOpened = false;
-        }
-        else{
+        } else {
             mainOpen.setDuration(200);
             fabOpen.setDuration(200);
 

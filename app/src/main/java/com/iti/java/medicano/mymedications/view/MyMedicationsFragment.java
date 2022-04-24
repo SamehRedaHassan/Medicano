@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.WorkManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -85,7 +86,12 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
     }
 
     private void initData() {
-        presenter = new MyMedicationsPresenterImpl(this, MedicationRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).MedicationDAO(), FirebaseDatabase.getInstance(), FirebaseAuth.getInstance().getUid()));
+        //TODO id should be replaced with userRepo . geT Current User
+        presenter = new MyMedicationsPresenterImpl(this,
+                MedicationRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).MedicationDAO(),
+                        FirebaseDatabase.getInstance(),
+                        FirebaseAuth.getInstance().getUid(),
+                        WorkManager.getInstance(getContext().getApplicationContext())));
         presenter.getMedications().removeObservers(getViewLifecycleOwner());
         presenter.getMedications().observe(getViewLifecycleOwner(), new Observer<List<Medication>>() {
              @Override

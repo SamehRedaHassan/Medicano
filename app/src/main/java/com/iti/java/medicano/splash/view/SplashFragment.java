@@ -40,19 +40,15 @@ public class SplashFragment extends Fragment {
         binding = FragmentSplashBinding.inflate(getLayoutInflater());
         navController = NavHostFragment.findNavController(this);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(user == null) {
-                    if (navController.getCurrentDestination().getId() == R.id.splashFragment)
-                        navController.navigate(R.id.action_splashFragment_to_fragmentLogin2);
-                }
-                else {
-                    if (navController.getCurrentDestination().getId() == R.id.splashFragment)
-                        navController.navigate(R.id.action_splashFragment_to_mainFragment);
-                }
+        new Handler().postDelayed(() -> {
+            if(user == null) {
+                if (navController.getCurrentDestination().getId() == R.id.splashFragment)
+                    navController.navigate(R.id.action_splashFragment_to_fragmentLogin2);
             }
-
+            else {
+                if (navController.getCurrentDestination().getId() == R.id.splashFragment)
+                    navController.navigate(R.id.action_splashFragment_to_mainFragment);
+            }
         }, 1000); // wait for 5 seconds
 
 

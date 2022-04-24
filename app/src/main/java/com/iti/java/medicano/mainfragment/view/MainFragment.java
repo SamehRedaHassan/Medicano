@@ -30,6 +30,7 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = ((NavHostFragment) getChildFragmentManager().findFragmentById(R.id.nav_host_fragment_main)).getNavController();
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
+        //TODO if first Time Fire PeriodicWorker for the first time;;;
     }
 
     @Override

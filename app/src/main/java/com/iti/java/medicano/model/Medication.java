@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Medication {
+public class Medication implements Parcelable{
     @NonNull
     @PrimaryKey
     String id ;
@@ -29,6 +29,56 @@ public class Medication {
     List<Integer> days;
     public int status ;
     int icon ;
+
+    protected Medication(Parcel in) {
+        id = in.readString();
+        userId = in.readString();
+        name = in.readString();
+        strengthType = in.readInt();
+        strengthValue = in.readFloat();
+        reasonForMedication = in.readString();
+        formOfMedication = in.readInt();
+        treatmentTime = in.readInt();
+        instruction = in.readString();
+        refillReminder = in.readParcelable(RefillReminder.class.getClassLoader());
+        remindersID = in.createTypedArrayList(Reminder.CREATOR);
+        status = in.readInt();
+        icon = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(userId);
+        dest.writeString(name);
+        dest.writeInt(strengthType);
+        dest.writeFloat(strengthValue);
+        dest.writeString(reasonForMedication);
+        dest.writeInt(formOfMedication);
+        dest.writeInt(treatmentTime);
+        dest.writeString(instruction);
+        dest.writeParcelable(refillReminder, flags);
+        dest.writeTypedList(remindersID);
+        dest.writeInt(status);
+        dest.writeInt(icon);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Medication> CREATOR = new Creator<Medication>() {
+        @Override
+        public Medication createFromParcel(Parcel in) {
+            return new Medication(in);
+        }
+
+        @Override
+        public Medication[] newArray(int size) {
+            return new Medication[size];
+        }
+    };
 
     public int getIcon() {
         return icon;
