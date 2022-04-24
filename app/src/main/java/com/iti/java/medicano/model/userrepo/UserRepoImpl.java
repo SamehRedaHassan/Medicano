@@ -232,9 +232,11 @@ public class UserRepoImpl implements UserRepo {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 HashMap<String, Object> friend = (HashMap<String, Object>) dataSnapshot.getValue();
-                Set<String>  s = friend.keySet();
-                for (String se:s) {
-                    getUserFromFirebaseAndSaveToRoom(se);
+                if(friend != null && friend.keySet() != null){
+                    Set<String>  s = friend.keySet();
+                    for (String se:s) {
+                        getUserFromFirebaseAndSaveToRoom(se);
+                    }
                 }
             }
 
