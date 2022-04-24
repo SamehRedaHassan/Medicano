@@ -48,7 +48,7 @@ public class ReminderWorker extends Worker {
                     WorkManager.getInstance(getApplicationContext()));
             Medication medication = medicationRepo.getMedication(mID);
             if (medication!=null){
-                NotificationHandler.INSTANCE.createReminderNotification(getApplicationContext(),medication);
+                NotificationHandler.INSTANCE.createReminderNotification(getApplicationContext(),medication,getId().toString());
 //                startService(medication);
             }
         }

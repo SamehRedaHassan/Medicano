@@ -45,8 +45,8 @@ public class MedicationRepoImpl implements MedicationRepo {
         this.workManager = workManager;
         upDateDatabase();
     }
-
-    private void upDateDatabase() {
+    @Override
+    public void upDateDatabase() {
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -111,6 +111,7 @@ public class MedicationRepoImpl implements MedicationRepo {
     @Override
     public void setUserId(String userId) {
         this.database = FirebaseDatabase.getInstance().getReference(FireBaseConstants.MEDICATIONS).child(userId);
+        upDateDatabase();
     }
 
     @Override
