@@ -82,7 +82,7 @@
     <string name="active_meds">Active meds</string>
     <string name="inactive_meds">InActive Meds</string>
     <string name="home">Home</string>
-    <string name="medications">Medications</string>
+    <string name="medicationHomes">Medications</string>
     <string name="can_not_be_empty">This field can\'t be empty!</string>
     <string name="please_restart_process">Please restart process!</string>
     <string name="strength_value">Strength Value</string>

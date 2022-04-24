@@ -12,18 +12,18 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iti.java.medicano.R;
-import com.iti.java.medicano.homescreen.model.Medication;
+import com.iti.java.medicano.homescreen.model.MedicationHome;
 
 import java.util.List;
 
 public class HomeNestedAdapter extends RecyclerView.Adapter<HomeNestedAdapter.ViewHolder> {
 
     private Context context;
-    private List<Medication> medications;
+    private List<MedicationHome> medicationHomes;
 
-    public HomeNestedAdapter(Context contx,List<Medication> meds){
+    public HomeNestedAdapter(Context contx,List<MedicationHome> meds){
         context = contx;
-        medications = meds;
+        medicationHomes = meds;
     }
 
     @NonNull
@@ -37,7 +37,7 @@ public class HomeNestedAdapter extends RecyclerView.Adapter<HomeNestedAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Medication med = medications.get(position);
+        MedicationHome med = medicationHomes.get(position);
         holder.imgMed.setImageResource(R.drawable.capsule);
         holder.txtMedName.setText(med.getMedName());
         holder.txtMedDesc.setText(med.getMedDesc());
@@ -45,7 +45,7 @@ public class HomeNestedAdapter extends RecyclerView.Adapter<HomeNestedAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return medications.size();
+        return medicationHomes.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

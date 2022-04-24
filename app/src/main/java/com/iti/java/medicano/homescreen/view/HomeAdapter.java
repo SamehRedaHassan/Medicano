@@ -12,19 +12,31 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iti.java.medicano.R;
+import com.iti.java.medicano.homescreen.model.MedicationHome;
 import com.iti.java.medicano.homescreen.model.MedicationList;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder>{
 
     private Context context;
-    private List<MedicationList> medicationsList;
+    private HashMap<String,List<MedicationHome>> medicationsList;
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
+    private ArrayList<String> medicationArray;
 
-    public HomeAdapter(Context context,List<MedicationList> medsList){
+    public HomeAdapter(Context context){
         this.context = context;
+        medicationsList = new HashMap<>();
+        medicationArray = new ArrayList<>();
+    }
+
+    public void setMedicationArray(HashMap<String,List<MedicationHome>> medsList){
+
+        medicationArray.clear();
         this.medicationsList = medsList;
+        medicationArray.addAll(medicationsList.keySet());
     }
 
     @NonNull
@@ -38,17 +50,17 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull HomeAdapter.HomeViewHolder holder, int position) {
-        MedicationList medList = medicationsList.get(position);
-        holder.txtTime.setText(medList.getTime());
+        holder.txtTime.setText(medicationArray.get(position));
+        List<MedicationHome> medList = medicationsList.get(medicationArray.get(position));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 holder.recyclerView.getContext(),
                 LinearLayoutManager.VERTICAL,
                 false);
 
-        layoutManager.setInitialPrefetchItemCount(medList.getMedications().size());
+        layoutManager.setInitialPrefetchItemCount(medList.size());
 
-        HomeNestedAdapter nestedAdapter = new HomeNestedAdapter(this.context,medList.getMedications());
+        HomeNestedAdapter nestedAdapter = new HomeNestedAdapter(this.context,medList);
 
         holder.recyclerView.setLayoutManager(layoutManager);
         holder.recyclerView.setAdapter(nestedAdapter);

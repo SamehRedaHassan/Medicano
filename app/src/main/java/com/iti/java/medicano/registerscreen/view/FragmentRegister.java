@@ -83,6 +83,14 @@ public class FragmentRegister extends Fragment implements RegisterViewInterface{
             }
         });
 
+        binding.goToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (navController.getCurrentDestination().getId() == R.id.fragmentRegister)
+                    navController.navigateUp();
+            }
+        });
+
     }
 
     @Override
