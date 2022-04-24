@@ -1,6 +1,7 @@
 package com.iti.java.medicano.work;
 
 import static com.iti.java.medicano.utils.BundleKeys.MEDICATION_ID;
+import static com.iti.java.medicano.utils.BundleKeys.REMINDER;
 import static com.iti.java.medicano.utils.MyDateUtils.isTodayIsStartOrEndOrBetweenDate;
 
 import android.content.Context;
@@ -73,6 +74,7 @@ public class WorkersHandler {
                 .setInputData(
                         new Data.Builder()
                                 .putString(MEDICATION_ID, m.getId())
+                                .putString(REMINDER, r.reminderID)
                                 .build()
                 )
                 .setInitialDelay(delay, TimeUnit.MILLISECONDS)
