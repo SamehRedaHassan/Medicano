@@ -1,5 +1,7 @@
 package com.iti.java.medicano.mymedications.view;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,10 +19,12 @@ import androidx.work.WorkManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.iti.java.medicano.Constants;
 import com.iti.java.medicano.addmedication.repo.medication.MedicationRepoImpl;
 import com.iti.java.medicano.databinding.FragmentMyMedicationsBinding;
 import com.iti.java.medicano.model.Medication;
 import com.iti.java.medicano.model.databaselayer.DatabaseLayer;
+import com.iti.java.medicano.model.userrepo.UserRepoImpl;
 import com.iti.java.medicano.mymedications.presenter.MyMedicationsPresenter;
 import com.iti.java.medicano.mymedications.presenter.MyMedicationsPresenterImpl;
 import com.iti.java.medicano.utils.MedicationStatus;
@@ -91,7 +95,8 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
                 MedicationRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).MedicationDAO(),
                         FirebaseDatabase.getInstance(),
                         FirebaseAuth.getInstance().getUid(),
-                        WorkManager.getInstance(getContext().getApplicationContext())));
+                        WorkManager.getInstance(getContext().getApplicationContext())),
+                UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(),getContext().getSharedPreferences(Constants.SHARED_PREFERENCES,MODE_PRIVATE)));
         presenter.getMedications().removeObservers(getViewLifecycleOwner());
         presenter.getMedications().observe(getViewLifecycleOwner(), new Observer<List<Medication>>() {
              @Override

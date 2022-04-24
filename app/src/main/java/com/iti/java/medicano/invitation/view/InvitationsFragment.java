@@ -64,7 +64,9 @@ public class InvitationsFragment  extends Fragment implements InvitationsView , 
         presenter.getInvitations().observe(getViewLifecycleOwner(), new Observer<HashMap<String,Object>>() {
             @Override
             public void onChanged(HashMap<String, Object> invitors) {
-                invitations.clear();
+                if(invitations != null){
+                    invitations.clear();
+                }
                 invitations = invitors ;
               //  Log.i("TAG", "onChanged: " + invitations.size());
                 //ABDOO
@@ -77,10 +79,11 @@ public class InvitationsFragment  extends Fragment implements InvitationsView , 
         });
     }
 
+
+
     @Override
-    public void didPressAcceptWithID(String id) {
-        Log.i("TAG", "onClick: Accept" + id);
-        presenter.acceptMedFriendWithID(id);
+    public void didPressAcceptWithID(String id, String name) {
+        presenter.acceptMedFriendWithID(id,name);
 
     }
 

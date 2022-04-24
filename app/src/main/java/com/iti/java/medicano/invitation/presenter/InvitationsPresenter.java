@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface InvitationsPresenter {
     LiveData<HashMap<String,Object>> getInvitations();
-    void acceptMedFriendWithID(String id);
+    void acceptMedFriendWithID(String id , String name);
     void denyMedFriendWithID(String id);
 
 }
