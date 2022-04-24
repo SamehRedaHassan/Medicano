@@ -28,11 +28,12 @@ import com.iti.java.medicano.model.userrepo.UserRepoImpl;
 import com.iti.java.medicano.mymedications.presenter.MyMedicationsPresenter;
 import com.iti.java.medicano.mymedications.presenter.MyMedicationsPresenterImpl;
 import com.iti.java.medicano.utils.MedicationStatus;
+import com.iti.java.medicano.utils.OnNotifyDataChanged;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyMedicationsFragment extends Fragment implements MyMedicationsView {
+public class MyMedicationsFragment extends Fragment implements MyMedicationsView, OnNotifyDataChanged {
 
     private FragmentMyMedicationsBinding binding;
 
@@ -114,5 +115,10 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
                  suspendedMedsAdapter.notifyDataSetChanged();
              }
          });
+    }
+
+    @Override
+    public void notifyDataChanged() {
+
     }
 }

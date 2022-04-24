@@ -38,6 +38,7 @@ import com.iti.java.medicano.model.userrepo.UserRepoImpl;
 import com.iti.java.medicano.utils.Converters;
 import com.iti.java.medicano.utils.MyDateUtils;
 
+import com.iti.java.medicano.utils.OnNotifyDataChanged;
 import org.joda.time.DateTime;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,8 +47,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class FragmentHome extends Fragment implements HomeViewInterface, DatePickerListener {
-
+public class FragmentHome extends Fragment implements HomeViewInterface, DatePickerListener, OnNotifyDataChanged {
+    private static final String TAG = "FragmentHome";
     private FragmentHomeBinding binding;
     private RecyclerView homeRecyclerView;
     private LinearLayoutManager layoutManager;
@@ -166,7 +167,7 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
                 .getMyMedicationsForDay(user.getId(), selectedDay, dayOfWeek + "")
                 .observe(getViewLifecycleOwner(), medications -> {
                     mediList.clear();
-                    Log.i("TAG", "onChanged: " + medications.size() + " " + user.getId());
+                    Log.i("USERRRR", "onChanged: " + medications.size() + " " + user.getId());
 
                     for (Medication medication : medications) {
                         Log.i("TAG", Converters.dateToTimestamp(medication.getStartDate()).toString());
@@ -266,5 +267,13 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
 
             isOpened = true;
         }
+    }
+
+    @Override
+    public void notifyDataChanged() {
+        user = presenter.getUser();
+        presenter.setDateChange(user.getId(), selectedDay,dayOfWeek+"");
+        picker.setDate(DateTime.now());
+        Log.e(TAG, "notifyDataChanged: ");
     }
 }

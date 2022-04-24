@@ -1,20 +1,17 @@
 package com.iti.java.medicano.work;
 
 import static com.iti.java.medicano.utils.BundleKeys.MEDICATION_ID;
+import static com.iti.java.medicano.utils.BundleKeys.REMINDER;
 import static com.iti.java.medicano.utils.MyDateUtils.isTodayIsStartOrEndOrBetweenDate;
-
 import android.content.Context;
 import android.util.Log;
-
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
-
 import com.iti.java.medicano.model.Medication;
 import com.iti.java.medicano.model.Reminder;
 import com.iti.java.medicano.utils.MyDateUtils;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +44,7 @@ public class WorkersHandler {
                 .addTag(m.getId())
                 .setInputData(
                         new Data.Builder()
+                                .putString(REMINDER, r.reminderID)
                                 .putString(MEDICATION_ID, m.getId())
                                 .build()
                 )
@@ -55,6 +53,7 @@ public class WorkersHandler {
         WorkManager.getInstance(context.getApplicationContext()).enqueueUniqueWork(r.reminderID, ExistingWorkPolicy.REPLACE, reminderWork);
 
     }
+
     public static void fireWorkManagerRequestForReminder(Medication m, Reminder r, WorkManager workManager) {
         Date date = new Date(System.currentTimeMillis());
         Calendar c = Calendar.getInstance();
@@ -64,7 +63,7 @@ public class WorkersHandler {
         cal.set(Calendar.HOUR, r.hours);
         Log.e(TAG, "doWork: date.getTime() =" + date.getTime());
         Log.e(TAG, "doWork: date.getTime() =" + cal.getTime().getTime());
-        long delay =  cal.getTime().getTime() - date.getTime();
+        long delay = cal.getTime().getTime() - date.getTime();
         Log.e(TAG, "doWork: " + delay);
         OneTimeWorkRequest reminderWork = new OneTimeWorkRequest
                 .Builder(ReminderWorker.class)
@@ -72,6 +71,7 @@ public class WorkersHandler {
                 .setInputData(
                         new Data.Builder()
                                 .putString(MEDICATION_ID, m.getId())
+                                .putString(REMINDER, r.reminderID)
                                 .build()
                 )
                 .setInitialDelay(delay, TimeUnit.MILLISECONDS)
@@ -79,18 +79,18 @@ public class WorkersHandler {
         workManager.enqueueUniqueWork(r.reminderID, ExistingWorkPolicy.REPLACE, reminderWork);
     }
 
-    public static void loopOnMedicationReminders(Medication medication, WorkManager workManager){
+    public static void loopOnMedicationReminders(Medication medication, WorkManager workManager) {
         for (Reminder r : medication.getRemindersID()) {
             boolean isTodayIsSelectedWeekDay = (medication.getDays().contains(MyDateUtils.getTodayDayCode()));
             if (isTodayIsStartOrEndOrBetweenDate(medication) && isTodayIsSelectedWeekDay) {
-                WorkersHandler.fireWorkManagerRequestForReminder(medication,r,workManager);
+                WorkersHandler.fireWorkManagerRequestForReminder(medication, r, workManager);
             }
         }
     }
 
-    public static void loopOnListOfMedications(List<Medication> medications, WorkManager workManager){
-        for (Medication m: medications){
-            loopOnMedicationReminders(m,workManager);
+    public static void loopOnListOfMedications(List<Medication> medications, WorkManager workManager) {
+        for (Medication m : medications) {
+            loopOnMedicationReminders(m, workManager);
         }
     }
 }

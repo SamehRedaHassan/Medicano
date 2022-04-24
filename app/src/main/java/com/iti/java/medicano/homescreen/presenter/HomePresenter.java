@@ -2,6 +2,7 @@ package com.iti.java.medicano.homescreen.presenter;
 
 import androidx.lifecycle.LiveData;
 
+import com.iti.java.medicano.addmedication.repo.medication.MedicationRepo;
 import com.iti.java.medicano.addmedication.repo.medication.MedicationRepoImpl;
 import com.iti.java.medicano.homescreen.view.HomeViewInterface;
 import com.iti.java.medicano.model.Medication;
@@ -14,7 +15,7 @@ public class HomePresenter implements HomePresenterInterface {
 
     private HomeViewInterface homeView;
     private UserRepo repo;
-    private MedicationRepoImpl mediRepo;
+    private MedicationRepo mediRepo;
 
     public HomePresenter(HomeViewInterface homeView,UserRepo repo,MedicationRepoImpl mediRepo){
         this.homeView =homeView;

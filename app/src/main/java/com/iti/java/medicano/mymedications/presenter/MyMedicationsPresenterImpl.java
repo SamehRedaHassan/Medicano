@@ -21,6 +21,7 @@ public class MyMedicationsPresenterImpl implements MyMedicationsPresenter {
         this.view = view;
         this.repo = repo;
         this.userRepo = userRepo;
+
     }
 
     @Override

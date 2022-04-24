@@ -1,12 +1,11 @@
 package com.iti.java.medicano.model.userrepo;
 
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
 
 import com.iti.java.medicano.model.User;
 
 import java.util.HashMap;
+import java.util.List;
 
 public interface UserRepo {
     void registerToFirebase(User user, RegisterCallbackInterface callback);
@@ -18,4 +17,8 @@ public interface UserRepo {
     LiveData<HashMap<String,Object>> listenToMedFriendsInvitations();
     void acceptMedFriendInvitationWithID(String id ,String name);
     void DenyMedFriendInvitationWithID(String id);
+    void getUserFromFirebaseAndSaveToRoom(String id);
+    LiveData<List<User>> getLocalUsersFromRoom();
+    void addOwnerUserToPreferences(User user);
+    User getOwnerUserPreferences();
 }

@@ -21,8 +21,9 @@ import com.iti.java.medicano.model.User;
 import com.iti.java.medicano.model.databaselayer.UserDAO;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Set;
 
 public class UserRepoImpl implements UserRepo {
 
@@ -34,6 +35,7 @@ public class UserRepoImpl implements UserRepo {
     public SharedPreferences mPrefs;
     public final LiveData<HashMap<String,Object>> liveData;
     private final MutableLiveData<HashMap<String,Object>> mutableLiveData = new MutableLiveData<>();
+
 
     private UserRepoImpl(UserDAO dao, SharedPreferences mPrefs) {
         this.userDAO = dao;
@@ -63,6 +65,7 @@ public class UserRepoImpl implements UserRepo {
                         ref.child(Constants.USERS).child(userId).setValue(userData);
                         insertToRoom(user);
                         addToPreferences(user);
+                        addOwnerUserToPreferences(user);
                         callback.registeredSuccessfully();
                     } else {
                         callback.registeredFailed();
@@ -85,6 +88,7 @@ public class UserRepoImpl implements UserRepo {
                                 User user = snapshot.getValue(User.class);
                                 user.setId(userId);
                                 insertToRoom(user);
+                                addOwnerUserToPreferences(user);
                                 addToPreferences(user);
                                 callback.logedinSuccessfully();
                             }
@@ -125,6 +129,7 @@ public class UserRepoImpl implements UserRepo {
         User user = gson.fromJson(json, User.class);
         return user;
     }
+    //save ownerUser
 
     @Override
     public void inviteMedFriendWithEmail(String email) {
@@ -168,13 +173,25 @@ public class UserRepoImpl implements UserRepo {
         ref.child(Constants.USERS).child(getPreferences().getId()).child("invitationList").child(id).removeValue();
         Map<String, Object> updates = new HashMap<String,Object>();
         updates.put(id,name);
-        ref.child("users").child(getPreferences().getId()).child("MedFriends").updateChildren(updates)
+        ref.child(Constants.USERS).child(getPreferences().getId()).child("MedFriends").updateChildren(updates)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        // Write was successful!
-                        // ...
                         Log.i("TAG", "onSuccess: GOOOOD");
+                        //samna balady
+                        ref.child(Constants.USERS).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                User user = dataSnapshot.getValue(User.class);
+                               insertToRoom(user);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                System.out.println("The read failed: " + databaseError.getCode());
+                            }
+                        });
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -189,6 +206,63 @@ public class UserRepoImpl implements UserRepo {
     @Override
     public void DenyMedFriendInvitationWithID(String id) {
         ref.child(Constants.USERS).child(getPreferences().getId()).child("invitationList").child(id).removeValue();
+    }
+
+
+    @Override
+    public void getUserFromFirebaseAndSaveToRoom(String id) {
+        ref.child(Constants.USERS).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                insertToRoom(user);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+
+    @Override
+    public LiveData<List<User>> getLocalUsersFromRoom() {
+        ref.child(Constants.USERS).child(getPreferences().getId()).child("MedFriends").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                HashMap<String, Object> friend = (HashMap<String, Object>) dataSnapshot.getValue();
+                if(friend != null && friend.keySet() != null){
+                    Set<String>  s = friend.keySet();
+                    for (String se:s) {
+                        getUserFromFirebaseAndSaveToRoom(se);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+        return userDAO.getAllUsers();
+    }
+
+    @Override
+    public void addOwnerUserToPreferences(User user) {
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+        prefsEditor.putString(Constants.OWNER_USER_KEY, json);
+        prefsEditor.commit();
+    }
+
+    @Override
+    public User getOwnerUserPreferences() {
+        String json = mPrefs.getString(Constants.OWNER_USER_KEY, "");
+        Gson gson = new Gson();
+        User user = gson.fromJson(json, User.class);
+        return user;
     }
 
 }

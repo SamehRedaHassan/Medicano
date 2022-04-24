@@ -4,6 +4,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 import static androidx.core.app.NotificationCompat.VISIBILITY_PUBLIC;
 
 import static com.iti.java.medicano.utils.BundleKeys.MEDICATION_BUILDER;
+import static com.iti.java.medicano.utils.BundleKeys.REMINDER;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -31,7 +32,7 @@ public final class NotificationHandler {
     @NotNull
     public static final NotificationHandler INSTANCE;
 
-    public final void createReminderNotification(@NotNull Context context,Medication medication) {
+    public final void createReminderNotification(@NotNull Context context, Medication medication, String reminderID) {
 //        Intrinsics.checkNotNullParameter(context, "context");
         // check if the user has already granted
         // the Draw over other apps permission
@@ -39,6 +40,7 @@ public final class NotificationHandler {
         if(Settings.canDrawOverlays(context)) {
             Intent intent = new Intent(context, ForegroundService.class);
             intent.putExtra(MEDICATION_BUILDER,medication);
+            intent.putExtra(REMINDER,reminderID);
             // start the service based on the android version
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);

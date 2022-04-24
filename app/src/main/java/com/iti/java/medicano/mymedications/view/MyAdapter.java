@@ -56,7 +56,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
         Medication med = data.get(position);
         holder.medicationName.setText(med.getName());
-        holder.medication_shape_image_view.setImageResource(R.drawable.capsule);
+        holder.medication_shape_image_view.setImageResource(med.getIcon());
         holder.medication_dose.setText(""+med.getStrengthValue()+ " | " + med.getStrengthType()  );
         holder.medication_instructions.setText(med.getInstruction());
     }
