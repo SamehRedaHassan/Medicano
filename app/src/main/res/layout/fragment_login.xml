@@ -39,13 +39,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:textAlignment="textStart"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
+                android:minHeight="48dp"
                 android:padding="10dp"
+                android:textAlignment="textStart"
                 android:textCursorDrawable="@color/main_color_dark"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
         </LinearLayout>
 
@@ -72,11 +73,12 @@
                 android:layout_gravity="start"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:textAlignment="textStart"
                 android:maxLines="1"
+                android:minHeight="48dp"
                 android:padding="10dp"
+                android:textAlignment="textStart"
                 android:textCursorDrawable="@color/main_color_dark"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
         </LinearLayout>
 

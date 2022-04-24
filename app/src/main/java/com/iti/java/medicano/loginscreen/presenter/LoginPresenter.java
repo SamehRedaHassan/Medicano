@@ -29,6 +29,7 @@ public class LoginPresenter implements LoginPresenterInterface, LoginCallbackInt
     public void logedinSuccessfully() {
         Log.i(TAG, "loged in successfully");
         loginView.navigateToHomeScreen();
+        repo.listenToMedFriendsInvitations();
     }
 
     @Override

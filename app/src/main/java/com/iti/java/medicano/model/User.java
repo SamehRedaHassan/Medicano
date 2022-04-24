@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
 import com.iti.java.medicano.Constants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -20,25 +21,25 @@ public class User {
     @Ignore
     private String password;
     private int gender;
-    private List<String> trackingList;
-    private List<String> invitationList;
+    private HashMap< String , String> trackingList;
+    private HashMap< String , String> invitationList;
     public User(){
 
     }
 
-    public List<String> getTrackingList() {
+    public HashMap<String, String> getTrackingList() {
         return trackingList;
     }
 
-    public void setTrackingList(List<String> trackingList) {
+    public void setTrackingList(HashMap<String, String> trackingList) {
         this.trackingList = trackingList;
     }
 
-    public List<String> getInvitationList() {
+    public HashMap<String, String> getInvitationList() {
         return invitationList;
     }
 
-    public void setInvitationList(List<String> invitationList) {
+    public void setInvitationList(HashMap<String, String> invitationList) {
         this.invitationList = invitationList;
     }
 
@@ -47,8 +48,8 @@ public class User {
         this.email = email;
         this.password = password;
         this.gender = gender;
-        this.invitationList = new ArrayList<>();
-        this.trackingList = new ArrayList<>();
+        this.invitationList = new HashMap<>();
+        this.trackingList = new HashMap<>();
     }
 
     @NonNull

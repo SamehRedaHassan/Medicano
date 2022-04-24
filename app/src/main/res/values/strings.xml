@@ -95,4 +95,9 @@
     <string name="add_reminders_first">Please add reminders first!</string>
     <string name="instructions">Instructions</string>
     <string name="refill_reminder">Refill reminder</string>
+    <string name="manage_meds_for_your_family_members">Manage Meds for your family members</string>
+    <string name="med_friend_email">Add MedFriend E-mail</string>
+    <string name="invite">Invite</string>
+    <string name="lbl_invitations">Invitations</string>
+    <string name="invitations">Invitations</string>
 </resources>

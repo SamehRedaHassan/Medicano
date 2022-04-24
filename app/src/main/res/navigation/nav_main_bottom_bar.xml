@@ -15,4 +15,8 @@
         android:name="com.iti.java.medicano.mymedications.view.MyMedicationsFragment"
         android:label="fragment_my_medications"
         tools:layout="@layout/fragment_my_medications" />
+    <fragment
+        android:id="@+id/invitationsFragment"
+        android:name="com.iti.java.medicano.invitation.view.InvitationsFragment"
+        android:label="InvitationsFragment" />
 </navigation>

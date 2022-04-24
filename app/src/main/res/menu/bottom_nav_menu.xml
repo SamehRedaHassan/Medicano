@@ -10,5 +10,10 @@
         android:title="@string/medications"
         android:enabled="true"
         android:icon="@drawable/ic_medication"/>
+    <item
+        android:id="@+id/invitationsFragment"
+        android:title="@string/invitations"
+        android:enabled="true"
+        android:icon="@drawable/ic_reminder"/>
 
 </menu>

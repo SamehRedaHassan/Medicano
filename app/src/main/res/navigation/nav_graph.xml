@@ -160,9 +160,16 @@
         <action
             android:id="@+id/action_mainFragment_to_editMedicationFragment"
             app:destination="@id/editMedicationFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_addMedFriendImpl"
+            app:destination="@id/addMedFriendImpl" />
     </fragment>
     <fragment
         android:id="@+id/editMedicationFragment"
         android:name="com.iti.java.medicano.editmedictation.view.EditMedicationFragment"
         android:label="EditMedicationFragment" />
+    <fragment
+        android:id="@+id/addMedFriendImpl"
+        android:name="com.iti.java.medicano.addmedfriend.view.AddMedFriendImpl"
+        android:label="AddMedFriendImpl" />
 </navigation>

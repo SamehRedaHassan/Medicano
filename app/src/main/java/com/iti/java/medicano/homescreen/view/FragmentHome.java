@@ -85,6 +85,12 @@ public class FragmentHome extends Fragment implements HomeViewInterface,DatePick
             }
         });
 
+        addTrackerBtn.setOnClickListener(view1 -> {
+            if (outerNavController.getCurrentDestination().getId() == R.id.mainFragment){
+                outerNavController.navigate(R.id.addMedFriendImpl);
+            }
+        });
+
     }
 
     @Override

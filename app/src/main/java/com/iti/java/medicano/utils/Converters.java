@@ -13,6 +13,7 @@ import com.iti.java.medicano.model.Reminder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -65,5 +66,13 @@ public class Converters {
     @TypeConverter
     public static List<String> getListString(String str){
         return new Gson().fromJson(str,new TypeToken<List<String>>(){}.getType());
+    }
+    @TypeConverter
+    public static HashMap<String,String> getInvitations(String str){
+        return new Gson().fromJson(str,new TypeToken<HashMap<String,String>>(){}.getType());
+    }
+    @TypeConverter
+    public static String getStringToHashMAp(HashMap<String,String> list){
+        return new Gson().toJson(list);
     }
 }
