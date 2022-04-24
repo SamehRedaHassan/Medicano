@@ -160,7 +160,7 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
                 .getMyMedicationsForDay(user.getId(), selectedDay, dayOfWeek + "")
                 .observe(getViewLifecycleOwner(), medications -> {
                     mediList.clear();
-                    Log.i("TAG", "onChanged: " + medications.size() + " " + user.getId());
+                    Log.i("USERRRR", "onChanged: " + medications.size() + " " + user.getId());
 
                     for (Medication medication : medications) {
                         Log.i("TAG", Converters.dateToTimestamp(medication.getStartDate()).toString());
@@ -265,7 +265,7 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
     @Override
     public void notifyDataChanged() {
         user = presenter.getUser();
-        presenter.setDateChange(user.getId(), MyDateUtils.getTodayDate().getTime(),MyDateUtils.getTodayDayCode()+"");
+        presenter.setDateChange(user.getId(), selectedDay,dayOfWeek+"");
         picker.setDate(DateTime.now());
         Log.e(TAG, "notifyDataChanged: ");
     }
