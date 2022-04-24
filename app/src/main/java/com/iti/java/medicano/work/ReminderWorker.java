@@ -3,6 +3,7 @@ package com.iti.java.medicano.work;
 import static com.iti.java.medicano.Constants.SHARED_PREFERENCES;
 import static com.iti.java.medicano.utils.BundleKeys.MEDICATION_BUILDER;
 import static com.iti.java.medicano.utils.BundleKeys.MEDICATION_ID;
+import static com.iti.java.medicano.utils.BundleKeys.REMINDER;
 
 import android.content.Context;
 import android.content.Intent;
@@ -39,6 +40,7 @@ public class ReminderWorker extends Worker {
         UserRepo userRepo = UserRepoImpl.getInstance(databaseLayer.UserDAO(), getApplicationContext().getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE));
         User user = userRepo.getPreferences();
         String mID = getInputData().getString(MEDICATION_ID);
+        String reminderId = getInputData().getString(REMINDER);
         Log.e(TAG, "doWork: "+mID);
         if (mID!=null){
             MedicationRepo medicationRepo = MedicationRepoImpl.getInstance(
@@ -48,7 +50,7 @@ public class ReminderWorker extends Worker {
                     WorkManager.getInstance(getApplicationContext()));
             Medication medication = medicationRepo.getMedication(mID);
             if (medication!=null){
-                NotificationHandler.INSTANCE.createReminderNotification(getApplicationContext(),medication,getId().toString());
+                NotificationHandler.INSTANCE.createReminderNotification(getApplicationContext(),medication,reminderId);
 //                startService(medication);
             }
         }
