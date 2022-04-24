@@ -101,4 +101,5 @@
     <string name="lbl_invitations">Invitations</string>
     <string name="invitations">Invitations</string>
     <string name="take">Take</string>
+    <string name="user_name">User Name</string>
 </resources>

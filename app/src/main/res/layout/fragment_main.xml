@@ -20,25 +20,37 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@color/second_color"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearance="@style/CircularImage"
             app:srcCompat="@drawable/ic_personal_image" />
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputSchoolName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textColor="@color/second_color"
-            android:textSize="@dimen/header_text_size"
-            android:textStyle="bold"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/user_name"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/personalImage"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/personalImage"
-            app:layout_constraintTop_toTopOf="@+id/personalImage"
-            tools:text="Abdo" />
+            app:layout_constraintTop_toTopOf="@+id/personalImage">
+
+            <AutoCompleteTextView
+                android:id="@+id/current_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:gravity="start"
+                android:inputType="none"
+                android:textAlignment="viewStart"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment_main"
