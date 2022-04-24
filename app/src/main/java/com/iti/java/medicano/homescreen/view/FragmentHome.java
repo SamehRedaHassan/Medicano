@@ -36,14 +36,17 @@ import com.iti.java.medicano.model.User;
 import com.iti.java.medicano.model.databaselayer.DatabaseLayer;
 import com.iti.java.medicano.model.userrepo.UserRepoImpl;
 import com.iti.java.medicano.utils.Converters;
+import com.iti.java.medicano.utils.MyDateUtils;
+import com.iti.java.medicano.utils.OnNotifyDataChanged;
+
 import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-public class FragmentHome extends Fragment implements HomeViewInterface, DatePickerListener {
-
+public class FragmentHome extends Fragment implements HomeViewInterface, DatePickerListener, OnNotifyDataChanged {
+    private static final String TAG = "FragmentHome";
     private FragmentHomeBinding binding;
     private RecyclerView homeRecyclerView;
     private LinearLayoutManager layoutManager;
@@ -257,5 +260,13 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
 
             isOpened = true;
         }
+    }
+
+    @Override
+    public void notifyDataChanged() {
+        user = presenter.getUser();
+        presenter.setDateChange(user.getId(), MyDateUtils.getTodayDate().getTime(),MyDateUtils.getTodayDayCode()+"");
+        picker.setDate(DateTime.now());
+        Log.e(TAG, "notifyDataChanged: ");
     }
 }

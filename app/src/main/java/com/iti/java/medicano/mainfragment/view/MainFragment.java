@@ -1,4 +1,4 @@
-    package com.iti.java.medicano.mainfragment.view;
+package com.iti.java.medicano.mainfragment.view;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -33,15 +33,17 @@ import com.iti.java.medicano.mainfragment.presenter.MainFragmentPresenterImpl;
 import com.iti.java.medicano.model.User;
 import com.iti.java.medicano.model.databaselayer.DatabaseLayer;
 import com.iti.java.medicano.model.userrepo.UserRepoImpl;
+import com.iti.java.medicano.utils.OnNotifyDataChanged;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-    public class MainFragment extends Fragment implements MainFragmentView {
+public class MainFragment extends Fragment implements MainFragmentView {
     private FragmentMainBinding binding;
     private NavController navController;
-    private MainFragmentPresenter presenter ;
+    private MainFragmentPresenter presenter;
+    private List<User> users;
 
     @Nullable
     @Override
@@ -57,6 +59,7 @@ import java.util.stream.Stream;
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
         initData();
         //TODO if first Time Fire PeriodicWorker for the first time;;;
+        //TODO if first Time Fire PeriodicWorker for the first time;;;
 
     }
 
@@ -66,24 +69,27 @@ import java.util.stream.Stream;
         binding = null;
     }
 
-    private void initData(){
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void initData() {
 
-        presenter = new MainFragmentPresenterImpl(this, UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(),getContext().getSharedPreferences(Constants.SHARED_PREFERENCES,MODE_PRIVATE)), MedicationRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).MedicationDAO(),
+        presenter = new MainFragmentPresenterImpl(this, UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(), getContext().getSharedPreferences(Constants.SHARED_PREFERENCES, MODE_PRIVATE)), MedicationRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).MedicationDAO(),
                 FirebaseDatabase.getInstance(),
                 FirebaseAuth.getInstance().getUid(),
                 WorkManager.getInstance(getContext().getApplicationContext())));
-        presenter.syncUsers().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onChanged(List<User> users) {
-                if(users.size() > 0 ){
-                    List<String> names = users.stream().map(x -> x.getFullName()).collect(Collectors.toList());
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.item_drop_down, names);
-                     ((AutoCompleteTextView) binding.textInputSchoolName.getEditText() ).setAdapter(adapter);
-                     binding.currentUserName.setOnItemClickListener((adapterView, view, i, l) -> {
-                         presenter.switchUser(users.get(i));
-                     });
-                }
+        binding.currentUserName.setOnItemClickListener((adapterView, view, i, l) -> {
+            presenter.switchUser(users.get(i));
+            Fragment fragmentById = getChildFragmentManager().findFragmentById(R.id.fragmentHome);
+            Fragment primaryNavigationFragment = fragmentById.getChildFragmentManager().getPrimaryNavigationFragment();
+            if (primaryNavigationFragment instanceof OnNotifyDataChanged) {
+                ((OnNotifyDataChanged) primaryNavigationFragment).notifyDataChanged();
+            }
+        });
+        presenter.syncUsers().observe(getViewLifecycleOwner(), users -> {
+            if (users.size() > 0) {
+                MainFragment.this.users = users;
+                List<String> names = users.stream().map(x -> x.getFullName()).collect(Collectors.toList());
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.item_drop_down, names);
+                ((AutoCompleteTextView) binding.textInputSchoolName.getEditText()).setAdapter(adapter);
             }
         });
     }

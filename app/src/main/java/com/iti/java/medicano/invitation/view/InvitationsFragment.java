@@ -18,9 +18,11 @@ import com.iti.java.medicano.invitation.presenter.InvitationsPresenter;
 import com.iti.java.medicano.invitation.presenter.InvitationsPresenterImpl;
 import com.iti.java.medicano.model.databaselayer.DatabaseLayer;
 import com.iti.java.medicano.model.userrepo.UserRepoImpl;
+import com.iti.java.medicano.utils.OnNotifyDataChanged;
+
 import java.util.HashMap;
 
-public class InvitationsFragment  extends Fragment implements InvitationsView , AcceptDenyCallback {
+public class InvitationsFragment  extends Fragment implements InvitationsView , AcceptDenyCallback, OnNotifyDataChanged {
 
     private FragmentInvitationsBinding binding ;
     RecyclerView invitationsView ;
@@ -91,5 +93,10 @@ public class InvitationsFragment  extends Fragment implements InvitationsView , 
     public void didPressDenyWithID(String id) {
         Log.i("TAG", "onClick: DENYYY" + id);
         presenter.denyMedFriendWithID(id);
+    }
+
+    @Override
+    public void notifyDataChanged() {
+
     }
 }
