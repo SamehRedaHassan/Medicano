@@ -18,6 +18,6 @@ public class MedicationDetailsPresenterImpl implements MedicationDetailsPresente
 
     @Override
     public void updateMedication(Medication med) {
-
+        repo.editMedication(med);
     }
 }
