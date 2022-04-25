@@ -53,6 +53,7 @@ public class DailyWorker extends Worker {
         c.setTime(date);
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         List<Medication> medications = medicationRepo.getAllMedicationForDay(date.getTime(), dayOfWeek + "");
+        Log.e(TAG, "DailyWorker doWork: "+medications.size());
         for (Medication m : medications) {
             for (Reminder r : m.getRemindersID()) {
                 WorkersHandler.fireWorkManagerRequestForReminder(m,r,getApplicationContext());

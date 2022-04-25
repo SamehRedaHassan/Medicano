@@ -12,6 +12,9 @@ import androidx.work.WorkManager;
 import com.iti.java.medicano.model.Medication;
 import com.iti.java.medicano.model.Reminder;
 import com.iti.java.medicano.utils.MyDateUtils;
+
+import org.joda.time.DateTime;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -35,37 +38,41 @@ public class WorkersHandler {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MINUTE, r.minutes);
         cal.set(Calendar.HOUR, r.hours);
-        Log.e(TAG, "doWork: date.getTime() =" + date.getTime());
-        Log.e(TAG, "doWork: date.getTime() =" + cal.getTime().getTime());
-        long delay = date.getTime() - cal.getTime().getTime();
-        Log.e(TAG, "doWork: " + delay);
-        OneTimeWorkRequest reminderWork = new OneTimeWorkRequest
-                .Builder(ReminderWorker.class)
-                .addTag(m.getId())
-                .setInputData(
-                        new Data.Builder()
-                                .putString(REMINDER, r.reminderID)
-                                .putString(MEDICATION_ID, m.getId())
-                                .build()
-                )
-                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-                .build();
-        WorkManager.getInstance(context.getApplicationContext()).enqueueUniqueWork(r.reminderID, ExistingWorkPolicy.REPLACE, reminderWork);
-
+        Log.e(TAG, "fireWorkManagerRequestForReminder doWork: date.getTime() =" + date.getTime());
+        Log.e(TAG, "fireWorkManagerRequestForReminder doWork: date.getTime() =" + cal.getTime().getTime());
+        long delay =  cal.getTime().getTime() -new Date(System.currentTimeMillis()).getTime() ;
+        Log.e(TAG, "fireWorkManagerRequestForReminder doWork: " + delay);
+        if (delay>=-1000) {
+            OneTimeWorkRequest reminderWork = new OneTimeWorkRequest
+                    .Builder(ReminderWorker.class)
+                    .addTag(m.getId())
+                    .setInputData(
+                            new Data.Builder()
+                                    .putString(REMINDER, r.reminderID)
+                                    .putString(MEDICATION_ID, m.getId())
+                                    .build()
+                    )
+                    .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+                    .build();
+            WorkManager.getInstance(context.getApplicationContext()).enqueueUniqueWork(r.reminderID, ExistingWorkPolicy.REPLACE, reminderWork);
+        }else {
+            Log.e(TAG, "fireWorkManagerRequestForReminder: "+"old one "+delay );
+        }
     }
 
     public static void fireWorkManagerRequestForReminder(Medication m, Reminder r, WorkManager workManager) {
-        Date date = new Date(System.currentTimeMillis());
+        Date date = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MINUTE, r.minutes);
-        cal.set(Calendar.HOUR, r.hours);
+        cal.set(Calendar.HOUR_OF_DAY, r.hours);
         Log.e(TAG, "doWork: date.getTime() =" + date.getTime());
         Log.e(TAG, "doWork: date.getTime() =" + cal.getTime().getTime());
-        long delay = cal.getTime().getTime() - date.getTime();
+        long delay =  cal.getTime().getTime() -new Date(System.currentTimeMillis()).getTime() ;
         Log.e(TAG, "doWork: " + delay);
         if (delay>=-1000) {
+            Log.e(TAG, "fireWorkManagerRequestForReminder: "+m.getId()+"  "+m.getUserId() +"  "+m.getName());
             OneTimeWorkRequest reminderWork = new OneTimeWorkRequest
                     .Builder(ReminderWorker.class)
                     .addTag(m.getId())
@@ -78,6 +85,8 @@ public class WorkersHandler {
                     .setInitialDelay(delay, TimeUnit.MILLISECONDS)
                     .build();
             workManager.enqueueUniqueWork(r.reminderID, ExistingWorkPolicy.REPLACE, reminderWork);
+        }else {
+            Log.e(TAG, "fireWorkManagerRequestForReminder: else "+m.getName() +" delay "+delay );
         }
     }
 

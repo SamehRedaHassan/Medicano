@@ -47,8 +47,8 @@ public final class NotificationHandler {
             this.createNotificationChannel(context);
             Builder builder = new Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.mipmap.ic_launcher_round)
-                    .setContentTitle("Remember to add your transactions!")
-                    .setContentText("Logging your transactions daily can help you manage your finances better.")
+                    .setContentTitle("Reminder")
+                    .setContentText("Remember to take you med.")
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setContentIntent(pendingIntent) // For launching the MainActivity
                     .setAutoCancel(true) // Remove notification when tapped

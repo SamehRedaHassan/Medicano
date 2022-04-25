@@ -171,9 +171,17 @@
     <fragment
         android:id="@+id/editMedicationFragment"
         android:name="com.iti.java.medicano.editmedictation.view.EditMedicationFragment"
-        android:label="EditMedicationFragment" />
+        android:label="EditMedicationFragment" >
+        <action
+            android:id="@+id/action_editMedicationFragment_to_reminderPickerDialogFragment2"
+            app:destination="@id/reminderPickerDialogFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/addMedFriendImpl"
         android:name="com.iti.java.medicano.addmedfriend.view.AddMedFriendImpl"
         android:label="AddMedFriendImpl" />
+    <dialog
+        android:id="@+id/reminderPickerDialogFragment2"
+        android:name="com.iti.java.medicano.addmedication.remiders.view.ReminderPickerDialogFragment"
+        android:label="ReminderPickerDialogFragment" />
 </navigation>
