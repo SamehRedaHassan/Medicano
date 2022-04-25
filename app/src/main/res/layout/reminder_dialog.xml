@@ -124,7 +124,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/rounded_btn"
                     android:foreground="@drawable/ic_take"
-
+                    android:foregroundTint="@color/main_color"
                     app:backgroundTint="@color/main_color" />
 
                 <TextView

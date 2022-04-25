@@ -93,7 +93,6 @@ public class Window {
         String doseage="";
         Log.i("TAG", medication+" "+medication.getRemindersID());
         for(Reminder r:medication.getRemindersID()){
-
             if(r.reminderID.equals(reminderId)){
                 this.reminder = r;
                 remTime = r.hours+":"+r.minutes;
