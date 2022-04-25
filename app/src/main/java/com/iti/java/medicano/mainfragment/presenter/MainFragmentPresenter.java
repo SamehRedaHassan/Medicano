@@ -9,4 +9,6 @@ import java.util.List;
 public interface MainFragmentPresenter {
     LiveData<List<User>> syncUsers();
     void switchUser(User user);
+
+    User getCurrentUser();
 }

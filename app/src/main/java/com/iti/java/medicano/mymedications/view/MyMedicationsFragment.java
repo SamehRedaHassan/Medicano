@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ import androidx.work.WorkManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.iti.java.medicano.Constants;
+import com.iti.java.medicano.R;
 import com.iti.java.medicano.addmedication.repo.medication.MedicationRepoImpl;
 import com.iti.java.medicano.databinding.FragmentMyMedicationsBinding;
 import com.iti.java.medicano.model.Medication;
@@ -37,7 +40,6 @@ import java.util.List;
 public class MyMedicationsFragment extends Fragment implements MyMedicationsView, OnNotifyDataChanged {
 
     private FragmentMyMedicationsBinding binding;
-
     RecyclerView activeMedsRecyclerView;
     RecyclerView suspendedMedsRecyclerView;
     MyMedicationsPresenter presenter;
@@ -45,6 +47,7 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
     MyAdapter suspendedMedsAdapter;
     List<Medication> activeMeds = new ArrayList<>();
     List<Medication> suspendedMeds = new ArrayList<>();
+    private NavController navController;
 
 
     @Override
@@ -55,6 +58,7 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMyMedicationsBinding.inflate(inflater, container, false);
+        navController = NavHostFragment.findNavController(this);
         return binding.getRoot();
     }
 
@@ -79,8 +83,8 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
         activeMedsRecyclerView.setHasFixedSize(true);
         suspendedMedsRecyclerView.setHasFixedSize(true);
 
-        activeMedsAdapter = new MyAdapter(getContext(), activeMeds);
-        suspendedMedsAdapter = new MyAdapter(getContext(), suspendedMeds);
+        activeMedsAdapter = new MyAdapter(getContext(), activeMeds,this);
+        suspendedMedsAdapter = new MyAdapter(getContext(), suspendedMeds,this);
 
         activeMedsRecyclerView.setAdapter(activeMedsAdapter);
         suspendedMedsRecyclerView.setAdapter(suspendedMedsAdapter);
@@ -119,7 +123,14 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
 
     @Override
     public void notifyDataChanged() {
-        Log.i("RRRRRRRR", "notifyDataChanged: ");
         presenter.requestUpdateMedicationsForCurrentUser();
+    }
+
+    @Override
+    public void navigateToMedAtIndex(int index) {
+        Log.i("RRRRRRRR", "notifyDataChanged: ");
+        if (navController.getCurrentDestination().getId() == R.id.myMedicationsFragment)
+            navController.navigate(R.id.action_mainFragment_to_medicationDetailsFragment);
+
     }
 }
