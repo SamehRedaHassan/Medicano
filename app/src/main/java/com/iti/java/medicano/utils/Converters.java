@@ -41,7 +41,6 @@ public class Converters {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @TypeConverter
     public static List<Integer> getdays(String value) {
-
         return new Gson().fromJson(value,new TypeToken<List<Integer>>(){}.getType());
     }
 
