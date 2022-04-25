@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.iti.java.medicano.R;
 import com.iti.java.medicano.homescreen.model.MedicationHome;
+import com.iti.java.medicano.utils.ReminderStatus;
 
 import java.util.List;
 
@@ -58,12 +59,27 @@ public class HomeNestedAdapter extends RecyclerView.Adapter<HomeNestedAdapter.Vi
                 TextView mediName = detailsDialog.findViewById(R.id.mediNameDetails);
                 TextView nextDate = detailsDialog.findViewById(R.id.nextDate);
                 TextView doseAndSize = detailsDialog.findViewById(R.id.doseAndSize);
+                TextView mediStatus = detailsDialog.findViewById(R.id.mediStatus);
+                TextView mediQuantity = detailsDialog.findViewById(R.id.mediQuantity);
 
                 mediImeg.setImageResource(med.getMedImg());
                 mediName.setText(med.getMedName());
                 nextDate.setText("Scheduled for "+med.getCurrentReminder());
                 doseAndSize.setText(med.getMedDesc());
-
+                String status="";
+                switch (med.getStatus()){
+                    case ReminderStatus.CANCELED+"":
+                        status = "Canceled";
+                    break;
+                    case ReminderStatus.PENDING+"":
+                        status = "Pending";
+                        break;
+                    case ReminderStatus.TAKEN+"":
+                        status = "Taken";
+                        break;
+                }
+                mediStatus.setText(status);
+                mediQuantity.setText(med.getLeftQuantity()+" pill(s) left");
                 detailsDialog.show();
             }
         });
