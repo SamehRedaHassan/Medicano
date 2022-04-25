@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -59,19 +60,19 @@ public class UserRepoImpl implements UserRepo {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         String userId = firebaseAuth.getUid();
+                        Log.i("ADELOOOO", "registerToFirebase: " + userId);
                         User userData = new User(user.getFullName(), user.getEmail(), user.getPassword(), user.getGender());
                         userData.setId(userId);
 
                         ref.child(Constants.USERS).child(userId).setValue(userData);
-                        insertToRoom(user);
-                        addToPreferences(user);
-                        addOwnerUserToPreferences(user);
+                        insertToRoom(userData);
+                        addToPreferences(userData);
+                        addOwnerUserToPreferences(userData);
                         callback.registeredSuccessfully();
                     } else {
                         callback.registeredFailed();
                     }
                 });
-
     }
 
     @Override
