@@ -56,10 +56,7 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
     private NavController outerNavController;
     private HomePresenter presenter;
     private User user;
-    //private LiveData<List<Medication>> medicationForDay;
-    //private List<MedicationList> mediList = new ArrayList<>();
     private HashMap<String, List<MedicationHome>> mediList = new HashMap<String, List<MedicationHome>>();
-    //private List<Medication> mediItemList = new ArrayList<>();
     private long selectedDay;
     private int dayOfWeek;
     private Date reminderDate;
@@ -134,7 +131,6 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
 
     private void initUI() {
         outerNavController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-        //outerNavController.navigate(R.id.action_mainFragment_to_editMedicationFragment);
 
         homeRecyclerView = binding.homeRecycler;
         layoutManager = new LinearLayoutManager(getActivity());
@@ -178,7 +174,7 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
                             Log.i("TAG", r.hours + ":" + r.minutes);
 
                             MedicationHome medicationHome = new MedicationHome(medication.getName(),
-                                    r.hours + ":" + r.minutes+", "+reminderDate.getDay()+" "+reminderDate.getMonth(),
+                                    r.hours + ":" + r.minutes+", ",
                                     r.status+"",
                                     medication.getRefillReminder().currentNumOfPills+"",
                                     medication.getStrengthValue() + " g, take " + r.drugQuantity+" pill(s)",
@@ -204,23 +200,6 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
         this.user = user;
         Toast.makeText(getContext(), user.getFullName(), Toast.LENGTH_SHORT).show();
     }
-
-    /*private List<MedicationList> getMedicationList(){
-
-        itemList.add(new MedicationList("20:00",getNestedMedicationList()));
-        itemList.add(new MedicationList("21:00",getNestedMedicationList()));
-        itemList.add(new MedicationList("22:00",getNestedMedicationList()));
-
-        return itemList;
-    }
-
-    private List<Medication> getNestedMedicationList(){
-        medItemList.add(new Medication("Panadol","10 g, take 1 Pill(s)","ic__03_capsules"));
-        medItemList.add(new Medication("Panadol","10 g, take 1 Pill(s)","ic__03_capsules"));
-        medItemList.add(new Medication("Panadol","10 g, take 1 Pill(s)","ic__03_capsules"));
-
-        return medItemList;
-    }*/
 
     @Override
     public void onDateSelected(DateTime dateSelected) {
