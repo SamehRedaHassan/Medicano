@@ -9,6 +9,10 @@ public class NavigationHelper {
         if (navController.getCurrentDestination()!=null && navController.getCurrentDestination().getId() == currentFragmentID)
             navController.navigate(actionID);
     }
+    public static void safeNavigateTo(NavController navController, int currentFragmentID, int actionID,boolean isRecursiv){
+        if (navController.getCurrentDestination()!=null && navController.getCurrentDestination().getId() == currentFragmentID)
+            navController.navigate(actionID);
+    }
     public static void safeNavigateTo(NavController navController, int currentFragmentID, int actionID, Bundle bundle){
         if (navController.getCurrentDestination()!=null && navController.getCurrentDestination().getId() == currentFragmentID)
             navController.navigate(actionID,bundle);

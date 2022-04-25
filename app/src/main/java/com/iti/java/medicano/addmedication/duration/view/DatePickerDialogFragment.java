@@ -32,7 +32,7 @@ public class DatePickerDialogFragment extends DialogFragment implements DatePick
         int hours = c.get(Calendar.HOUR);
         DatePickerDialog dialog = new  DatePickerDialog(requireContext(), this, month, day, hours);
         if (getArguments()!=null && getArguments().getLong(START_DATE,-1)!=-1)
-            dialog.getDatePicker().setMinDate(getArguments().getLong(START_DATE,-1) - 1000);
+            dialog.getDatePicker().setMinDate(getArguments().getLong(START_DATE,-1));
         else
             dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 

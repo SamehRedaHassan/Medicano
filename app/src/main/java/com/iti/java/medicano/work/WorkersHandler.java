@@ -65,18 +65,20 @@ public class WorkersHandler {
         Log.e(TAG, "doWork: date.getTime() =" + cal.getTime().getTime());
         long delay = cal.getTime().getTime() - date.getTime();
         Log.e(TAG, "doWork: " + delay);
-        OneTimeWorkRequest reminderWork = new OneTimeWorkRequest
-                .Builder(ReminderWorker.class)
-                .addTag(m.getId())
-                .setInputData(
-                        new Data.Builder()
-                                .putString(MEDICATION_ID, m.getId())
-                                .putString(REMINDER, r.reminderID)
-                                .build()
-                )
-                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-                .build();
-        workManager.enqueueUniqueWork(r.reminderID, ExistingWorkPolicy.REPLACE, reminderWork);
+        if (delay>=-1000) {
+            OneTimeWorkRequest reminderWork = new OneTimeWorkRequest
+                    .Builder(ReminderWorker.class)
+                    .addTag(m.getId())
+                    .setInputData(
+                            new Data.Builder()
+                                    .putString(MEDICATION_ID, m.getId())
+                                    .putString(REMINDER, r.reminderID)
+                                    .build()
+                    )
+                    .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+                    .build();
+            workManager.enqueueUniqueWork(r.reminderID, ExistingWorkPolicy.REPLACE, reminderWork);
+        }
     }
 
     public static void loopOnMedicationReminders(Medication medication, WorkManager workManager) {

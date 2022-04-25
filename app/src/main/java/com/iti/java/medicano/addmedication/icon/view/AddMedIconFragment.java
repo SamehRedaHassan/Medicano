@@ -85,7 +85,7 @@ public class AddMedIconFragment extends Fragment implements AddMedIcon {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(tab.view.findViewById(android.R.id.tabs), "scaleX", 1f);
+                ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(tab.view, "scaleX", 1f);
                 ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(tab.view, "scaleY", 1f);
                 scaleDownX.setDuration(200);
                 scaleDownY.setDuration(200);
@@ -126,6 +126,6 @@ public class AddMedIconFragment extends Fragment implements AddMedIcon {
 
     @Override
     public void navigateBack() {
-        navController.popBackStack(R.id.mainFragment, true);
+        navController.popBackStack(R.id.addMedNameFragment, true);
     }
 }

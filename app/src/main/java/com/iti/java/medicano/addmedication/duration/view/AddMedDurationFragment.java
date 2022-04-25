@@ -7,6 +7,7 @@ import static com.iti.java.medicano.utils.BundleKeys.REMINDER;
 import static com.iti.java.medicano.utils.BundleKeys.START_DATE;
 
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.iti.java.medicano.addmedication.duration.presenter.AddMedDurationPres
 import com.iti.java.medicano.databinding.FragmentMedicationDurationBinding;
 import com.iti.java.medicano.model.Medication;
 import com.iti.java.medicano.model.Reminder;
+import com.iti.java.medicano.utils.MyDateUtils;
 import com.iti.java.medicano.utils.NavigationHelper;
 
 import java.util.Calendar;
@@ -65,6 +67,7 @@ public class AddMedDurationFragment extends Fragment implements AddMedDurationVi
             savedStateHandler.getLiveData(START_DATE).observe(getViewLifecycleOwner(), (date) -> {
                 if (date instanceof Calendar) {
                     startDate = ((Calendar) date).getTime();
+                    startDate= MyDateUtils.truncateToDate(startDate);
                     binding.editTextStartDate.setText(startDate.toString());
                     endDate=null;
                     binding.editTextEndDate.setText("");
@@ -74,8 +77,8 @@ public class AddMedDurationFragment extends Fragment implements AddMedDurationVi
             savedStateHandler.getLiveData(END_DATE).observe(getViewLifecycleOwner(), (date) -> {
                 if (date instanceof Calendar) {
                     endDate = ((Calendar) date).getTime();
+                    endDate= MyDateUtils.getLastTime(endDate);
                     binding.editTextEndDate.setText(endDate.toString());
-
                 }
             });
         }

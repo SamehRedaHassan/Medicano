@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -58,7 +59,7 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMyMedicationsBinding.inflate(inflater, container, false);
-        navController = NavHostFragment.findNavController(this);
+        navController = Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
         return binding.getRoot();
     }
 
@@ -129,7 +130,6 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
     @Override
     public void navigateToMedAtIndex(int index) {
         Log.i("RRRRRRRR", "notifyDataChanged: ");
-        if (navController.getCurrentDestination().getId() == R.id.myMedicationsFragment)
             navController.navigate(R.id.action_mainFragment_to_medicationDetailsFragment);
 
     }
