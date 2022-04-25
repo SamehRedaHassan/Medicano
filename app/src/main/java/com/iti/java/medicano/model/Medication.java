@@ -30,6 +30,7 @@ public class Medication implements Parcelable{
     public int status ;
     int icon ;
 
+
     protected Medication(Parcel in) {
         id = in.readString();
         userId = in.readString();
@@ -38,6 +39,8 @@ public class Medication implements Parcelable{
         strengthValue = in.readFloat();
         reasonForMedication = in.readString();
         formOfMedication = in.readInt();
+        startDate = new Date(in.readLong());
+        endDate = new Date(in.readLong());
         treatmentTime = in.readInt();
         instruction = in.readString();
         refillReminder = in.readParcelable(RefillReminder.class.getClassLoader());
@@ -55,6 +58,8 @@ public class Medication implements Parcelable{
         dest.writeFloat(strengthValue);
         dest.writeString(reasonForMedication);
         dest.writeInt(formOfMedication);
+        dest.writeLong(startDate.getTime());
+        dest.writeLong(endDate.getTime());
         dest.writeInt(treatmentTime);
         dest.writeString(instruction);
         dest.writeParcelable(refillReminder, flags);

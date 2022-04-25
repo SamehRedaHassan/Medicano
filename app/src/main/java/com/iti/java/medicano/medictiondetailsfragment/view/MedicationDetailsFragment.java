@@ -5,16 +5,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
 import com.iti.java.medicano.R;
 import com.iti.java.medicano.databinding.FragmentMedicationInfoBinding;
 import com.iti.java.medicano.medictiondetailsfragment.presenter.MedicationDetailsPresenter;
 import com.iti.java.medicano.model.Medication;
+import androidx.navigation.fragment.NavHostFragment;
+import com.iti.java.medicano.utils.NavigationHelper;
 
 public class MedicationDetailsFragment extends Fragment implements MedicationDetailsView {
 
@@ -23,11 +23,11 @@ public class MedicationDetailsFragment extends Fragment implements MedicationDet
     private Medication med;
     private MedicationDetailsPresenter presenter;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentMedicationInfoBinding.inflate(inflater, container, false);
-        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         return binding.getRoot();
 
     }
@@ -36,7 +36,16 @@ public class MedicationDetailsFragment extends Fragment implements MedicationDet
         super.onViewCreated(view, savedInstanceState);
         med = getArguments().getParcelable("MEDICATION");
         configureUI();
+        navController = NavHostFragment.findNavController(this);
+        setListeners();
+    }
 
+    private void setListeners() {
+        binding.btnEdit.setOnClickListener((v)->{
+             Bundle bundle = new Bundle();
+            bundle.putParcelable ("MEDICATION", med);
+            NavigationHelper.safeNavigateTo(navController, R.id.medicationDetailsFragment,R.id.action_medicationDetailsFragment_to_editMedicationFragment,bundle);
+        });
     }
 
     @Override
@@ -57,6 +66,7 @@ public class MedicationDetailsFragment extends Fragment implements MedicationDet
         binding.textviewNoOfPillsToLaunchReminder.setText("No Of Pills to Lauch Reminder " +"( "+ med.getRefillReminder().countToReminderWhenReach + " )" );
 
         binding.btnRefill.setOnClickListener(view -> {
+         
             med.getRefillReminder().currentNumOfPills =  med.getRefillReminder().currentNumOfPills + 10 ;
             //presenter.update
         });
@@ -74,13 +84,7 @@ public class MedicationDetailsFragment extends Fragment implements MedicationDet
           //delete Medication
         });
         binding.btnBack.setOnClickListener(view -> navController.navigateUp());
-        binding.btnEdit.setOnClickListener(view -> {
-            if (navController.getCurrentDestination().getId() == R.id.medicationDetailsFragment){
-                Bundle bundle = new Bundle();
-                bundle.putParcelable ("MEDICATION", med);
-                navController.navigate(R.id.action_medicationDetailsFragment_to_editMedicationFragment,bundle);
-            }
-        });
+   
     }
 
 }

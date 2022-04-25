@@ -1,5 +1,10 @@
 package com.iti.java.medicano.utils;
 
+import android.view.View;
+import android.widget.ImageButton;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.iti.java.medicano.R;
 
@@ -88,5 +93,23 @@ public class UIHelper {
                 break;
         }
         return identifier;
+    }
+
+    public static void reverseViewVisibility(View view){
+        if (view.getVisibility() == View.VISIBLE){
+            view.setVisibility(View.GONE);
+        }else {
+            view.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public static void flipView(View view) {
+        view.setRotation(view.getRotation()-180);
+    }
+
+    public static void flipBtnAndChangeLayoutVisibility(View view
+            , View subView) {
+        UIHelper.flipView(view);
+        UIHelper.reverseViewVisibility(subView);
     }
 }
