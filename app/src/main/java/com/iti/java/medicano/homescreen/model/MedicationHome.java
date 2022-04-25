@@ -4,17 +4,37 @@ public class MedicationHome {
 
     private String medName;
     private String currentReminder;
+    private String status;
+    private String leftQuantity;
     private String medDesc;
     private int medImg;
 
     public MedicationHome() {
     }
 
-    public MedicationHome(String medName, String currentReminder, String medDesc, int medImg) {
+    public MedicationHome(String medName, String currentReminder, String status, String leftQuantity, String medDesc, int medImg) {
         this.medName = medName;
         this.currentReminder = currentReminder;
+        this.status = status;
+        this.leftQuantity = leftQuantity;
         this.medDesc = medDesc;
         this.medImg = medImg;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getLeftQuantity() {
+        return leftQuantity;
+    }
+
+    public void setLeftQuantity(String leftQuantity) {
+        this.leftQuantity = leftQuantity;
     }
 
     public String getCurrentReminder() {

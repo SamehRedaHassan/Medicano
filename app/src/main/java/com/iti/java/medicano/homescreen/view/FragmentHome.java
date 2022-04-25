@@ -177,7 +177,12 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
                             String remTime = r.hours + ":" + r.minutes;
                             Log.i("TAG", r.hours + ":" + r.minutes);
 
-                            MedicationHome medicationHome = new MedicationHome(medication.getName(),r.hours + ":" + r.minutes+", "+reminderDate.getDay()+" "+reminderDate.getMonth(), medication.getStrengthValue() + " g, take " + r.drugQuantity+" pill(s)", medication.getIcon());
+                            MedicationHome medicationHome = new MedicationHome(medication.getName(),
+                                    r.hours + ":" + r.minutes+", "+reminderDate.getDay()+" "+reminderDate.getMonth(),
+                                    r.status+"",
+                                    medication.getRefillReminder().currentNumOfPills+"",
+                                    medication.getStrengthValue() + " g, take " + r.drugQuantity+" pill(s)",
+                                    medication.getIcon());
                             Log.i("TAG", medication.getName());
 
                             if (mediList.get(remTime) == null) {

@@ -42,13 +42,13 @@ public class Converters {
     @TypeConverter
     public static List<Integer> getdays(String value) {
 
-        return new ArrayList<Integer>(Stream.of(value.split(";")).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList()));
+        return new Gson().fromJson(value,new TypeToken<List<Integer>>(){}.getType());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @TypeConverter
     public static String getDays(List<Integer> days) {
-        return days.stream().map(Object::toString).collect(Collectors.joining(";"));
+        return new Gson().toJson(days);
     }
 
     @TypeConverter
