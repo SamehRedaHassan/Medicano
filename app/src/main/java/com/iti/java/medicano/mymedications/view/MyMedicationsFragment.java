@@ -130,7 +130,9 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
     @Override
     public void navigateToMedAtIndex(int index) {
         Log.i("RRRRRRRR", "notifyDataChanged: ");
-            navController.navigate(R.id.action_mainFragment_to_medicationDetailsFragment);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable ("MEDICATION", activeMeds.get(index));
+        navController.navigate(R.id.action_mainFragment_to_medicationDetailsFragment ,bundle);
 
     }
 }
