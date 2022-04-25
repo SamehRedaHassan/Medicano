@@ -12,8 +12,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.iti.java.medicano.databinding.FragmentEditMedicationBinding;
+import com.iti.java.medicano.utils.UIHelper;
 
-public class EditMedicationFragment extends Fragment {
+public class EditMedicationFragment extends Fragment implements EditMedicationView {
     private FragmentEditMedicationBinding binding;
     private NavController navController;
 
@@ -32,6 +33,30 @@ public class EditMedicationFragment extends Fragment {
     }
 
     private void setListeners() {
+        binding.btnExpandCollapseInstruction.setOnClickListener((v)->{
+            UIHelper.flipBtnAndChangeLayoutVisibility(binding.btnExpandCollapseInstruction,binding.instructionView);
+        });
+        binding.btnExpandCollapseReason.setOnClickListener((v)->{
+            UIHelper.flipBtnAndChangeLayoutVisibility(binding.btnExpandCollapseReason,binding.reasonView);
+        });
+        binding.btnExpandCollapseRefill.setOnClickListener((v)->{
+            UIHelper.flipBtnAndChangeLayoutVisibility(binding.btnExpandCollapseRefill,binding.refillReminderView);
+        });
+        binding.btnExpandCollapseReminders.setOnClickListener((v)->{
+            UIHelper.flipBtnAndChangeLayoutVisibility(binding.btnExpandCollapseReminders,binding.reminderView);
+        });
+        binding.btnExpandCollapseSchedule.setOnClickListener((v)->{
+            UIHelper.flipBtnAndChangeLayoutVisibility(binding.btnExpandCollapseSchedule,binding.scheduleView);
+        });
+        binding.btnExpandIcon.setOnClickListener((v)->{
+            UIHelper.flipBtnAndChangeLayoutVisibility(binding.btnExpandIcon,binding.iconView);
+        });
+        binding.btnExpandCollapseStrength.setOnClickListener((v)->{
+            UIHelper.flipBtnAndChangeLayoutVisibility(binding.btnExpandCollapseStrength,binding.strengthView);
+        });
+        binding.btnExpandCollapseName.setOnClickListener((v)->{
+            UIHelper.flipBtnAndChangeLayoutVisibility(binding.btnExpandCollapseName,binding.emailTxtview);
+        });
     }
 
     @Override

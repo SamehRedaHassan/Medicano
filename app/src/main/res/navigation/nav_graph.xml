@@ -19,7 +19,11 @@
     <fragment
         android:id="@+id/medicationDetailsFragment"
         android:name="com.iti.java.medicano.medictiondetailsfragment.view.MedicationDetailsFragment"
-        android:label="MedicationDetailsFragment" />
+        android:label="MedicationDetailsFragment" >
+        <action
+            android:id="@+id/action_medicationDetailsFragment_to_editMedicationFragment"
+            app:destination="@id/editMedicationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentLogin"
         android:name="com.iti.java.medicano.loginscreen.view.FragmentLogin"
