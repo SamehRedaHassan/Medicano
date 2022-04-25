@@ -32,7 +32,7 @@ public interface MedicationDAO {
     Medication getMedication(String mId);
 
     @Query("SELECT * FROM Medication WHERE userId = :uId")
-    LiveData<List<Medication>> getUserAllMedications(String uId);
+    List<Medication> getUserAllMedications(String uId);
 
     @Update
     void updateMedication(Medication medication);   ///          10015551151515151

@@ -27,8 +27,10 @@ public class MedicationRepoImpl implements MedicationRepo {
     private final MedicationDAO dao;
     private final WorkManager workManager;
     private DatabaseReference database;
-    private final LiveData<List<Medication>> listLiveData;
-    private final MutableLiveData<List<Medication>> mutableLiveData = new MutableLiveData<>();
+    private final LiveData<List<Medication>> userMedicationsForDay;
+    private final MutableLiveData<List<Medication>> _userMedicationsForDay = new MutableLiveData<>();
+    private final LiveData<List<Medication>> userMedicationsForUser;
+    private final MutableLiveData<List<Medication>> _userMedicationsForUser = new MutableLiveData<>();
     private static final String TAG = "MedicationRepoImpl";
 
     public static MedicationRepoImpl getInstance(MedicationDAO dao, FirebaseDatabase database, String userId, WorkManager workManager) {
@@ -41,7 +43,8 @@ public class MedicationRepoImpl implements MedicationRepo {
     private MedicationRepoImpl(MedicationDAO dao, FirebaseDatabase firebaseDatabase, String userId, WorkManager workManager) {
         this.database = firebaseDatabase.getReference(FireBaseConstants.MEDICATIONS).child(userId);
         this.dao = dao;
-        listLiveData = mutableLiveData;
+        userMedicationsForDay = _userMedicationsForDay;
+        userMedicationsForUser = _userMedicationsForUser;
         this.workManager = workManager;
         upDateDatabase();
     }
@@ -99,7 +102,13 @@ public class MedicationRepoImpl implements MedicationRepo {
     @Override
     public LiveData<List<Medication>> getUserMedications(String userId) {
         upDateDatabase();
-        return dao.getUserAllMedications(userId);
+        new Thread(() -> {
+            List<Medication> userMedications = dao.getUserAllMedications(userId);
+            new Handler(Looper.getMainLooper()).post(() -> {
+                _userMedicationsForUser.setValue(userMedications);
+            });
+        }).start();
+        return userMedicationsForUser;
     }
 
     @Override
@@ -117,7 +126,7 @@ public class MedicationRepoImpl implements MedicationRepo {
     @Override
     public LiveData<List<Medication>> getUserMedicationForDay(String uId, long dayDate, String dayCode) {
         setDayAndDate(uId, dayDate, dayCode);
-        return listLiveData;
+        return userMedicationsForDay;
     }
 
     @Override
@@ -131,7 +140,18 @@ public class MedicationRepoImpl implements MedicationRepo {
         new Thread(() -> {
             List<Medication> userMedicationForDay = dao.getUserMedicationForDay(uId, dayDate, dayCode);
             new Handler(Looper.getMainLooper()).post(() -> {
-                mutableLiveData.setValue(userMedicationForDay);
+                _userMedicationsForDay.setValue(userMedicationForDay);
+            });
+        }).start();
+    }
+
+    @Override
+    public void requestUpdateMedicationsForCurrentUser(String userId) {
+        Log.i("GGGG", "requestUpdateMedicationsForCurrentUser: " + userId);
+        new Thread(() -> {
+            List<Medication> userMedications = dao.getUserAllMedications(userId);
+            new Handler(Looper.getMainLooper()).post(() -> {
+                _userMedicationsForUser.setValue(userMedications);
             });
         }).start();
     }

@@ -7,5 +7,9 @@ import com.iti.java.medicano.model.Medication;
 import java.util.List;
 
 public interface MyMedicationsPresenter {
-        LiveData<List<Medication>> getMedications();
+    LiveData<List<Medication>> getMedications();
+
+    void requestUpdateMedicationsForCurrentUser();
+
 }
+

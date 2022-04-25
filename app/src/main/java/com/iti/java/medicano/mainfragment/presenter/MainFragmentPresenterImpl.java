@@ -36,5 +36,10 @@ public class MainFragmentPresenterImpl implements  MainFragmentPresenter{
         //swich setUserId
     }
 
+    @Override
+    public User getCurrentUser() {
+        return userRepo.getPreferences();
+    }
+
 
 }

@@ -18,5 +18,5 @@ public interface MedicationRepo {
     LiveData<List<Medication>> getUserMedicationForDay(String uId, long dayDate, String dayCode);
     List<Medication> getAllMedicationForDay(long dayDate, String dayCode);
     void setDayAndDate(String uId, long dayDate, String dayCode);
-
+    void requestUpdateMedicationsForCurrentUser(String userId) ;
 }

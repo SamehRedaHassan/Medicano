@@ -40,4 +40,9 @@ public class InvitationsPresenterImpl implements InvitationsPresenter {
     public void denyMedFriendWithID(String id) {
         repo.DenyMedFriendInvitationWithID(id);
     }
+
+    @Override
+    public void requestUserInvitations() {
+        repo.requestUserInvitations();
+    }
 }

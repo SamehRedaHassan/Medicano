@@ -7,11 +7,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +23,7 @@ import androidx.work.WorkManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.iti.java.medicano.Constants;
+import com.iti.java.medicano.R;
 import com.iti.java.medicano.addmedication.repo.medication.MedicationRepoImpl;
 import com.iti.java.medicano.databinding.FragmentMyMedicationsBinding;
 import com.iti.java.medicano.model.Medication;
@@ -36,14 +40,14 @@ import java.util.List;
 public class MyMedicationsFragment extends Fragment implements MyMedicationsView, OnNotifyDataChanged {
 
     private FragmentMyMedicationsBinding binding;
-
-    RecyclerView activeMedsRecyclerView ;
+    RecyclerView activeMedsRecyclerView;
     RecyclerView suspendedMedsRecyclerView;
-    MyMedicationsPresenter presenter ;
-    MyAdapter activeMedsAdapter ;
-    MyAdapter suspendedMedsAdapter ;
+    MyMedicationsPresenter presenter;
+    MyAdapter activeMedsAdapter;
+    MyAdapter suspendedMedsAdapter;
     List<Medication> activeMeds = new ArrayList<>();
     List<Medication> suspendedMeds = new ArrayList<>();
+    private NavController navController;
 
 
     @Override
@@ -54,6 +58,7 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMyMedicationsBinding.inflate(inflater, container, false);
+        navController = NavHostFragment.findNavController(this);
         return binding.getRoot();
     }
 
@@ -71,22 +76,22 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
     }
 
 
-    private void configureUI(){
+    private void configureUI() {
         activeMedsRecyclerView = binding.rvActiveMedications;
         suspendedMedsRecyclerView = binding.rvInActiveMedications;
 
         activeMedsRecyclerView.setHasFixedSize(true);
         suspendedMedsRecyclerView.setHasFixedSize(true);
 
-        activeMedsAdapter = new MyAdapter(getContext(),activeMeds);
-        suspendedMedsAdapter = new MyAdapter(getContext(),suspendedMeds);
+        activeMedsAdapter = new MyAdapter(getContext(), activeMeds,this);
+        suspendedMedsAdapter = new MyAdapter(getContext(), suspendedMeds,this);
 
         activeMedsRecyclerView.setAdapter(activeMedsAdapter);
         suspendedMedsRecyclerView.setAdapter(suspendedMedsAdapter);
 
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         activeMedsRecyclerView.setLayoutManager(manager);
-        RecyclerView.LayoutManager manager2 = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
+        RecyclerView.LayoutManager manager2 = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         suspendedMedsRecyclerView.setLayoutManager(manager2);
     }
 
@@ -97,28 +102,35 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
                         FirebaseDatabase.getInstance(),
                         FirebaseAuth.getInstance().getUid(),
                         WorkManager.getInstance(getContext().getApplicationContext())),
-                UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(),getContext().getSharedPreferences(Constants.SHARED_PREFERENCES,MODE_PRIVATE)));
+                UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(), getContext().getSharedPreferences(Constants.SHARED_PREFERENCES, MODE_PRIVATE)));
         presenter.getMedications().removeObservers(getViewLifecycleOwner());
-        presenter.getMedications().observe(getViewLifecycleOwner(), new Observer<List<Medication>>() {
-             @Override
-             public void onChanged(List<Medication> medications) {
-                 suspendedMeds.clear();
-                 activeMeds.clear();
-                 for (Medication medication : medications){
-                     if(medication.status == MedicationStatus.INACTIVE){
-                         suspendedMeds.add(medication);
-                     }else{
-                         activeMeds.add(medication);
-                     }
-                 }
-                 activeMedsAdapter.notifyDataSetChanged();
-                 suspendedMedsAdapter.notifyDataSetChanged();
-             }
-         });
+        presenter.getMedications().observe(getViewLifecycleOwner(), medications -> {
+            suspendedMeds.clear();
+            activeMeds.clear();
+            if (medications != null) {
+                for (Medication medication : medications) {
+                    if (medication.status == MedicationStatus.INACTIVE) {
+                        suspendedMeds.add(medication);
+                    } else {
+                        activeMeds.add(medication);
+                    }
+                }
+            }
+            activeMedsAdapter.notifyDataSetChanged();
+            suspendedMedsAdapter.notifyDataSetChanged();
+        });
     }
 
     @Override
     public void notifyDataChanged() {
+        presenter.requestUpdateMedicationsForCurrentUser();
+    }
+
+    @Override
+    public void navigateToMedAtIndex(int index) {
+        Log.i("RRRRRRRR", "notifyDataChanged: ");
+        if (navController.getCurrentDestination().getId() == R.id.myMedicationsFragment)
+            navController.navigate(R.id.action_mainFragment_to_medicationDetailsFragment);
 
     }
 }

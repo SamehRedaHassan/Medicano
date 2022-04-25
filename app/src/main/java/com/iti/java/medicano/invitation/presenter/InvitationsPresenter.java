@@ -12,4 +12,5 @@ public interface InvitationsPresenter {
     void acceptMedFriendWithID(String id , String name);
     void denyMedFriendWithID(String id);
 
+    void requestUserInvitations();
 }
