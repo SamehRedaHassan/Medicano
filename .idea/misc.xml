@@ -67,6 +67,7 @@
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_edit_medication.xml" value="0.2019900497512438" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_first.xml" value="0.20863616930312098" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_home.xml" value="0.20863616930312098" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_invitations.xml" value="0.20863616930312098" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_login.xml" value="0.4" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_main.xml" value="0.37538461538461537" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/fragment_medication_add_reminders.xml" value="0.22780797101449277" />
@@ -89,7 +90,9 @@
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/home_nested_recyclerview_item.xml" value="0.20863616930312098" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/home_recyclerview_item.xml" value="0.20863616930312098" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/invitation_row.xml" value="0.20863616930312098" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/item_drop_down.xml" value="0.20863616930312098" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/item_new_reminder.xml" value="0.22780797101449277" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/item_new_reminder_edit.xml" value="0.20863616930312098" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/medication_dialog_details.xml" value="0.4" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/medication_row.xml" value="0.22780797101449277" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/medication_section_row.xml" value="0.20863616930312098" />

@@ -31,6 +31,8 @@ public class MedicationRepoImpl implements MedicationRepo {
     private final MutableLiveData<List<Medication>> _userMedicationsForDay = new MutableLiveData<>();
     private final LiveData<List<Medication>> userMedicationsForUser;
     private final MutableLiveData<List<Medication>> _userMedicationsForUser = new MutableLiveData<>();
+    private final LiveData<List<Medication>> userMedicationsNeedsRefill;
+    private final MutableLiveData<List<Medication>> _userMedicationsNeedsRefill = new MutableLiveData<>();
     private static final String TAG = "MedicationRepoImpl";
 
     public static MedicationRepoImpl getInstance(MedicationDAO dao, FirebaseDatabase database, String userId, WorkManager workManager) {
@@ -45,6 +47,7 @@ public class MedicationRepoImpl implements MedicationRepo {
         this.dao = dao;
         userMedicationsForDay = _userMedicationsForDay;
         userMedicationsForUser = _userMedicationsForUser;
+        userMedicationsNeedsRefill = _userMedicationsNeedsRefill;
         this.workManager = workManager;
         upDateDatabase();
     }
@@ -154,5 +157,16 @@ public class MedicationRepoImpl implements MedicationRepo {
                 _userMedicationsForUser.setValue(userMedications);
             });
         }).start();
+    }
+
+    @Override
+    public LiveData<List<Medication>> getMedicationsNeedsToRefill(String userId) {
+        new Thread(()->{
+            List<Medication> medicationsNeedsToRefill = dao.getMedicationsNeedsToRefill(userId, true);
+            new Handler(Looper.getMainLooper()).post(() -> {
+                _userMedicationsForUser.setValue(medicationsNeedsToRefill);
+            });
+        }).start();
+        return userMedicationsNeedsRefill;
     }
 }

@@ -34,6 +34,9 @@ public interface MedicationDAO {
     @Query("SELECT * FROM Medication WHERE userId = :uId")
     List<Medication> getUserAllMedications(String uId);
 
+    @Query("SELECT * FROM Medication WHERE userId = :userId AND needsToRefill = :flag")
+    List<Medication> getMedicationsNeedsToRefill(String userId, boolean flag);
+
     @Update
     void updateMedication(Medication medication);   ///          10015551151515151
                                                     ///         *--------------------------*               /////     1;2;3;4;5;6;7;
