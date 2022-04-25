@@ -5,6 +5,10 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +33,7 @@ public class Medication implements Parcelable{
     List<Integer> days;
     public int status ;
     int icon ;
+    boolean needsToRefill = false;
 
 
     protected Medication(Parcel in) {
@@ -45,8 +50,10 @@ public class Medication implements Parcelable{
         instruction = in.readString();
         refillReminder = in.readParcelable(RefillReminder.class.getClassLoader());
         remindersID = in.createTypedArrayList(Reminder.CREATOR);
+        days = new Gson().fromJson(in.readString(),new TypeToken<List<Integer>>(){}.getType());
         status = in.readInt();
         icon = in.readInt();
+        needsToRefill = in.readInt() != 0;
     }
 
     @Override
@@ -64,8 +71,10 @@ public class Medication implements Parcelable{
         dest.writeString(instruction);
         dest.writeParcelable(refillReminder, flags);
         dest.writeTypedList(remindersID);
+        dest.writeString(new Gson().toJson(days));
         dest.writeInt(status);
         dest.writeInt(icon);
+        dest.writeInt(needsToRefill ? 1 : 0);
     }
 
     @Override
