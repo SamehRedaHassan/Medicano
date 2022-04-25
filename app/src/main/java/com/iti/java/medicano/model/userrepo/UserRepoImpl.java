@@ -258,7 +258,7 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public void requestUserInvitations() {
-        ref.child(Constants.USERS).child(getPreferences().getId()).child("invitationList").addValueEventListener(new ValueEventListener() {
+        ref.child(Constants.USERS).child(getOwnerUserPreferences().getId()).child("invitationList").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String, Object> invitor = (HashMap<String, Object>) snapshot.getValue();

@@ -19,10 +19,12 @@ import java.util.List;
 public class MedicationsAdapter extends RecyclerView.Adapter<MedicationsAdapter.myViewHolder>{
     Context context;
     List<MedicationSection> medicationSectionList;
+    MyMedicationsView view;
 
-    public MedicationsAdapter(Context context , List<MedicationSection>  data){
+    public MedicationsAdapter(Context context , List<MedicationSection>  data,MyMedicationsView view){
         this.context = context;
         medicationSectionList = data;
+        this.view = view;
     }
 
     public class myViewHolder extends RecyclerView.ViewHolder {
@@ -38,7 +40,7 @@ public class MedicationsAdapter extends RecyclerView.Adapter<MedicationsAdapter.
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        MedicationsAdapter myAdapter = new MedicationsAdapter(context , medicationSectionList);
+        MedicationsAdapter myAdapter = new MedicationsAdapter(context , medicationSectionList,view);
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.medication_row, parent, false);
         MedicationsAdapter.myViewHolder viewHolder = myAdapter.new myViewHolder(view);
@@ -52,8 +54,9 @@ public class MedicationsAdapter extends RecyclerView.Adapter<MedicationsAdapter.
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         holder.sectionRecyclerView.setLayoutManager(linearLayoutManager);
-        MyAdapter myAdapter = new MyAdapter(context , items);
+        MyAdapter myAdapter = new MyAdapter(context , items,view);
         holder.sectionRecyclerView.setAdapter(myAdapter);
+
 
     }
 

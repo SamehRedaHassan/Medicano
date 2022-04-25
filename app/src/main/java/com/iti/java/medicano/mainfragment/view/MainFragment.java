@@ -35,6 +35,7 @@ import com.iti.java.medicano.model.databaselayer.DatabaseLayer;
 import com.iti.java.medicano.model.userrepo.UserRepoImpl;
 import com.iti.java.medicano.utils.OnNotifyDataChanged;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -76,6 +77,12 @@ public class MainFragment extends Fragment implements MainFragmentView {
                 FirebaseDatabase.getInstance(),
                 FirebaseAuth.getInstance().getUid(),
                 WorkManager.getInstance(getContext().getApplicationContext())));
+
+        User currentUser = presenter.getCurrentUser();
+        Log.i("AAAAACCCCCC", "initData: "+currentUser);
+        ((AutoCompleteTextView) binding.textInputSchoolName.getEditText()).setText(currentUser.getFullName());
+
+
         binding.currentUserName.setOnItemClickListener((adapterView, view, i, l) -> {
             presenter.switchUser(users.get(i));
             NavHostFragment navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.nav_host_fragment_main);
@@ -84,12 +91,14 @@ public class MainFragment extends Fragment implements MainFragmentView {
                 ((OnNotifyDataChanged) fragment).notifyDataChanged();
             }
         });
+
         presenter.syncUsers().observe(getViewLifecycleOwner(), users -> {
             if (users.size() > 0) {
                 MainFragment.this.users = users;
-                List<String> names = users.stream().map(x -> x.getFullName()).collect(Collectors.toList());
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.item_drop_down, names);
-                ((AutoCompleteTextView) binding.textInputSchoolName.getEditText()).setAdapter(adapter);
+                List<String> localNames = users.stream().map(x -> x.getFullName()).collect(Collectors.toList());
+                ArrayAdapter<String> localAdapter = new ArrayAdapter<>(getContext(), R.layout.item_drop_down, localNames);
+                ((AutoCompleteTextView) binding.textInputSchoolName.getEditText()).setAdapter(localAdapter);
+                
             }
         });
     }
