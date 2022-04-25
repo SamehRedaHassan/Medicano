@@ -33,7 +33,7 @@ public class Medication implements Parcelable{
     List<Integer> days;
     public int status ;
     int icon ;
-    boolean needsToRefill = false;
+    public boolean needsToRefill = false;
 
 
     protected Medication(Parcel in) {

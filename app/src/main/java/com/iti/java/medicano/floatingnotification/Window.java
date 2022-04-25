@@ -120,7 +120,7 @@ public class Window {
                 else{
                     medication.getRefillReminder().currentNumOfPills=0;
                 }
-                //mediRepo.editMedication(medication);
+                mediRepo.editMedication(medication);
                 //mediRepo.upDateDatabase();
                 WorkersHandler.cancelUniqueReminderFromId(context,reminderId);
                 Log.i("TAG", "onClick: take"+reminder.status);
@@ -137,7 +137,7 @@ public class Window {
                         reminder = r;
                     }
                 }
-                //mediRepo.editMedication(medication);
+                mediRepo.editMedication(medication);
                 //mediRepo.upDateDatabase();
                 WorkersHandler.cancelUniqueReminderFromId(context,reminderId);
                 Log.i("TAG", "onClick skip: "+reminder.status);
