@@ -69,7 +69,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
         holder.medication_instructions.setText(med.getInstruction());
         holder.constraintLayout.setOnClickListener(view -> {
             Log.i("TAG", "onBindViewHolder: "+position);
-            this.view.navigateToMedAtIndex(position);
+            this.view.navigateToMedAtIndex(position,med.status==1);
 
         });
     }

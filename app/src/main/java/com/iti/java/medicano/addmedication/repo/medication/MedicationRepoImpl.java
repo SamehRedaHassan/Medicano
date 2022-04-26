@@ -90,6 +90,7 @@ public class MedicationRepoImpl implements MedicationRepo {
 
     @Override
     public void deleteMedication(Medication medication) {
+        workManager.cancelAllWorkByTag(medication.getId());
         database.child(medication.getId()).removeValue();
         new Thread(() -> dao.delete(medication)).start();
     }

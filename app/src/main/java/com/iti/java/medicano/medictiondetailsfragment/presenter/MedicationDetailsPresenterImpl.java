@@ -20,4 +20,14 @@ public class MedicationDetailsPresenterImpl implements MedicationDetailsPresente
     public void updateMedication(Medication med) {
         repo.editMedication(med);
     }
+
+    @Override
+    public void deleteMedication(Medication med) {
+        repo.deleteMedication(med);
+    }
+
+    @Override
+    public void editMedication(Medication medication) {
+        repo.editMedication(medication);
+    }
 }

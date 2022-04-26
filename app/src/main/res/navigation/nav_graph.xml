@@ -23,6 +23,13 @@
         <action
             android:id="@+id/action_medicationDetailsFragment_to_editMedicationFragment"
             app:destination="@id/editMedicationFragment" />
+        <action
+            android:id="@+id/action_medicationDetailsFragment_to_mainFragment2"
+            app:destination="@id/mainFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_medicationDetailsFragment_to_refillDialogFragment"
+            app:destination="@id/refillDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentLogin"
@@ -146,10 +153,14 @@
         android:label="SplashFragment" >
         <action
             android:id="@+id/action_splashFragment_to_fragmentLogin2"
-            app:destination="@id/fragmentLogin" />
+            app:destination="@id/fragmentLogin"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -178,6 +189,13 @@
         <action
             android:id="@+id/action_editMedicationFragment_to_reminderPickerDialogFragment2"
             app:destination="@id/reminderPickerDialogFragment2" />
+        <action
+            android:id="@+id/action_editMedicationFragment_to_datePickerDialogFragment2"
+            app:destination="@id/datePickerDialogFragment2" />
+        <action
+            android:id="@+id/action_editMedicationFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/addMedFriendImpl"
@@ -191,4 +209,8 @@
         android:id="@+id/refillDialogFragment"
         android:name="com.iti.java.medicano.invitation.view.RefillDialogFragment"
         android:label="RefillDialogFragment" />
+    <dialog
+        android:id="@+id/datePickerDialogFragment2"
+        android:name="com.iti.java.medicano.editmedictation.view.DatePickerDialogFragment2"
+        android:label="DatePickerDialogFragment2" />
 </navigation>
