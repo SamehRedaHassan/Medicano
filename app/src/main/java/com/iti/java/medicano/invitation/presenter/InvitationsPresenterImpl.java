@@ -49,6 +49,11 @@ public class InvitationsPresenterImpl implements InvitationsPresenter {
     }
 
     @Override
+    public void editMedication(Medication medication) {
+        mediRepo.editMedication(medication);
+    }
+
+    @Override
     public LiveData<List<Medication>> getMedicationsNeedToRefill() {
         return mediRepo.getMedicationsNeedsToRefill(repo.getPreferences().getId());
     }

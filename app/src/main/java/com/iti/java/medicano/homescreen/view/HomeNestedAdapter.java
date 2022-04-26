@@ -16,18 +16,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.iti.java.medicano.R;
 import com.iti.java.medicano.homescreen.model.MedicationHome;
+import com.iti.java.medicano.utils.MyDateUtils;
 import com.iti.java.medicano.utils.ReminderStatus;
 
+import java.util.Date;
 import java.util.List;
 
 public class HomeNestedAdapter extends RecyclerView.Adapter<HomeNestedAdapter.ViewHolder> {
 
+    private final Date date;
     private Context context;
     private List<MedicationHome> medicationHomes;
 
-    public HomeNestedAdapter(Context contx,List<MedicationHome> meds){
+    public HomeNestedAdapter(Context contx, List<MedicationHome> meds, Date date){
         context = contx;
         medicationHomes = meds;
+        this.date=date;
     }
 
     @NonNull
@@ -61,11 +65,12 @@ public class HomeNestedAdapter extends RecyclerView.Adapter<HomeNestedAdapter.Vi
                 TextView doseAndSize = detailsDialog.findViewById(R.id.doseAndSize);
                 TextView mediStatus = detailsDialog.findViewById(R.id.mediStatus);
                 TextView mediQuantity = detailsDialog.findViewById(R.id.mediQuantity);
-
                 mediImeg.setImageResource(med.getMedImg());
                 mediName.setText(med.getMedName());
                 nextDate.setText("Scheduled for "+med.getCurrentReminder());
                 doseAndSize.setText(med.getMedDesc());
+                if (MyDateUtils.getTodayDate().equals(date))
+                    mediStatus.setVisibility(View.VISIBLE);
                 String status="";
                 switch (med.getStatus()){
                     case ReminderStatus.CANCELED+"":

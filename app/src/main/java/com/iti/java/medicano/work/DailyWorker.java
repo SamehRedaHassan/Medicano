@@ -48,6 +48,7 @@ public class DailyWorker extends Worker {
                 FirebaseDatabase.getInstance(),
                 user.getId(),
                 WorkManager.getInstance(getApplicationContext()));
+        medicationRepo.updateAllRemindersWithPendingStatusAfterOneDay();
         Date date = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(date);
