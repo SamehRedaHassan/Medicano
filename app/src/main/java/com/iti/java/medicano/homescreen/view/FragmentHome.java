@@ -153,6 +153,10 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
         mainClose = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_close);
 
         isOpened = false;
+
+        if(!presenter.isOwnerUser()){
+            binding.addBtn.setVisibility(View.GONE);
+        }
     }
 
     void getMedicationsForToday() {

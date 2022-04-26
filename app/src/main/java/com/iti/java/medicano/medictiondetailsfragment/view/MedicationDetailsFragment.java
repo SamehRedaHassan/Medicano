@@ -83,7 +83,11 @@ public class MedicationDetailsFragment extends Fragment implements MedicationDet
         binding.textviewNoOfPillsLeft.setText("No Of Pills Left " + "( " + med.getRefillReminder().currentNumOfPills + " )");
         binding.textviewNoOfPillsInOneRefill.setText("No Of Pills in One Refill " + "( " + "10" + " )");
         binding.textviewNoOfPillsToLaunchReminder.setText("No Of Pills to Lauch Reminder " + "( " + med.getRefillReminder().countToReminderWhenReach + " )");
+        if(!presenter.isOwnerUser()){
 
+            binding.btnRefill.setVisibility(View.GONE);
+            binding.btnSuspend.setVisibility(View.GONE);
+        }
         binding.btnRefill.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
             bundle.putInt(POSITION,1);
@@ -109,10 +113,7 @@ public class MedicationDetailsFragment extends Fragment implements MedicationDet
             presenter.updateMedication(med);
 
             binding.btnSuspend.setText( med.status == 1 ? "SUSPEND" : "RESUME");
-            if(!presenter.isOwnerUser()){
-                binding.btnRefill.setVisibility(View.GONE);
-                binding.btnSuspend.setVisibility(View.GONE);
-            }
+
 
             //presenter.updateMid
 
