@@ -273,4 +273,11 @@ public class UserRepoImpl implements UserRepo {
         });
     }
 
+    @Override
+    public boolean isOwnerUser() {
+            if(userRepo.getOwnerUserPreferences().getId().equals(userRepo.getPreferences().getId())){
+                return true;
+            }else{return false;}
+        }
+
 }

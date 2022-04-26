@@ -38,6 +38,11 @@ public class HomePresenter implements HomePresenterInterface {
     }
 
     @Override
+    public boolean isOwnerUser() {
+        return repo.isOwnerUser();
+    }
+
+    @Override
     public LiveData<List<Medication>> getMyMedicationsForDay(String uId, long dayDate, String dayCode) {
         return mediRepo.getUserMedicationForDay(uId,dayDate,dayCode);
     }

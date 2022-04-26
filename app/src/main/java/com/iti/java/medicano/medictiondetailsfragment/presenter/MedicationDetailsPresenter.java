@@ -4,4 +4,5 @@ import com.iti.java.medicano.model.Medication;
 
 public interface MedicationDetailsPresenter {
     void updateMedication(Medication med);
+    boolean isOwnerUser();
 }

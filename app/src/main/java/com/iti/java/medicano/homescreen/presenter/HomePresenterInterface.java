@@ -12,4 +12,5 @@ public interface HomePresenterInterface {
     void setDateChange(String uId, long dayDate, String dayCode);
     LiveData<List<Medication>> getMyMedicationsForDay(String uId, long dayDate, String dayCode);
     LiveData<List<Medication>> getUserMedications(String uId);
+    boolean isOwnerUser();
 }

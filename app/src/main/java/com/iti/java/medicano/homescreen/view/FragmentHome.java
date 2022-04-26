@@ -91,11 +91,11 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
         initUI();
 
         user = presenter.getUser();
-        Toast.makeText(getContext(), user.getFullName(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getContext(), user.getFullName(), Toast.LENGTH_SHORT).show();
 
         picker.setListener(dateSelected -> {
 
-            Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
             reminderDate = dateSelected.toDate();
 
             Log.i("TAG", "day selected " + dateSelected);
@@ -156,6 +156,8 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
         mainClose = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_close);
 
         isOpened = false;
+        if(!presenter.isOwnerUser()){
+        binding.addBtn.setVisibility(View.GONE);}
     }
 
     void getMedicationsForToday() {
@@ -198,13 +200,13 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
     @Override
     public void setUser(User user) {
         this.user = user;
-        Toast.makeText(getContext(), user.getFullName(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getContext(), user.getFullName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onDateSelected(DateTime dateSelected) {
         //Log.i("HorizontalPicker", "Selected date is " + dateSelected.toString());
-        Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
     }
 
     public void floatingButtonUI() {

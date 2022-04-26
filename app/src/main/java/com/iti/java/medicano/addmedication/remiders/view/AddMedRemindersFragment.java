@@ -70,7 +70,7 @@ public class AddMedRemindersFragment extends Fragment implements AddMedReminders
     private void setListeners() {
         binding.fabAddReminder.setOnClickListener((v) -> {
             NavigationHelper.safeNavigateTo(navController, R.id.addMedRemindersFragment,R.id.action_addMedRemindersFragment_to_reminderPickerDialogFragment);
-            Toast.makeText(getContext(), "ddddddddddddd", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getContext(), "ddddddddddddd", Toast.LENGTH_SHORT).show();
         });
         binding.btnNext.setOnClickListener((v)->{
             addMedRemindersPresenter.onPressNext(reminders);
