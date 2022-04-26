@@ -57,6 +57,8 @@ public class AddMedFriendImpl  extends Fragment implements AddMedFriend {
                     return;
                 }else{
                     presenter.addMedFriendWithEmail(txtViewMedFriendEmail.getText().toString().trim());
+                    Toast.makeText(getContext(), "Invitation Sent successfully", Toast.LENGTH_SHORT).show();
+                    binding.txtViewMedFriendEmail.setText("");
                 }
             }
         });

@@ -154,9 +154,7 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
 
         isOpened = false;
 
-        if(!presenter.isOwnerUser()){
-            binding.addBtn.setVisibility(View.GONE);
-        }
+
     }
 
     void getMedicationsForToday() {
@@ -255,5 +253,11 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
         presenter.setDateChange(user.getId(), selectedDay, dayOfWeek + "");
         picker.setDate(DateTime.now());
         Log.e(TAG, "notifyDataChanged: ");
+        if(!presenter.isOwnerUser()){
+            binding.addBtn.setVisibility(View.GONE);
+        }else{
+            binding.addBtn.setVisibility(View.VISIBLE);
+
+        }
     }
 }
