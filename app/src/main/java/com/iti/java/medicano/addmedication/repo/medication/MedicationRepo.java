@@ -19,4 +19,6 @@ public interface MedicationRepo {
     List<Medication> getAllMedicationForDay(long dayDate, String dayCode);
     void setDayAndDate(String uId, long dayDate, String dayCode);
     void requestUpdateMedicationsForCurrentUser(String userId) ;
+    LiveData<List<Medication>> getMedicationsNeedsToRefill(String userId);
+    void updateAllRemindersWithPendingStatusAfterOneDay();
 }

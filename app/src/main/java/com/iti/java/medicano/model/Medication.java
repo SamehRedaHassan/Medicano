@@ -3,6 +3,7 @@ package com.iti.java.medicano.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -411,5 +412,13 @@ public class Medication implements Parcelable{
         public Medication build(){
             return new Medication(name, strengthType, strengthValue, reasonForMedication, formOfMedication, startDate, endDate, treatmentTime, instruction, refillReminder, remindersID, days,icon,status);
         }
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof Medication){
+            return this.id.equals(((Medication) obj).id);
+        }else
+            return false;
     }
 }

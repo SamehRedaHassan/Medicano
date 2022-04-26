@@ -3,6 +3,7 @@ package com.iti.java.medicano.homescreen.view;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.WorkManager;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
 import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,7 +42,9 @@ import com.iti.java.medicano.utils.Converters;
 import com.iti.java.medicano.utils.MyDateUtils;
 
 import com.iti.java.medicano.utils.OnNotifyDataChanged;
+
 import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,8 +66,8 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
     private int dayOfWeek;
     private Date reminderDate;
 
-    private FloatingActionButton addBtn, addMedicationBtn, addTrackerBtn, addDoseBtn;
-    private TextView addMedicationTxt, addTrackerTxt, addDoseTxt;
+    private FloatingActionButton addBtn, addMedicationBtn, addTrackerBtn;
+    private TextView addMedicationTxt, addTrackerTxt;
     private Animation fabOpen, fabClose, mainOpen, mainClose;
     private HorizontalPicker picker;
     boolean isOpened;
@@ -91,12 +96,14 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
         initUI();
 
         user = presenter.getUser();
-       // Toast.makeText(getContext(), user.getFullName(), Toast.LENGTH_SHORT).show();
 
         picker.setListener(dateSelected -> {
 
             //Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
             reminderDate = dateSelected.toDate();
+
+        picker.setListener(dateSelected -> {
+            reminderDate = MyDateUtils.truncateToDate(dateSelected.toDate());
 
             Log.i("TAG", "day selected " + dateSelected);
             selectedDay = Converters.dateToTimestamp(dateSelected.toDate());
@@ -134,21 +141,15 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
 
         homeRecyclerView = binding.homeRecycler;
         layoutManager = new LinearLayoutManager(getActivity());
-        homeAdapter = new HomeAdapter(getActivity());
-        homeAdapter.setMedicationArray(mediList);
-        homeRecyclerView.setAdapter(homeAdapter);
-        homeRecyclerView.setLayoutManager(layoutManager);
 
         picker = (HorizontalPicker) binding.datePicker;
 
         addBtn = binding.addBtn;
         addMedicationBtn = binding.addMedicationBtn;
         addTrackerBtn = binding.addTrackerBtn;
-        addDoseBtn = binding.addDoseBtn;
 
         addMedicationTxt = binding.addMedicationTxt;
         addTrackerTxt = binding.addTrackerTxt;
-        addDoseTxt = binding.addDoseTxt;
 
         fabOpen = AnimationUtils.loadAnimation(getContext(), R.anim.to_bottom);
         fabClose = AnimationUtils.loadAnimation(getContext(), R.anim.from_bottom);
@@ -176,10 +177,10 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
                             Log.i("TAG", r.hours + ":" + r.minutes);
 
                             MedicationHome medicationHome = new MedicationHome(medication.getName(),
-                                    r.hours + ":" + r.minutes+", ",
-                                    r.status+"",
-                                    medication.getRefillReminder().currentNumOfPills+"",
-                                    medication.getStrengthValue() + " g, take " + r.drugQuantity+" pill(s)",
+                                    r.hours + ":" + r.minutes + ", ",
+                                    r.status + "",
+                                    medication.getRefillReminder().currentNumOfPills + "",
+                                    medication.getStrengthValue() + " g, take " + r.drugQuantity + " pill(s)",
                                     medication.getIcon());
                             Log.i("TAG", medication.getName());
 
@@ -192,7 +193,10 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
                             }
                         }
                     }
+                    homeAdapter = new HomeAdapter(getActivity(),reminderDate);
                     homeAdapter.setMedicationArray(mediList);
+                    homeRecyclerView.setAdapter(homeAdapter);
+                    homeRecyclerView.setLayoutManager(layoutManager);
                     homeAdapter.notifyDataSetChanged();
                 });
     }
@@ -200,13 +204,11 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
     @Override
     public void setUser(User user) {
         this.user = user;
-       // Toast.makeText(getContext(), user.getFullName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onDateSelected(DateTime dateSelected) {
-        //Log.i("HorizontalPicker", "Selected date is " + dateSelected.toString());
-        //Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
+
     }
 
     public void floatingButtonUI() {
@@ -220,15 +222,11 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
             addMedicationTxt.startAnimation(fabClose);
             addTrackerBtn.startAnimation(fabClose);
             addTrackerTxt.startAnimation(fabClose);
-            addDoseBtn.startAnimation(fabClose);
-            addDoseTxt.startAnimation(fabClose);
 
             addMedicationBtn.setVisibility(View.INVISIBLE);
             addMedicationTxt.setVisibility(View.INVISIBLE);
             addTrackerBtn.setVisibility(View.INVISIBLE);
             addTrackerTxt.setVisibility(View.INVISIBLE);
-            addDoseBtn.setVisibility(View.INVISIBLE);
-            addDoseTxt.setVisibility(View.INVISIBLE);
 
             isOpened = false;
         } else {
@@ -241,15 +239,11 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
             addMedicationTxt.startAnimation(fabOpen);
             addTrackerBtn.startAnimation(fabOpen);
             addTrackerTxt.startAnimation(fabOpen);
-            addDoseBtn.startAnimation(fabOpen);
-            addDoseTxt.startAnimation(fabOpen);
 
             addMedicationBtn.setVisibility(View.VISIBLE);
             addMedicationTxt.setVisibility(View.VISIBLE);
             addTrackerBtn.setVisibility(View.VISIBLE);
             addTrackerTxt.setVisibility(View.VISIBLE);
-            addDoseBtn.setVisibility(View.VISIBLE);
-            addDoseTxt.setVisibility(View.VISIBLE);
 
             isOpened = true;
         }
@@ -258,7 +252,7 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
     @Override
     public void notifyDataChanged() {
         user = presenter.getUser();
-        presenter.setDateChange(user.getId(), selectedDay,dayOfWeek+"");
+        presenter.setDateChange(user.getId(), selectedDay, dayOfWeek + "");
         picker.setDate(DateTime.now());
         Log.e(TAG, "notifyDataChanged: ");
     }

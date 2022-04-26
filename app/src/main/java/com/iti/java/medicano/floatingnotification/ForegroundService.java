@@ -20,6 +20,8 @@ import com.iti.java.medicano.model.Reminder;
 import com.iti.java.medicano.utils.BundleKeys;
 
 public class ForegroundService extends Service {
+    private Window window;
+
     public ForegroundService() {
     }
 
@@ -50,7 +52,7 @@ public class ForegroundService extends Service {
         String rem = (String) intent.getExtras().get(BundleKeys.REMINDER);
 
         Log.i("TAG", "onStartCommand: "+medication.getName()+rem);
-        Window window=new Window(this,medication,rem);
+        window=new Window(this,medication,rem);
         window.open();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -82,5 +84,11 @@ public class ForegroundService extends Service {
                 .setCategory(Notification.CATEGORY_SERVICE)
                 .build();
         startForeground(2, notification);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
     }
 }

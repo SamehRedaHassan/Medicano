@@ -21,7 +21,6 @@ public class InvitationsAdapter extends RecyclerView.Adapter<InvitationsAdapter.
     List<String> myInvitors;
     AcceptDenyCallback delegate;
 
-
     public InvitationsAdapter(Context context ,  HashMap<String,Object> invitations, AcceptDenyCallback delegate){
         this.invitations = invitations;
         this.context = context;

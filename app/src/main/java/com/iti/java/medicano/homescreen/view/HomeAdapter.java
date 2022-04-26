@@ -21,6 +21,7 @@ import com.iti.java.medicano.homescreen.model.MedicationList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -28,15 +29,17 @@ import java.util.TreeMap;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder>{
 
+    private final Date date;
     private Context context;
     private TreeMap<String,List<MedicationHome>> medicationsList;
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     private ArrayList<String> medicationArray;
 
-    public HomeAdapter(Context context){
+    public HomeAdapter(Context context, Date date){
         this.context = context;
         medicationsList = new TreeMap<>();
         medicationArray = new ArrayList<>();
+        this.date = date;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -87,7 +90,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
         layoutManager.setInitialPrefetchItemCount(medList.size());
 
-        HomeNestedAdapter nestedAdapter = new HomeNestedAdapter(this.context,medList);
+        HomeNestedAdapter nestedAdapter = new HomeNestedAdapter(this.context,medList,date);
 
         holder.recyclerView.setLayoutManager(layoutManager);
         holder.recyclerView.setAdapter(nestedAdapter);
