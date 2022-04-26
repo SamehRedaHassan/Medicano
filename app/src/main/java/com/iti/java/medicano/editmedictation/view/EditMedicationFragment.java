@@ -139,6 +139,9 @@ public class EditMedicationFragment extends Fragment implements EditMedicationVi
             medRepo.editMedication(med);
             NavigationHelper.safeNavigateTo(navController,R.id.editMedicationFragment,R.id.action_editMedicationFragment_to_mainFragment);
         });
+        binding.btnCancel.setOnClickListener(view -> {
+             navController.navigateUp();
+        });
         binding.editTextEndDate.setOnClickListener((v) -> {
             Bundle bundle = new Bundle();
             bundle.putString(DATE_TYPE, END_DATE);
