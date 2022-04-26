@@ -120,7 +120,9 @@ public class Window {
                 else{
                     medication.getRefillReminder().currentNumOfPills=0;
                 }
+                medication.needsToRefill = medication.getRefillReminder().currentNumOfPills <= medication.getRefillReminder().countToReminderWhenReach;
                 mediRepo.editMedication(medication);
+
                 //mediRepo.upDateDatabase();
                 WorkersHandler.cancelUniqueReminderFromId(context,reminderId);
                 Log.i("TAG", "onClick: take"+reminder.status);
