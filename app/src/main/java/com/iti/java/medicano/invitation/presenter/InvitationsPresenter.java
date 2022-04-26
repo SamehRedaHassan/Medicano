@@ -12,6 +12,6 @@ public interface InvitationsPresenter {
     void acceptMedFriendWithID(String id , String name);
     void denyMedFriendWithID(String id);
     void requestUserInvitations();
-
+    void editMedication(Medication  medication);
     LiveData<List<Medication>> getMedicationsNeedToRefill();
 }

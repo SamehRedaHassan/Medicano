@@ -6,5 +6,6 @@ public class Constants {
     public static String USER_KEY = "currentUser";
     public static String OWNER_USER_KEY = "ownerUser";
     public static String MAIN_WORKER_ID = "MAIN_WORKER_ID";
+    public static String POSITION = "POSITION";
 
 }

@@ -62,7 +62,6 @@ public class AddMedStrengthFragment extends Fragment implements AddMedStrengthVi
             Medication.Builder builder = mBundle.getParcelable(MEDICATION_BUILDER);
             builder.setStrengthType(binding.strengthUnitTabLayout.getSelectedTabPosition());
             builder.setStrengthValue(value);
-            Toast.makeText(getContext(), ""+binding.strengthUnitTabLayout.getSelectedTabPosition(), Toast.LENGTH_LONG).show();
             Bundle bundle = new Bundle();
             Log.e(TAG, "next: bundle"+builder);
             bundle.putParcelable(MEDICATION_BUILDER, builder);

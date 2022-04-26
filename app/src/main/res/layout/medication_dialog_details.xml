@@ -84,8 +84,9 @@
                 android:id="@+id/mediStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="pending"
-                android:padding="5dp"/>
+                android:visibility="gone" />
             <TextView
                 android:id="@+id/mediQuantity"
                 android:layout_width="wrap_content"

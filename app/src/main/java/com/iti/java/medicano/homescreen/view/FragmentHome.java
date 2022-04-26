@@ -3,6 +3,7 @@ package com.iti.java.medicano.homescreen.view;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.WorkManager;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
 import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,7 +42,9 @@ import com.iti.java.medicano.utils.Converters;
 import com.iti.java.medicano.utils.MyDateUtils;
 
 import com.iti.java.medicano.utils.OnNotifyDataChanged;
+
 import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -93,8 +98,7 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
         user = presenter.getUser();
 
         picker.setListener(dateSelected -> {
-
-            reminderDate = dateSelected.toDate();
+            reminderDate = MyDateUtils.truncateToDate(dateSelected.toDate());
 
             Log.i("TAG", "day selected " + dateSelected);
             selectedDay = Converters.dateToTimestamp(dateSelected.toDate());
@@ -132,10 +136,6 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
 
         homeRecyclerView = binding.homeRecycler;
         layoutManager = new LinearLayoutManager(getActivity());
-        homeAdapter = new HomeAdapter(getActivity());
-        homeAdapter.setMedicationArray(mediList);
-        homeRecyclerView.setAdapter(homeAdapter);
-        homeRecyclerView.setLayoutManager(layoutManager);
 
         picker = (HorizontalPicker) binding.datePicker;
 
@@ -170,10 +170,10 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
                             Log.i("TAG", r.hours + ":" + r.minutes);
 
                             MedicationHome medicationHome = new MedicationHome(medication.getName(),
-                                    r.hours + ":" + r.minutes+", ",
-                                    r.status+"",
-                                    medication.getRefillReminder().currentNumOfPills+"",
-                                    medication.getStrengthValue() + " g, take " + r.drugQuantity+" pill(s)",
+                                    r.hours + ":" + r.minutes + ", ",
+                                    r.status + "",
+                                    medication.getRefillReminder().currentNumOfPills + "",
+                                    medication.getStrengthValue() + " g, take " + r.drugQuantity + " pill(s)",
                                     medication.getIcon());
                             Log.i("TAG", medication.getName());
 
@@ -186,7 +186,10 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
                             }
                         }
                     }
+                    homeAdapter = new HomeAdapter(getActivity(),reminderDate);
                     homeAdapter.setMedicationArray(mediList);
+                    homeRecyclerView.setAdapter(homeAdapter);
+                    homeRecyclerView.setLayoutManager(layoutManager);
                     homeAdapter.notifyDataSetChanged();
                 });
     }
@@ -242,7 +245,7 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
     @Override
     public void notifyDataChanged() {
         user = presenter.getUser();
-        presenter.setDateChange(user.getId(), selectedDay,dayOfWeek+"");
+        presenter.setDateChange(user.getId(), selectedDay, dayOfWeek + "");
         picker.setDate(DateTime.now());
         Log.e(TAG, "notifyDataChanged: ");
     }

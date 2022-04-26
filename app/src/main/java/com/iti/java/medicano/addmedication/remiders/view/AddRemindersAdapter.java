@@ -33,7 +33,7 @@ public class AddRemindersAdapter extends RecyclerView.Adapter<AddRemindersAdapte
         holder.binding.textViewReminderTime.setText(currentReminder.hours+":"+currentReminder.minutes);
         holder.binding.btnDelete.setOnClickListener((v)->{
             reminders.remove(position);
-            notifyItemChanged(position);
+            notifyDataSetChanged();
         });
     }
 
