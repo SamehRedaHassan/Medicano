@@ -25,6 +25,15 @@ public class MedicationDetailsPresenterImpl implements MedicationDetailsPresente
     }
 
     @Override
+    public void deleteMedication(Medication med) {
+        repo.deleteMedication(med);
+    }
+
+    @Override
+    public void editMedication(Medication medication) {
+        repo.editMedication(medication);
+    }
+  
     public boolean isOwnerUser() {
         return userRepo.isOwnerUser();
     }

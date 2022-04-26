@@ -2,6 +2,8 @@ package com.iti.java.medicano.mymedications.view;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import static com.iti.java.medicano.utils.BundleKeys.MEDICATION_BUILDER;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,7 +61,7 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMyMedicationsBinding.inflate(inflater, container, false);
-        navController = Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         return binding.getRoot();
     }
 
@@ -84,8 +86,8 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
         activeMedsRecyclerView.setHasFixedSize(true);
         suspendedMedsRecyclerView.setHasFixedSize(true);
 
-        activeMedsAdapter = new MyAdapter(getContext(), activeMeds,this);
-        suspendedMedsAdapter = new MyAdapter(getContext(), suspendedMeds,this);
+        activeMedsAdapter = new MyAdapter(getContext(), activeMeds, this);
+        suspendedMedsAdapter = new MyAdapter(getContext(), suspendedMeds, this);
 
         activeMedsRecyclerView.setAdapter(activeMedsAdapter);
         suspendedMedsRecyclerView.setAdapter(suspendedMedsAdapter);
@@ -128,11 +130,15 @@ public class MyMedicationsFragment extends Fragment implements MyMedicationsView
     }
 
     @Override
-    public void navigateToMedAtIndex(int index) {
+    public void navigateToMedAtIndex(int index, boolean isActive) {
         Log.i("RRRRRRRR", "notifyDataChanged: ");
         Bundle bundle = new Bundle();
-        bundle.putParcelable ("MEDICATION", activeMeds.get(index));
-        navController.navigate(R.id.action_mainFragment_to_medicationDetailsFragment ,bundle);
+        if (isActive)
+            bundle.putParcelable(MEDICATION_BUILDER, activeMeds.get(index));
+        else
+            bundle.putParcelable(MEDICATION_BUILDER, suspendedMeds.get(index));
+
+        navController.navigate(R.id.action_mainFragment_to_medicationDetailsFragment, bundle);
 
     }
 }

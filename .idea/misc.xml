@@ -47,6 +47,8 @@
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_cancel.xml" value="0.1" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_close.xml" value="0.1075" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_delete.xml" value="0.1735" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_delete2.xml" value="0.1905" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_delete3.xml" value="0.152" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1075" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_medication.xml" value="0.1075" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/drawable/ic_medication_2.xml" value="0.1705" />
@@ -93,7 +95,7 @@
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/invitation_row.xml" value="0.20863616930312098" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/item_drop_down.xml" value="0.20863616930312098" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/item_new_reminder.xml" value="0.22780797101449277" />
-        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/item_new_reminder_edit.xml" value="0.20863616930312098" />
+        <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/item_new_reminder_edit.xml" value="0.536" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/medication_dialog_details.xml" value="0.4" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/medication_row.xml" value="0.22780797101449277" />
         <entry key="..\:/ITI/AndroidJava/JavaProject/Medicano/app/src/main/res/layout/medication_section_row.xml" value="0.20863616930312098" />

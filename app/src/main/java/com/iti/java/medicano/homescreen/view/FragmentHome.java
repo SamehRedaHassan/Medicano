@@ -39,6 +39,7 @@ import com.iti.java.medicano.model.User;
 import com.iti.java.medicano.model.databaselayer.DatabaseLayer;
 import com.iti.java.medicano.model.userrepo.UserRepoImpl;
 import com.iti.java.medicano.utils.Converters;
+import com.iti.java.medicano.utils.MedicationStatus;
 import com.iti.java.medicano.utils.MyDateUtils;
 
 import com.iti.java.medicano.utils.OnNotifyDataChanged;
@@ -169,31 +170,33 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
                     Log.i("USERRRR", "onChanged: " + medications.size() + " " + user.getId());
 
                     for (Medication medication : medications) {
-                        Log.i("TAG", Converters.dateToTimestamp(medication.getStartDate()).toString());
-                        Log.i("TAG", Converters.dateToTimestamp(medication.getEndDate()).toString());
-                        for (Reminder r : medication.getRemindersID()) {
+                        if (medication.status == MedicationStatus.ACTIVE) {
+                            Log.i("TAG", Converters.dateToTimestamp(medication.getStartDate()).toString());
+                            Log.i("TAG", Converters.dateToTimestamp(medication.getEndDate()).toString());
+                            for (Reminder r : medication.getRemindersID()) {
 
-                            String remTime = r.hours + ":" + r.minutes;
-                            Log.i("TAG", r.hours + ":" + r.minutes);
+                                String remTime = r.hours + ":" + r.minutes;
+                                Log.i("TAG", r.hours + ":" + r.minutes);
 
-                            MedicationHome medicationHome = new MedicationHome(medication.getName(),
-                                    r.hours + ":" + r.minutes + ", ",
-                                    r.status + "",
-                                    medication.getRefillReminder().currentNumOfPills + "",
-                                    medication.getStrengthValue() + " g, take " + r.drugQuantity + " pill(s)",
-                                    medication.getIcon());
-                            Log.i("TAG", medication.getName());
+                                MedicationHome medicationHome = new MedicationHome(medication.getName(),
+                                        r.hours + ":" + r.minutes + ", ",
+                                        r.status + "",
+                                        medication.getRefillReminder().currentNumOfPills + "",
+                                        medication.getStrengthValue() + " g, take " + r.drugQuantity + " pill(s)",
+                                        medication.getIcon());
+                                Log.i("TAG", medication.getName());
 
-                            if (mediList.get(remTime) == null) {
-                                List<MedicationHome> mediItemList = new ArrayList<>();
-                                mediItemList.add(medicationHome);
-                                mediList.put(remTime, mediItemList);
-                            } else {
-                                mediList.get(remTime).add(medicationHome);
+                                if (mediList.get(remTime) == null) {
+                                    List<MedicationHome> mediItemList = new ArrayList<>();
+                                    mediItemList.add(medicationHome);
+                                    mediList.put(remTime, mediItemList);
+                                } else {
+                                    mediList.get(remTime).add(medicationHome);
+                                }
                             }
                         }
                     }
-                    homeAdapter = new HomeAdapter(getActivity(),reminderDate);
+                    homeAdapter = new HomeAdapter(getActivity(), reminderDate);
                     homeAdapter.setMedicationArray(mediList);
                     homeRecyclerView.setAdapter(homeAdapter);
                     homeRecyclerView.setLayoutManager(layoutManager);
