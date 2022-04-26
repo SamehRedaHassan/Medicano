@@ -44,34 +44,18 @@
         app:tint="@android:color/white" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addDoseBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:fabSize="mini"
-        android:visibility="invisible"
-        android:backgroundTint="@color/purple_200"
-        app:layout_constraintBottom_toTopOf="@+id/addBtn"
-        app:layout_constraintEnd_toEndOf="@+id/addBtn"
-        app:layout_constraintStart_toStartOf="@+id/addBtn"
-        app:srcCompat="@drawable/ic_delete"
-        app:tint="@android:color/white" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addTrackerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/light_color"
         android:clickable="true"
         android:focusable="true"
-        app:fabSize="mini"
         android:visibility="invisible"
-        android:backgroundTint="@color/light_color"
-        app:layout_constraintBottom_toTopOf="@+id/addDoseBtn"
-        app:layout_constraintEnd_toEndOf="@+id/addDoseBtn"
-        app:layout_constraintStart_toStartOf="@+id/addDoseBtn"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/addBtn"
+        app:layout_constraintEnd_toEndOf="@+id/addBtn"
+        app:layout_constraintStart_toStartOf="@+id/addBtn"
         app:srcCompat="@drawable/ic_person"
         app:tint="@android:color/white" />
 
@@ -106,24 +90,13 @@
         android:id="@+id/addTrackerTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="42dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="100dp"
+        android:background="@color/white"
         android:text="Add Health Tracker"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/addDoseTxt"
-        app:layout_constraintEnd_toEndOf="@+id/addDoseTxt"
-        android:background="@color/white"/>
-
-    <TextView
-        android:id="@+id/addDoseTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="104dp"
-        android:text="Add Dose"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addDoseBtn"
-        android:background="@color/white"/>
+        app:layout_constraintEnd_toStartOf="@+id/addTrackerBtn" />
 
 
 
