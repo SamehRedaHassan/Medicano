@@ -87,6 +87,9 @@ public class MedicationDetailsFragment extends Fragment implements MedicationDet
 
             binding.btnRefill.setVisibility(View.GONE);
             binding.btnSuspend.setVisibility(View.GONE);
+        }else{
+            binding.btnRefill.setVisibility(View.VISIBLE);
+            binding.btnSuspend.setVisibility(View.VISIBLE);
         }
         binding.btnRefill.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
