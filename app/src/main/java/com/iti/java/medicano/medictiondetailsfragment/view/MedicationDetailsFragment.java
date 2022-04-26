@@ -3,7 +3,7 @@ package com.iti.java.medicano.medictiondetailsfragment.view;
 import static com.iti.java.medicano.Constants.POSITION;
 import static com.iti.java.medicano.utils.BundleKeys.MEDICATION_BUILDER;
 import static com.iti.java.medicano.utils.BundleKeys.REMINDER;
-
+import static android.content.Context.MODE_PRIVATE;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,26 +11,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.iti.java.medicano.Constants;
 import com.iti.java.medicano.R;
 import com.iti.java.medicano.addmedication.repo.medication.MedicationRepoImpl;
 import com.iti.java.medicano.databinding.FragmentMedicationInfoBinding;
 import com.iti.java.medicano.medictiondetailsfragment.presenter.MedicationDetailsPresenter;
 import com.iti.java.medicano.medictiondetailsfragment.presenter.MedicationDetailsPresenterImpl;
 import com.iti.java.medicano.model.Medication;
-
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.work.WorkManager;
-
 import com.iti.java.medicano.model.databaselayer.DatabaseLayer;
+import com.iti.java.medicano.model.userrepo.UserRepoImpl;
 import com.iti.java.medicano.utils.NavigationHelper;
 
 public class MedicationDetailsFragment extends Fragment implements MedicationDetailsView {
@@ -54,9 +53,7 @@ public class MedicationDetailsFragment extends Fragment implements MedicationDet
         med = getArguments().getParcelable(MEDICATION_BUILDER);
         presenter = new MedicationDetailsPresenterImpl(this, MedicationRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).MedicationDAO(),
                 FirebaseDatabase.getInstance(),
-                FirebaseAuth.getInstance().getUid(),
-                WorkManager.getInstance(getContext().getApplicationContext())));
-
+                FirebaseAuth.getInstance().getUid(),WorkManager.getInstance(getContext().getApplicationContext())), UserRepoImpl.getInstance(DatabaseLayer.getDBInstance(getContext()).UserDAO(),getContext().getSharedPreferences(Constants.SHARED_PREFERENCES,MODE_PRIVATE)));
         navController = NavHostFragment.findNavController(this);
         setListeners();
         configureUI();
@@ -92,6 +89,12 @@ public class MedicationDetailsFragment extends Fragment implements MedicationDet
             bundle.putInt(POSITION,1);
             navController.navigate(R.id.action_medicationDetailsFragment_to_refillDialogFragment,bundle);
 
+         
+//             med.getRefillReminder().currentNumOfPills =  med.getRefillReminder().currentNumOfPills + 10 ;
+//             presenter.updateMedication(med);
+//             Toast.makeText(getContext(), "Refilled successfully", Toast.LENGTH_SHORT).show();
+
+
         });
 
         binding.btnSuspend.setOnClickListener(view -> {
@@ -104,6 +107,13 @@ public class MedicationDetailsFragment extends Fragment implements MedicationDet
                 WorkManager.getInstance(getContext().getApplicationContext()).cancelAllWorkByTag(med.getId());
             }
             presenter.updateMedication(med);
+
+            binding.btnSuspend.setText( med.status == 1 ? "SUSPEND" : "RESUME");
+            if(!presenter.isOwnerUser()){
+                binding.btnRefill.setVisibility(View.GONE);
+                binding.btnSuspend.setVisibility(View.GONE);
+            }
+
             //presenter.updateMid
 
             //suspend medication

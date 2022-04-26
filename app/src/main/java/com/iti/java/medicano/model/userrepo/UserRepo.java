@@ -22,4 +22,5 @@ public interface UserRepo {
     void addOwnerUserToPreferences(User user);
     User getOwnerUserPreferences();
     void requestUserInvitations();
+    boolean isOwnerUser();
 }
