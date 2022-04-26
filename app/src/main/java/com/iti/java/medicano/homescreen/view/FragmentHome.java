@@ -61,8 +61,8 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
     private int dayOfWeek;
     private Date reminderDate;
 
-    private FloatingActionButton addBtn, addMedicationBtn, addTrackerBtn, addDoseBtn;
-    private TextView addMedicationTxt, addTrackerTxt, addDoseTxt;
+    private FloatingActionButton addBtn, addMedicationBtn, addTrackerBtn;
+    private TextView addMedicationTxt, addTrackerTxt;
     private Animation fabOpen, fabClose, mainOpen, mainClose;
     private HorizontalPicker picker;
     boolean isOpened;
@@ -91,11 +91,9 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
         initUI();
 
         user = presenter.getUser();
-        Toast.makeText(getContext(), user.getFullName(), Toast.LENGTH_SHORT).show();
 
         picker.setListener(dateSelected -> {
 
-            Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
             reminderDate = dateSelected.toDate();
 
             Log.i("TAG", "day selected " + dateSelected);
@@ -144,11 +142,9 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
         addBtn = binding.addBtn;
         addMedicationBtn = binding.addMedicationBtn;
         addTrackerBtn = binding.addTrackerBtn;
-        addDoseBtn = binding.addDoseBtn;
 
         addMedicationTxt = binding.addMedicationTxt;
         addTrackerTxt = binding.addTrackerTxt;
-        addDoseTxt = binding.addDoseTxt;
 
         fabOpen = AnimationUtils.loadAnimation(getContext(), R.anim.to_bottom);
         fabClose = AnimationUtils.loadAnimation(getContext(), R.anim.from_bottom);
@@ -198,13 +194,11 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
     @Override
     public void setUser(User user) {
         this.user = user;
-        Toast.makeText(getContext(), user.getFullName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onDateSelected(DateTime dateSelected) {
         //Log.i("HorizontalPicker", "Selected date is " + dateSelected.toString());
-        Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
     }
 
     public void floatingButtonUI() {
@@ -218,15 +212,11 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
             addMedicationTxt.startAnimation(fabClose);
             addTrackerBtn.startAnimation(fabClose);
             addTrackerTxt.startAnimation(fabClose);
-            addDoseBtn.startAnimation(fabClose);
-            addDoseTxt.startAnimation(fabClose);
 
             addMedicationBtn.setVisibility(View.INVISIBLE);
             addMedicationTxt.setVisibility(View.INVISIBLE);
             addTrackerBtn.setVisibility(View.INVISIBLE);
             addTrackerTxt.setVisibility(View.INVISIBLE);
-            addDoseBtn.setVisibility(View.INVISIBLE);
-            addDoseTxt.setVisibility(View.INVISIBLE);
 
             isOpened = false;
         } else {
@@ -239,15 +229,11 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
             addMedicationTxt.startAnimation(fabOpen);
             addTrackerBtn.startAnimation(fabOpen);
             addTrackerTxt.startAnimation(fabOpen);
-            addDoseBtn.startAnimation(fabOpen);
-            addDoseTxt.startAnimation(fabOpen);
 
             addMedicationBtn.setVisibility(View.VISIBLE);
             addMedicationTxt.setVisibility(View.VISIBLE);
             addTrackerBtn.setVisibility(View.VISIBLE);
             addTrackerTxt.setVisibility(View.VISIBLE);
-            addDoseBtn.setVisibility(View.VISIBLE);
-            addDoseTxt.setVisibility(View.VISIBLE);
 
             isOpened = true;
         }
