@@ -98,6 +98,11 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
         user = presenter.getUser();
 
         picker.setListener(dateSelected -> {
+
+            //Toast.makeText(getContext(), "day pressed", Toast.LENGTH_SHORT).show();
+            reminderDate = dateSelected.toDate();
+
+        picker.setListener(dateSelected -> {
             reminderDate = MyDateUtils.truncateToDate(dateSelected.toDate());
 
             Log.i("TAG", "day selected " + dateSelected);
@@ -152,6 +157,8 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
         mainClose = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_close);
 
         isOpened = false;
+        if(!presenter.isOwnerUser()){
+        binding.addBtn.setVisibility(View.GONE);}
     }
 
     void getMedicationsForToday() {
@@ -201,7 +208,7 @@ public class FragmentHome extends Fragment implements HomeViewInterface, DatePic
 
     @Override
     public void onDateSelected(DateTime dateSelected) {
-        //Log.i("HorizontalPicker", "Selected date is " + dateSelected.toString());
+
     }
 
     public void floatingButtonUI() {
